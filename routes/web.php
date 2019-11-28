@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('painel');
 });
 
-Route::resource('/coletas', 'ColetaController');
+Route::prefix('admin')->namespace('Admin')->group(function(){
+
+        Route::resource('coletas', 'ColetaController');
+
+ });
