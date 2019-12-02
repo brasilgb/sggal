@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ColetaController extends Controller
+class SendEggController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ColetaController extends Controller
      */
     public function index()
     {
-        return view('coletas.index');
+        return view('sendeggs.index');
     }
 
     /**
