@@ -11,8 +11,11 @@
         <link rel="stylesheet" href="{{asset('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
         <!-- overlayScrollbars -->
         <link rel="stylesheet" href="{{asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
+        <!-- overlayScrollbars -->
+        <link rel="stylesheet" href="{{asset('datepicker/css/bootstrap-datepicker3.min.css')}}">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     </head>
@@ -50,7 +53,7 @@
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
                 <a href="index3.html" class="brand-link">
-                    <img src="adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    <img src="{{asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                          style="opacity: .8">
                     <span class="brand-text font-weight-light">SGGA</span>
                 </a>
@@ -60,7 +63,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                         <div class="image">
-                            <img src="adminlte/dist/img/avatar04.png" class="img-circle elevation-2" alt="User Image">
+                            <img src="{{asset('adminlte/dist/img/avatar04.png')}}" class="img-circle elevation-2" alt="User Image">
                         </div>
                         <div class="info">
                             <a href="#" class="d-block">Administrador</a>
@@ -76,22 +79,22 @@
                                 <a href="/" class="{{ (request()->is('/')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-home"></i><p>Início</p></a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a href="{{route('coletas.index')}}" class="{{ (request()->is('coletas*')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-cart-plus"></i><p>Coletas</p></a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a href="{{route('sendeggs.index')}}" class="{{ (request()->is('sendeggs*')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fa fa-truck"></i><p>Envio de ovos</p></a>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-clock"></i><p>Períodos</p></a>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="{{ (request()->is('relatorios*')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-list-alt"></i>
@@ -142,7 +145,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="{{ (request()->is('lotes')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fa fa-warehouse"></i>
@@ -163,7 +166,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-kiwi-bird"></i>
@@ -184,7 +187,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-pallet"></i>
@@ -205,7 +208,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-chart-line"></i>
@@ -238,7 +241,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-coins"></i>
@@ -259,7 +262,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cog"></i>
@@ -286,7 +289,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-check-square"></i>
@@ -307,12 +310,12 @@
                                     </li>
                                 </ul>
                             </li>
-                            
+
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fa fa-user"></i><p>Usuários</p></a>
                             </li>
-                            
+
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->
@@ -335,7 +338,7 @@
 
             <!-- Main Footer -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2018- <?= date("Y");?> <a href="http://adminlte.io">SGGA</a>.</strong>
+                <strong>Copyright &copy; 2018- <?= date("Y"); ?> <a href="http://adminlte.io">SGGA</a>.</strong>
                 Todos os direitos reservados.
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Versão</b> 3.0
@@ -365,8 +368,20 @@
         <script src="{{asset('adminlte/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
         <!-- ChartJS -->
         <script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
-
         <!-- PAGE SCRIPTS -->
         <script src="{{asset('adminlte/dist/js/pages/dashboard2.js')}}"></script>
+        <!-- daterangepicker -->
+        <script src="{{asset('datepicker/js/bootstrap-datepicker.min.js')}}"></script>
+        <script src="{{asset('datepicker/js/bootstrap-datepicker.pt-BR.min.js')}}"></script>
+
+        <script>
+            $('#datacoleta').datepicker({
+            defaultDate: "getDate()",
+                    format: 'dd/mm/yyyy',
+                    todayHighlight: true,
+                    language: 'pt-BR',
+                    autoclose: true
+            }).datepicker("setDate", new Date()).trigger('change');
+        </script>
     </body>
 </html>

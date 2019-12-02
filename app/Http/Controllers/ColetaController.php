@@ -24,7 +24,7 @@ class ColetaController extends Controller
      */
     public function create()
     {
-        //
+        return view('coletas.create');
     }
 
     /**
