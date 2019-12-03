@@ -35,7 +35,7 @@ class ColetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('coletas.index');
     }
 
     /**

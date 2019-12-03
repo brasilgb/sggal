@@ -15,11 +15,12 @@
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
         <!-- overlayScrollbars -->
-        <link rel="stylesheet" href="{{asset('datepicker/css/bootstrap-datepicker3.min.css')}}">
+        <link rel="stylesheet" href="{{asset('adminlte/plugins/jquery-ui/jquery-ui.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/local.css')}}">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     </head>
-    <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <body class="hold-transition sidebar-mini layout-fixed">
         <div class="wrapper">
             <!-- Navbar -->
             <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -32,7 +33,7 @@
                         <a href="index3.html" class="nav-link">Home</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="#" class="nav-link">Contact</a>
+                        <a href="#" class="nav-link">Contate-nos</a>
                     </li>
                 </ul>
 
@@ -350,38 +351,31 @@
         <!-- REQUIRED SCRIPTS -->
         <!-- jQuery -->
         <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
+        <!-- daterangepicker -->
+        <script src="{{asset('adminlte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
         <!-- Bootstrap -->
         <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
         <!-- overlayScrollbars -->
         <script src="{{asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
         <!-- AdminLTE App -->
         <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
-
-        <!-- OPTIONAL SCRIPTS -->
-        <script src="{{asset('adminlte/dist/js/demo.js')}}"></script>
-
-        <!-- PAGE PLUGINS -->
-        <!-- jQuery Mapael -->
-        <script src="{{asset('adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-        <script src="{{asset('adminlte/plugins/raphael/raphael.min.js')}}"></script>
-        <script src="{{asset('adminlte/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
-        <script src="{{asset('adminlte/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
-        <!-- ChartJS -->
-        <script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
-        <!-- PAGE SCRIPTS -->
-        <script src="{{asset('adminlte/dist/js/pages/dashboard2.js')}}"></script>
-        <!-- daterangepicker -->
-        <script src="{{asset('datepicker/js/bootstrap-datepicker.min.js')}}"></script>
-        <script src="{{asset('datepicker/js/bootstrap-datepicker.pt-BR.min.js')}}"></script>
-
+        <script src="{{asset('js/inputmask/jquery.inputmask.min.js')}}"></script>
         <script>
-            $('#datacoleta').datepicker({
-            defaultDate: "getDate()",
-                    format: 'dd/mm/yyyy',
+            $('#dataform, #datasearch').datepicker({
+            dateFormat: 'dd/mm/yy',
                     todayHighlight: true,
                     language: 'pt-BR',
-                    autoclose: true
-            }).datepicker("setDate", new Date()).trigger('change');
+                    autoclose: true,
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior'
+            });
+            $('#horacoleta').inputmask("99:99");
         </script>
     </body>
 </html>
