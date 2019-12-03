@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::resource('coletas', 'ColetaController');
 
 Route::resource('sendeggs', 'SendEggController');
+
+Route::resource('lotes', 'LoteController');
+
+Route::resource('aviarios', 'AviarioController');

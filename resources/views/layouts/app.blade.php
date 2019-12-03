@@ -148,19 +148,19 @@
                             </li>
 
                             <li class="nav-item has-treeview">
-                                <a href="#" class="{{ (request()->is('lotes')) ? 'nav-link active' : 'nav-link' }}">
+                                <a href="#" class="{{ (request()->is('lotes*', 'aviarios*')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fa fa-warehouse"></i>
                                     <p>Lotes e aviários<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{route('lotes.index')}}" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Lotes</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{route('aviarios.index')}}" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Aviários</p>
                                         </a>
