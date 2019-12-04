@@ -37,23 +37,24 @@
             </div>
         </div>
         <div class="card-body">
-            @if($lotes)
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-condensed">
                     <tr>
                         <th>ID</th><th>Lote</th><th>Fêmeas</th><th>Capitalizadas</th><th>Machos</th><th>Capitalizados</th><th>Total</th><th>Aviários</th><th>Cadastro</th><th><i class="fa fa-level-down-alt"></i></th>
                     </tr>
-                    @foreach($lotes as $lote)
+                    @forelse($lotes as $lote)
                     <tr>
-                        <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femeas}}</td><td>{{$lote->femeas_capitalizadas}}</td><td>{{$lote->machos}}</td><td>{{$lote->machos_capitalizados}}</td><td>{{$lote->femeas + $lote->machos}}</td><td>0</td><td>{{$lote->data_lote}}</td><td></td>
+                        <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femeas}}</td><td>{{$lote->femeas_capitalizadas}}</td><td>{{$lote->machos}}</td><td>{{$lote->machos_capitalizados}}</td><td>{{$lote->femeas + $lote->machos}}</td><td>0</td><td>{{$lote->data_lote}}</td>
+                        <td>
+                            <button onclick="window.location.href='{{lotes.edit}}'" class="btn btn-primary btn-flat">Editar</button>
+                            <button onclick="" class="btn btn-danger btn-flat">Excluir</button>
+                        </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr><td colspan="10"><div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Não há lotes cadastrados em sua base de dados!</div></td></tr>
+                    @endforelse
                 </table>
             </div>
-
-            @else
-            <div class="alert alert-info">Não há lotes a serem mostrados!</div>
-            @endif
 
         </div>
     </div>
