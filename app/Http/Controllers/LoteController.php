@@ -47,7 +47,9 @@ class LoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $lote = Lote::findOrFail($id);
+        
+        return view('lotes.edit', compact('lote'));
     }
 
     /**

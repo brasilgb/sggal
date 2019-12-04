@@ -96,7 +96,7 @@
                                     <i class="nav-icon fa fa-clock"></i><p>Períodos</p></a>
                             </li>
 
-                            <li class="nav-item has-treeview">
+                            <li class="nav-item treeview">
                                 <a href="#" class="{{ (request()->is('relatorios*')) ? 'nav-link active' : 'nav-link' }}">
                                     <i class="nav-icon fas fa-list-alt"></i>
                                     <p>Relatórios<i class="right fas fa-angle-left"></i></p>
@@ -148,19 +148,19 @@
                             </li>
 
                             <li class="nav-item has-treeview">
-                                <a href="#" class="{{ (request()->is('lotes*', 'aviarios*')) ? 'nav-link active' : 'nav-link' }}">
+                                <a href="#" class="nav-link {{ (request()->is('lotes*', 'aviarios*')) ? 'active' : '' }}">
                                     <i class="nav-icon fa fa-warehouse"></i>
                                     <p>Lotes e aviários<i class="right fas fa-angle-left"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{route('lotes.index')}}" class="nav-link">
+                                        <a href="{{route('lotes.index')}}" class="nav-link {{ (request()->is('lotes*')) ? 'active' : '' }}">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Lotes</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{route('aviarios.index')}}" class="nav-link">
+                                        <a href="{{route('aviarios.index')}}" class="nav-link {{ (request()->is('aviarios*')) ? 'active' : '' }}">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Aviários</p>
                                         </a>
