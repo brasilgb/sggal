@@ -41,34 +41,34 @@
             
             <div class="col-lg-6">
                 
-                <form class="form-horizontal" action="{{route('lotes.update', ['lote' => $lote->id])}}" method="POST">
+                <form class="form-horizontal" action="{{route('lotes.update', ['lote' => $lote->id_lote])}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Data do lote: </label>
                         <div class="col-lg-7">
-                            <input id="dataform" class="form-control" type="text" name="data_lote" value="{{$lote->data_lote}}">
+                            <input id="dataform" class="form-control" type="text" name="data_lote" value="{{date('d/m/Y', strtotime($lote->data_lote))}}">
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Identificação do lote: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data_lote" value="{{$lote->lote}}">
+                            <input class="form-control" type="text" name="lote" value="{{$lote->lote}}">
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="femeas" value="{{old('femeas')}}">
+                            <input class="form-control" type="text" name="femeas" value="{{$lote->femeas}}">
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Aves machos: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="machos" value="{{old('machos')}}">
+                            <input class="form-control" type="text" name="machos" value="{{$lote->machos}}">
                         </div>
                     </div>
                                         

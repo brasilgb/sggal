@@ -44,10 +44,10 @@
                     </tr>
                     @forelse($lotes as $lote)
                     <tr>
-                        <td>{{$lote->id}}</td><td>{{$lote->lote}}</td><td>{{$lote->femeas}}</td><td>{{$lote->femeas_capitalizadas}}</td><td>{{$lote->machos}}</td><td>{{$lote->machos_capitalizados}}</td><td>{{$lote->femeas + $lote->machos}}</td><td>0</td><td>{{$lote->data_lote}}</td>
+                        <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femeas}}</td><td>{{$lote->femeas_capitalizadas}}</td><td>{{$lote->machos}}</td><td>{{$lote->machos_capitalizados}}</td><td>{{$lote->femeas + $lote->machos}}</td><td>0</td><td>{{date('d/m/Y', strtotime($lote->data_lote))}}</td>
                         <td>
                             
-                            <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id])}}'" class="btn btn-primary btn-flat">Editar</button>
+                            <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-flat">Editar</button>
                             <button onclick="" class="btn btn-danger btn-flat">Excluir</button>
                         </td>
                     </tr>

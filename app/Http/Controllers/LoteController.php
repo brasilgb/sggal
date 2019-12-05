@@ -70,9 +70,14 @@ class LoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, Request $request)
     {
-        //
+        $datalote = \Carbon\Carbon::parse($request->data_lote);
+        $data = $request->All();
+        $lote = Lote::findOrFail($id);
+        $data['data_lote'] = $datalote->format('Y-m-d');
+        $lote->update($data);
+        return view('lotes.edit', compact('lote'));
     }
 
     /**
