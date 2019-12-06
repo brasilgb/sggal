@@ -38,171 +38,183 @@
             </div>
         </div>
         <div class="card-body">
+            @include("flash::message")
             
             <div class="col-lg-6">
+                
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                
                 <form class="form-horizontal" action="{{route('coletas.store')}}" method="POST">
                     @csrf
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Data da coleta: </label>
                         <div class="col-lg-7">
-                            <input id="dataform" class="form-control" type="text" name="datacoleta" value="<?=date("d/m/Y");?>">
+                            <input id="dataform" class="form-control" type="text" name="datacoleta" value="<?= date("d/m/Y"); ?>">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Hora da coleta: </label>
                         <div class="col-lg-7">
-                            <input id="horacoleta" class="form-control" type="text" name="horacoleta" value="<?=date("H:i");?>">
+                            <input id="horacoleta" class="form-control" type="text" name="horacoleta" value="<?= date("H:i"); ?>">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Lote: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Aviário: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Num. da coleta: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Limpos do ninho: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Sujos do ninho: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">De cama incubáveis: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Duas gemas: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Pequenos: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Trincados: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Casca fina: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Deformados: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Frios: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Sujos não aproveitáveis: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Esmagados e quebrados: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">De cama não incubáveis: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Total de incubáveis: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Total de incubáveis bons: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Total de incubáveis bons: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Total comerciais: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Postura do dia: </label>
                         <div class="col-lg-7">
                             <input class="form-control" type="text" name="data">
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <div class="col-lg-5 col-form-label"></div>
                         <div class="col-lg-7 text-right">
                             <button class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
 

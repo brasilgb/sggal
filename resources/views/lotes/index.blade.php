@@ -37,6 +37,7 @@
             </div>
         </div>
         <div class="card-body">
+            @include("flash::message")
             <div class="table-responsive">
                 <table class="table table-bordered table-striped table-condensed">
                     <tr>
@@ -46,13 +47,15 @@
                     <tr>
                         <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femeas}}</td><td>{{$lote->femeas_capitalizadas}}</td><td>{{$lote->machos}}</td><td>{{$lote->machos_capitalizados}}</td><td>{{$lote->femeas + $lote->machos}}</td><td>0</td><td>{{date('d/m/Y', strtotime($lote->data_lote))}}</td>
                         <td>
-
                             <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-flat btn-sm">Editar</button>
-                            <form action="{{route('lotes.destroy', ['lote' => $lote->id_lote])}}" method="post">
+<!--                            <form action="{{route('lotes.destroy', ['lote' => $lote->id_lote])}}" method="post">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-flat btn-sm">Excluir</button>
-                            </form>
+                            </form>-->
+                            {!!Form::open(['route' => ['lotes.destroy', 'lote' => $lote->id_lote], 'style' => 'float: right', 'method' => 'DELETE'])!!}
+                            {!!Form::button('<i class="fas fa-trash"></i> Excluir', ['class' => 'btn btn-sm btn-flat btn-danger'])!!}
+                            {!!Form::close()!!}
                         </td>
                     </tr>
                     {{$lotes->links()}}

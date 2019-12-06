@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="card-body">
-            
+            @include("flash::message")
             <div class="col-lg-6">
                 
                 <form class="form-horizontal" action="{{route('lotes.update', ['lote' => $lote->id_lote])}}" method="POST">

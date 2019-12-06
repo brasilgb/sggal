@@ -43,14 +43,20 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        
+         $validatedData = $request->validate([
+            'data_lote' => 'required',
+            'lote' => 'required',
+            'femeas' => 'required',
+            'machos' => 'required'
+        ]);
         $data = $request->all();
-
         try {
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
 
             $lote = $this->lote->create($data);
 
-            flash('Lote criado com sucesso!')->success();
+            flash('<i class="fa fa-check"></i>Lote criado com sucesso!')->success();
             return redirect()->route('lotes.index');
         } catch (Exception $e) {
             $message = 'Erro ao criar lote';
@@ -98,7 +104,7 @@ class LoteController extends Controller {
         try {
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
             $lote->update($data);
-            flash('Lote atualizado com sucesso!')->success();
+            flash('<i class="fa fa-check"></i> Lote atualizado com sucesso!')->success();
             return redirect()->route('lotes.show', ['lote' => $lote->id_lote]);
         } catch (\Exception $e) {
             $message = 'Erro ao atualizar lote!';
@@ -122,7 +128,7 @@ class LoteController extends Controller {
         try {
             $lote->delete();
 
-            flash('Lote removido com sucesso!')->success();
+            flash('<i class="fa fa-check"></i>Lote removido com sucesso!')->success();
             return redirect()->route('lotes.index', ['lote' => $lote->id_lote]);
         } catch (Exception $e) {
             $message = 'Erro ao remover o lote';

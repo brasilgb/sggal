@@ -329,7 +329,7 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
-                        @include("flash::message")
+                        
                         @yield('content')      
                     </div>
 
@@ -362,6 +362,7 @@
         <!-- AdminLTE App -->
         <script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
         <script src="{{asset('js/inputmask/jquery.inputmask.min.js')}}"></script>
+        <script src="{{asset('js/local.js')}}"></script>
         <script>
             $('#dataform, #datasearch').datepicker({
             dateFormat: 'dd/mm/yy',
