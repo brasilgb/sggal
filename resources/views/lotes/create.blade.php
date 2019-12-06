@@ -46,14 +46,14 @@
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Data do lote: </label>
                         <div class="col-lg-7">
-                            <input id="dataform" class="form-control" type="text" name="datacoleta" value="<?=date("d/m/Y");?>">
+                            <input id="dataform" class="form-control" type="text" name="data_lote" value="<?=date("d/m/Y");?>">
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Identificação do lote: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data_lote" value="{{old('data_lote')}}">
+                            <input class="form-control" type="text" name="lote" value="{{old('lote')}}">
                         </div>
                     </div>
                     

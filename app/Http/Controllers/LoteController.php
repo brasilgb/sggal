@@ -4,17 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lote;
+use Carbon\Carbon;
 
-class LoteController extends Controller
-{
+class LoteController extends Controller {
+    /*
+     * @var Lote
+     */
+
+    private $lote;
+
+    public function __construct(Lote $lote) {
+        $this->lote = $lote;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $lotes = Lote::paginate(15);
+    public function index() {
+        $lotes = $this->lote->paginate(15);
         return view('lotes.index', compact('lotes'));
     }
 
@@ -23,8 +32,7 @@ class LoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('lotes.create');
     }
 
@@ -34,9 +42,26 @@ class LoteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $data = $request->all();
+
+        try {
+            $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
+
+            $lote = $this->lote->create($data);
+
+            flash('Lote criado com sucesso!')->success();
+            return redirect()->route('lotes.index');
+        } catch (Exception $e) {
+            $message = 'Erro ao criar lote';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -45,10 +70,7 @@ class LoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $lote = Lote::findOrFail($id);
-        
+    public function show(Lote $lote) {
         return view('lotes.edit', compact('lote'));
     }
 
@@ -58,9 +80,8 @@ class LoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Lote $lote) {
+        return redirect()->route('lotes.show', ['lote' => $lote->id_lote]);
     }
 
     /**
@@ -70,14 +91,25 @@ class LoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
-    {
-        $datalote = \Carbon\Carbon::parse($request->data_lote);
-        $data = $request->All();
-        $lote = Lote::findOrFail($id);
-        $data['data_lote'] = $datalote->format('Y-m-d');
-        $lote->update($data);
-        return view('lotes.edit', compact('lote'));
+    public function update(Request $request, Lote $lote) {
+        $data = $request->all();
+
+
+        try {
+            $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
+            $lote->update($data);
+            flash('Lote atualizado com sucesso!')->success();
+            return redirect()->route('lotes.show', ['lote' => $lote->id_lote]);
+        } catch (\Exception $e) {
+            $message = 'Erro ao atualizar lote!';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -86,8 +118,22 @@ class LoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Lote $lote) {
+        try {
+            $lote->delete();
+
+            flash('Lote removido com sucesso!')->success();
+            return redirect()->route('lotes.index', ['lote' => $lote->id_lote]);
+        } catch (Exception $e) {
+            $message = 'Erro ao remover o lote';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
+
 }
