@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Lote;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class LoteController extends Controller {
     /*
@@ -23,8 +24,24 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
         $lotes = $this->lote->paginate(15);
-        return view('lotes.index', compact('lotes'));
+        $porlote = '';
+        return view('lotes.index', compact('lotes', 'porlote'));
+    }
+
+    public function search(Request $request) {
+        $search = $request->porlote;
+//        var_dump($search);
+        if (!empty($search)) {
+
+            $lotes = $this->lote->where('lote', $search)->get();
+
+            return view('lotes.index', [
+                'lotes' => $lotes,
+                'porlote' => $search
+            ]);
+        }
     }
 
     /**
@@ -43,14 +60,21 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        
-         $validatedData = $request->validate([
-            'data_lote' => 'required',
-            'lote' => 'required',
-            'femeas' => 'required',
-            'machos' => 'required'
-        ]);
         $data = $request->all();
+        $rules = [
+            'data_lote' => 'date_format:"d/m/Y"|required',
+            'lote' => 'required|unique:lotes',
+            'femeas' => 'required|integer',
+            'machos' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do lote só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+
         try {
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
 
@@ -59,6 +83,7 @@ class LoteController extends Controller {
             flash('<i class="fa fa-check"></i>Lote criado com sucesso!')->success();
             return redirect()->route('lotes.index');
         } catch (Exception $e) {
+
             $message = 'Erro ao criar lote';
 
             if (env('APP_DEBUG')) {
@@ -77,6 +102,7 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Lote $lote) {
+
         return view('lotes.edit', compact('lote'));
     }
 
@@ -87,6 +113,7 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Lote $lote) {
+
         return redirect()->route('lotes.show', ['lote' => $lote->id_lote]);
     }
 
@@ -128,7 +155,7 @@ class LoteController extends Controller {
         try {
             $lote->delete();
 
-            flash('<i class="fa fa-check"></i>Lote removido com sucesso!')->success();
+            flash('<i class="fa fa-check"></i> Lote removido com sucesso!')->success();
             return redirect()->route('lotes.index', ['lote' => $lote->id_lote]);
         } catch (Exception $e) {
             $message = 'Erro ao remover o lote';

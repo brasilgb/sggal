@@ -3,17 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Aviario;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
-class AviarioController extends Controller
-{
+class AviarioController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('aviarios.index');
+    /*
+     * @var Aviario
+     */
+    protected $aviario;
+
+    public function __construct(Aviario $aviario) {
+        $this->aviario = $aviario;
+    }
+
+    public function index() {
+        $aviarios = $this->aviario->paginate(15);
+        $poraviario = '';
+        return view('aviarios.index', [
+            'aviarios' => $aviarios,
+            'poraviarios' => $poraviario
+        ]);
     }
 
     /**
@@ -21,8 +37,7 @@ class AviarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('aviarios.create');
     }
 
@@ -32,8 +47,7 @@ class AviarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -43,8 +57,7 @@ class AviarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -54,8 +67,7 @@ class AviarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -66,8 +78,7 @@ class AviarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -77,8 +88,8 @@ class AviarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

@@ -20,5 +20,7 @@ Route::resource('coletas', 'ColetaController');
 Route::resource('sendeggs', 'SendEggController');
 
 Route::resource('lotes', 'LoteController');
+Route::post('lotes/search', 'LoteController@search');
 
 Route::resource('aviarios', 'AviarioController');
+Route::post('aviarios/search', 'AviarioController@search');

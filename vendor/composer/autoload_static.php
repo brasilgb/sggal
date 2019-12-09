@@ -419,6 +419,7 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
     );
 
     public static $classMap = array (
+        'App\\Aviario' => __DIR__ . '/../..' . '/app/Aviario.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
