@@ -14,7 +14,20 @@ class CreateTableAviario extends Migration
     public function up()
     {
         Schema::create('aviarios', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id_aviario');
+            $table->date('data_aviario');
+            $table->string('aviario');
+            $table->integer('box1_femea');
+            $table->integer('box1_macho');
+            $table->integer('box2_femea');
+            $table->integer('box2_macho');
+            $table->integer('box3_femea');
+            $table->integer('box3_macho');
+            $table->integer('box4_femea');
+            $table->integer('box4_macho');
+            $table->integer('tot_femea');
+            $table->integer('tot_macho');
+            $table->integer('tot_aves');
             $table->timestamps();
         });
     }

@@ -43,11 +43,11 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hoveryy">
                     <tr>
-                        <th>ID</th><th>Aviario</th><th>Fêmeas</th><th>Capitalizadas</th><th>Machos</th><th>Capitalizados</th><th>Total</th><th>Aviários</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Lote</th><th>Aviario</th><th>Fêmeas</th><th>Machos</th><th>Total</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($aviarios as $aviario)
                     <tr>
-                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->femeas}}</td><td>{{$aviario->femeas_capitalizadas}}</td><td>{{$aviario->machos}}</td><td>{{$aviario->machos_capitalizados}}</td><td>{{$aviario->femeas + $aviario->machos}}</td><td>0</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
+                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femeas}}</td><td>{{$aviario->tot_machos}}</td><td>{{$aviario->tot_aves}}</td><td>0</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <form style="float: right;" action="{{route('aviarios.destroy', ['aviario' => $aviario->id_aviario])}}" method="post">

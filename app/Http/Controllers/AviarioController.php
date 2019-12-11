@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Aviario;
+use App\Lote;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,13 +15,17 @@ class AviarioController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
+    
     /*
+     * @var Lote
      * @var Aviario
      */
+    private $lote;
     protected $aviario;
 
-    public function __construct(Aviario $aviario) {
+    public function __construct(Aviario $aviario, Lote $lote) {
         $this->aviario = $aviario;
+        $this->lote = $lote;
     }
 
     public function index() {
@@ -38,7 +43,10 @@ class AviarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('aviarios.create');
+        $lotes = $this->lote->all();
+        return view('aviarios.create', [
+            'lotes' => $lotes
+        ]);
     }
 
     /**
