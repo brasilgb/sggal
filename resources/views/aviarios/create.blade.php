@@ -59,6 +59,7 @@
                         <label class="col-lg-5 col-form-label">Lote: </label>
                         <div class="col-lg-7">
                             <select style=";" class="form-control select2" name="lote">
+                                <option value="">Selecione o lote</option>
                                 @foreach($lotes as $lote)
                                 <option value="{{$lote->id_lote}}">{{$lote->lote}}</option>
                                 @endforeach
@@ -78,11 +79,17 @@
                             @enderror
                         </div>
                     </div>
-
+                    <!-- Box 1 -->
+                    <div class="form-group row">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
+                            <h3 class="card-title title-form">Box 1</h3>
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="femeas" value="{{old('femeas')}}">
+                            <input class="form-control input-femeas input-total" type="text" name="box1_femeas" value="{{old('box1_femeas')}}">
                             @error('femeas')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -92,7 +99,123 @@
                     <div class="form-group row">
                         <label class="col-lg-5 col-form-label">Aves machos: </label>
                         <div class="col-lg-7">
-                            <input class="form-control" type="text" name="machos" value="{{old('machos')}}">
+                            <input class="form-control input-machos input-total" type="text" name="box1_machos" value="{{old('box1_machos')}}">
+                            @error('machos')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- Box 2 -->
+                    <div class="form-group row">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
+                            <h3 class="card-title title-form">Box 2</h3>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-femeas input-total" type="text" name="box2_femeas" value="{{old('box2_femeas')}}">
+                            @error('femeas')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves machos: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-machos input-total" type="text" name="box2_machos" value="{{old('box2_machos')}}">
+                            @error('machos')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <!-- Box 3 -->
+                    <div class="form-group row">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
+                            <h3 class="card-title title-form">Box 3</h3>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-femeas input-total" type="text" name="box3_femeas" value="{{old('box3_femeas')}}">
+                            @error('femeas')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves machos: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-machos input-total" type="text" name="box3_machos" value="{{old('box3_machos')}}">
+                            @error('machos')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <!-- Box 4 -->
+                    <div class="form-group row">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
+                            <h3 class="card-title title-form">Box 4</h3>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-femeas input-total" type="text" name="box4_femeas" value="{{old('box4_femeas')}}">
+                            @error('femeas')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves machos: </label>
+                        <div class="col-lg-7">
+                            <input class="form-control input-machos input-total" type="text" name="box4_machos" value="{{old('box4_machos')}}">
+                            @error('machos')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Box 4 -->
+                    <div class="form-group row">
+                        <div class="col-lg-5"></div>
+                        <div class="col-lg-7">
+                            <h3 class="card-title title-form">Totais</h3>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
+                        <div class="col-lg-7">
+                            <input id="totfemeas" class="form-control" type="text" name="tot_femeas" value="{{old('tot_femeas')}}">
+                            @error('femeas')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Aves machos: </label>
+                        <div class="col-lg-7">
+                            <input id="totmachos" class="form-control" type="text" name="tot_machos" value="{{old('tot_machos')}}">
+                            @error('machos')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-lg-5 col-form-label">Total de aves: </label>
+                        <div class="col-lg-7">
+                            <input id="totaves" class="form-control" type="text" name="tot_aves" value="{{old('tot_aves')}}">
                             @error('machos')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
