@@ -31,11 +31,23 @@ class AviarioController extends Controller {
     public function index() {
         $aviarios = $this->aviario->paginate(15);
         $poraviario = '';
-        return view('aviarios.index', [
-            'aviarios' => $aviarios,
-            'poraviarios' => $poraviario
-        ]);
+        return view('aviarios.index', compact('aviarios', 'poraviario'));
     }
+    
+    
+    public function search(Request $request) {
+        $search = $request->porlote;
+        if (!empty($search)) {
+
+            $lotes = $this->lote->where('lote', $search)->get();
+
+            return view('lotes.index', [
+                'lotes' => $lotes,
+                'porlote' => $search
+            ]);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.

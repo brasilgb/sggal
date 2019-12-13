@@ -32,7 +32,6 @@ class LoteController extends Controller {
 
     public function search(Request $request) {
         $search = $request->porlote;
-//        var_dump($search);
         if (!empty($search)) {
 
             $lotes = $this->lote->where('lote', $search)->get();
