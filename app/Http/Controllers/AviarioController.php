@@ -68,7 +68,49 @@ class AviarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $data = $request->all();
+        $rules = [
+            'data_aviario' => 'date_format:"d/m/Y"|required',
+            'aviario' => 'required',
+            'lote_id' => 'required',
+            'box1_femea' => 'required|integer',
+            'box1_macho' => 'required|integer',
+            'box2_femea' => 'required|integer',
+            'box2_macho' => 'required|integer',
+            'box3_femea' => 'required|integer',
+            'box3_macho' => 'required|integer',
+            'box4_femea' => 'required|integer',
+            'box4_macho' => 'required|integer',
+            'tot_femea' => 'required|integer',
+            'tot_macho' => 'required|integer',
+            'tot_ave' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do lote só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+
+        try {
+            $data['data_aviario'] = Carbon::createFromFormat('d/m/Y', $request->data_aviario)->format('Y-m-d');
+            
+            $aviario = $this->aviario->create($data);
+
+            flash('<i class="fa fa-check"></i>Aviario criado com sucesso!')->success();
+            return redirect()->route('aviarios.index');
+        } catch (Exception $e) {
+
+            $message = 'Erro ao criar aviario';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -110,6 +152,15 @@ class AviarioController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+    
+    // Funcoes personalizadas **************************************************
+    
+    // Retorna o valor do aviário à partir do lote
+    public function returnaviario(Request $request) {
+        $search = $request->segment(3);
+        $aviarios = $this->lote->nextAviario($search);
+        return response()->json(['success'=>$aviarios['aviario'] + 1]);
     }
 
 }

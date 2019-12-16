@@ -24,3 +24,4 @@ Route::post('lotes/search', 'LoteController@search');
 
 Route::resource('aviarios', 'AviarioController');
 Route::post('aviarios/search', 'AviarioController@search');
+Route::get('aviarios/returnaviario/{idlote}', 'AviarioController@returnaviario');

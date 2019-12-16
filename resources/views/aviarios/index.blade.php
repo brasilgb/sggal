@@ -47,7 +47,7 @@
                     </tr>
                     @forelse($aviarios as $aviario)
                     <tr>
-                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femeas}}</td><td>{{$aviario->tot_machos}}</td><td>{{$aviario->tot_aves}}</td><td>0</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
+                        <td>{{$aviario->id_aviario}}</td><td><a class="btn-link" href="{{url('aviarios/returnaviario',['loteid'=>$aviario->lote_id])}}">{{$aviario->lote->lote}}</a></td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femea}}</td><td>{{$aviario->tot_macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <form style="float: right;" action="{{route('aviarios.destroy', ['aviario' => $aviario->id_aviario])}}" method="post">
