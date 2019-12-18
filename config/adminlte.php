@@ -154,11 +154,11 @@ return [
             'search' => true,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
+//        [
+//            'text' => 'blog',
+//            'url' => 'admin/blog',
+//            'can' => 'manage-blog',
+//        ],
         [
             'text' => ' Início',
             'url' => '/',
@@ -175,6 +175,7 @@ return [
             'text' => ' Envio de ovos',
             'url' => 'envios',
             'icon' => 'fas fa-fw fa-truck',
+            
         ],
         [
             'text' => ' Períodos',
@@ -188,10 +189,37 @@ return [
                 [
                     'text' => 'Coletas',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
-                    'text' => 'Lotes',
+                    'text' => 'Lotes e aviários',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Envio de ovos',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Aves',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Ração',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Fertilidade',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Eclosão',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -202,12 +230,14 @@ return [
                 [
                     'text' => ' Lotes',
                     'url' => 'lotes',
-                    'active' => ['lotes', 'lotes/*', 'regex:@^lotes/[0-9]+$@']
+                    'active' => ['lotes', 'lotes/*', 'regex:@^lotes/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => ' Aviários',
                     'url' => 'aviarios',
-                    'active' => ['aviarios', 'aviarios/*', 'regex:@^aviarios/[0-9]+$@']
+                    'active' => ['aviarios', 'aviarios/*', 'regex:@^aviarios/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -218,10 +248,12 @@ return [
                 [
                     'text' => 'Baixa de aves',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Peso das aves',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -232,10 +264,12 @@ return [
                 [
                     'text' => 'Recebimento',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Consumo',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -246,18 +280,22 @@ return [
                 [
                     'text' => 'Checklist',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Eclosão',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Fertilidade',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Produção',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -268,10 +306,12 @@ return [
                 [
                     'text' => 'Despesas',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Conf. financeiro',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -282,14 +322,17 @@ return [
                 [
                     'text' => 'Empresa',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'E-mail',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Mortalidade',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -300,10 +343,12 @@ return [
                 [
                     'text' => 'Diárias',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Específicas',
                     'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
         ],
@@ -422,12 +467,12 @@ return [
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => 'plugins/jquery-ui/jquery-ui.min.css',
+                    'location' => 'vendor/plugins/jquery-ui/jquery-ui.min.css',
                 ],
                 [
                     'type' => 'js',
                     'asset' => true,
-                    'location' => 'plugins/jquery-ui/jquery-ui.min.js',
+                    'location' => 'vendor/plugins/jquery-ui/jquery-ui.min.js',
                 ],
             ],
         ],
