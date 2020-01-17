@@ -18,7 +18,7 @@ Todos os direitos reservados.
 @stop
 @section('css')
 <!-- jquery-ui -->
-<link rel="stylesheet" href="/css/admin_custom.css">
+<link rel="stylesheet" href="/css/local.css">
 @stop
 
 @section('js')

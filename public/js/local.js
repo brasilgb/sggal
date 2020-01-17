@@ -3,7 +3,7 @@ var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
 //alert(base_url);
 $(function () {
-    $('.alert').not('.alert-important, .alert-info').delay(3000).fadeOut(350);
+    $('.alert').not('.alert-important, .alert-info, .alert-danger').delay(3000).fadeOut(350);
 });
 
 /*================================Calculos form aviarios========================*/
@@ -45,7 +45,7 @@ $(function () {
         $("#totave").val(total).addClass('bg-aqua-ativo');
     });
 });
-
+/*=========FIM Cálculos form aviarios==========*/
 /*
  * 
  * dessabilita digitacao em campos do formulario
@@ -70,9 +70,13 @@ $(function () {
             url: base_url + '/returnaviario/' + loteid
 
         }).done(function (data) {
-//            alert(data.success);
+          if(data.success){
             $('#nextaviario').val(data.success);
             $('#nextaviario').addClass('bg-info disabled');
+        }else{
+            $('#nextaviario').removeClass('bg-info');
+            $('#nextaviario').val('');
+        }
         });
     });
 });

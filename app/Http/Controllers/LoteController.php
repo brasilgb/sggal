@@ -125,7 +125,19 @@ class LoteController extends Controller {
      */
     public function update(Request $request, Lote $lote) {
         $data = $request->all();
-
+        $rules = [
+            'data_lote' => 'date_format:"d/m/Y"|required',
+            'lote' => 'required',
+            'femeas' => 'required|integer',
+            'machos' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do lote só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');

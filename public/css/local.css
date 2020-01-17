@@ -1,4 +1,7 @@
 body{background: #F4F6F9;}
+.uppercase{
+    text-transform: uppercase;
+}
 select.form-control {
     padding-right: 25px;
     background-image: url("data:image/svg+xml,\
@@ -14,9 +17,7 @@ select.form-control {
     -o-appearance: none;
     appearance: none;
 }
-.title-form{
-    background-color: #eee;
-    width: 100%;
+.section-form{
     border-bottom: 2px solid #ccc;
     padding: 2px 2px 0px 2px;
 }

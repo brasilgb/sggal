@@ -25,63 +25,69 @@
             <div class="d-flex justify-content-between">
                 <h3 class="card-title"><a href="{{route('lotes.index')}}" class="btn btn-primary btn-flat"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                <form class="form-inline ml-3" action="{{url('lotes/search')}}" method="post">
-                    <div class="input-group input-group-sm">
-                        @csrf
-                        <input class="form-control form-control-navbar" type="text" name="porlote" placeholder="Buscar por lote" required="">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
+                <div class="input-group input-group-sm">
+                    {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
+                    <div class="input-group-append">
+                        {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submite', 'class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                </div>
+                {!! Form::close() !!}
                 <!--SEARCH FORM-->
             </div>
         </div>
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-
-                <form class="form-horizontal" action="{{route('lotes.update', ['lote' => $lote->id_lote])}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Data do lote: </label>
-                        <div class="col-lg-7">
-                            <input id="dataform" class="form-control" type="text" name="data_lote" value="{{date('d/m/Y', strtotime($lote->data_lote))}}">
-                        </div>
+                {!! Form::open(['route' => ['lotes.update', 'lote' => $lote->id_lote], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+                <div class="form-group row">
+                    {!! Form::label('data_lote', 'Data do lote', ['class' => 'col-lg-5 col-form-label']) !!}
+                    <div class="col-lg-7">
+                        {!! Form::text('data_lote', date('d/m/Y', strtotime($lote->data_lote)), ['id' => 'dataform', 'class' => 'form-control']) !!}
+                        @error('data_lote')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Identificação do lote: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="lote" value="{{$lote->lote}}">
-                        </div>
+                <div class="form-group row">
+                    {!! Form::label('lote', 'Identificação do lote', ['class' => 'col-lg-5 col-form-label']) !!}
+                    <div class="col-lg-7">
+                        {!! Form::text('lote', $lote->lote, ['class' => 'form-control']) !!}
+                        @error('lote')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Aves fêmeas: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="femeas" value="{{$lote->femeas}}">
-                        </div>
+                <div class="form-group row">
+                    {!! Form::label('femeas', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
+                    <div class="col-lg-7">
+                        {!! Form::text('femeas', $lote->femeas, ['class' => 'form-control']) !!}
+                        @error('femeas')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Aves machos: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="machos" value="{{$lote->machos}}">
-                        </div>
+                <div class="form-group row">
+                    {!! Form::label('machos', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
+                    <div class="col-lg-7">
+                        {!! Form::text('machos', $lote->machos, ['class' => 'form-control']) !!}
+                        @error('machos')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
                     </div>
+                </div>
 
-                    <div class="form-group row">
-                        <div class="col-lg-5 col-form-label"></div>
-                        <div class="col-lg-7 text-right">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
-                        </div>
+                <div class="form-group row">
+                    <div class="col-lg-5 col-form-label"></div>
+                    <div class="col-lg-7 text-right">
+                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
+                </div>
 
-                </form>
+                {!! Form::close() !!}
 
             </div>
 

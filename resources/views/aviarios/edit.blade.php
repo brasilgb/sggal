@@ -25,17 +25,14 @@
             <div class="d-flex justify-content-between">
                 <h3 class="card-title"><a href="{{route('lotes.index')}}" class="btn btn-primary btn-flat"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                <form class="form-inline ml-3" action="{{url('lotes/search')}}" method="post">
-                    <div class="input-group input-group-sm">
-                        @csrf
-                        <input class="form-control form-control-navbar" type="text" name="porlote" placeholder="Buscar por lote" required="">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
+                <div class="input-group input-group-sm">
+                    {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
+                    <div class="input-group-append">
+                        {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submite', 'class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                </div>
+                {!! Form::close() !!}
                 <!--SEARCH FORM-->
             </div>
         </div>
