@@ -88,7 +88,7 @@ class AviarioController extends Controller {
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
             'integer' => 'O campo :attribute só aceita inteiros!',
-            'date_format' => 'O campo data do lote só aceita datas!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
@@ -119,8 +119,8 @@ class AviarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        //
+    public function show(Aviario $aviario) {
+        return view('aviarios.edit', compact('aviario'));
     }
 
     /**
@@ -129,8 +129,8 @@ class AviarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(Aviario $aviario) {
+        return redirect()->route('aviarios.show', ['aviario' => $aviario->id_lote]);
     }
 
     /**
@@ -140,8 +140,47 @@ class AviarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Request $request, Aviario $aviario) {
+        $data = $request->all();
+        $rules = [
+            'data_aviario' => 'date_format:"d/m/Y"|required',
+            'aviario' => 'required',
+            'lote_id' => 'required',
+            'box1_femea' => 'required|integer',
+            'box1_macho' => 'required|integer',
+            'box2_femea' => 'required|integer',
+            'box2_macho' => 'required|integer',
+            'box3_femea' => 'required|integer',
+            'box3_macho' => 'required|integer',
+            'box4_femea' => 'required|integer',
+            'box4_macho' => 'required|integer',
+            'tot_femea' => 'required|integer',
+            'tot_macho' => 'required|integer',
+            'tot_ave' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+
+        try {
+            $data['data_aviario'] = Carbon::createFromFormat('d/m/Y', $request->data_aviario)->format('Y-m-d');
+            $aviario->update($data);
+            flash('<i class="fa fa-check"></i> Aviário atualizado com sucesso!')->success();
+            return redirect()->route('aviarios.show', ['aviario' => $aviario->id_aviario]);
+        } catch (\Exception $e) {
+            $message = 'Erro ao atualizar aviario!';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -150,8 +189,22 @@ class AviarioController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(Aviario $aviario) {
+        try {
+            $aviario->delete();
+
+            flash('<i class="fa fa-check"></i> Aviario removido com sucesso!')->success();
+            return redirect()->route('aviarios.index', ['aviario' => $aviario->id_aviario]);
+        } catch (Exception $e) {
+            $message = 'Erro ao remover o aviario';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
     
     // Funcoes personalizadas **************************************************

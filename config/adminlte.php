@@ -155,6 +155,13 @@ return [
             'topnav' => true,
         ],
 //        [
+//            'text' => ' Início',
+//            'url' => '/',
+//            'icon' => 'fa fa-fw fa-home',
+//             'topnav' => true,
+//            'class' => 'ml-auto'
+//        ],
+//        [
 //            'text' => 'blog',
 //            'url' => 'admin/blog',
 //            'can' => 'manage-blog',

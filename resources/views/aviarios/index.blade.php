@@ -46,12 +46,14 @@
                     <tr>
                         <td>{{$aviario->id_aviario}}</td><td><a class="btn-link" href="{{url('aviarios/returnaviario',['loteid'=>$aviario->lote_id])}}">{{$aviario->lote->lote}}</a></td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femea}}</td><td>{{$aviario->tot_macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
-                            <form style="float: right;" action="{{route('aviarios.destroy', ['aviario' => $aviario->id_aviario])}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Excluir</button>
-                            </form>
+                            {!! Form::button('<i class="fas fa-edit"></i> Excluir', ['class' => 'btn btn-primary btn-flat btn-sm', 'onclick' => ['route' => ['aviarios.show, 'aviario' => $aviario->id_aviario]]]) !!}
+                            <!--<button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>-->
+                            {!! Form::open(['route' => ['aviarios.destroy', 'aviario' => $aviario->id_aviario], 'method' => 'DELETE', 'class' => 'form-inline', 'style' => 'float:right']) !!}
+                            <!--<form style="float: right;" action="{{route('aviarios.destroy', ['aviario' => $aviario->id_aviario])}}" method="post">-->
+                                
+                               {!! Form::button('<i class="fas fa-trash"></i> Excluir', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat btn-sm']) !!}
+                                <!--<button type="submit" class="btn btn-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Excluir</button>-->
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                     @if($poraviario == '')
