@@ -37,13 +37,15 @@ class AviarioController extends Controller {
     
     public function search(Request $request) {
         $search = $request->porlote;
+        $loteid = $this->lote->where('lote', $search)->get();
+        foreach ($loteid as $lid){$lt = $lid->id_lote;}
         if (!empty($search)) {
 
-            $lotes = $this->lote->where('lote', $search)->get();
+            $lotes = $this->aviario->where('lote_id', $lt)->get();
 
-            return view('lotes.index', [
-                'lotes' => $lotes,
-                'porlote' => $search
+            return view('aviarios.index', [
+                'aviarios' => $lotes,
+                'poraviario' => $search
             ]);
         }
     }
@@ -75,12 +77,12 @@ class AviarioController extends Controller {
             'lote_id' => 'required',
             'box1_femea' => 'required|integer',
             'box1_macho' => 'required|integer',
-            'box2_femea' => 'required|integer',
-            'box2_macho' => 'required|integer',
-            'box3_femea' => 'required|integer',
-            'box3_macho' => 'required|integer',
-            'box4_femea' => 'required|integer',
-            'box4_macho' => 'required|integer',
+//            'box2_femea' => 'required|integer',
+//            'box2_macho' => 'required|integer',
+//            'box3_femea' => 'required|integer',
+//            'box3_macho' => 'required|integer',
+//            'box4_femea' => 'required|integer',
+//            'box4_macho' => 'required|integer',
             'tot_femea' => 'required|integer',
             'tot_macho' => 'required|integer',
             'tot_ave' => 'required|integer'
@@ -120,7 +122,8 @@ class AviarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Aviario $aviario) {
-        return view('aviarios.edit', compact('aviario'));
+        $lotes = $this->lote->all();
+        return view('aviarios.edit', compact('aviario', 'lotes'));
     }
 
     /**
@@ -148,12 +151,12 @@ class AviarioController extends Controller {
             'lote_id' => 'required',
             'box1_femea' => 'required|integer',
             'box1_macho' => 'required|integer',
-            'box2_femea' => 'required|integer',
-            'box2_macho' => 'required|integer',
-            'box3_femea' => 'required|integer',
-            'box3_macho' => 'required|integer',
-            'box4_femea' => 'required|integer',
-            'box4_macho' => 'required|integer',
+//            'box2_femea' => 'required|integer',
+//            'box2_macho' => 'required|integer',
+//            'box3_femea' => 'required|integer',
+//            'box3_macho' => 'required|integer',
+//            'box4_femea' => 'required|integer',
+//            'box4_macho' => 'required|integer',
             'tot_femea' => 'required|integer',
             'tot_macho' => 'required|integer',
             'tot_ave' => 'required|integer'

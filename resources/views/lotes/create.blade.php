@@ -41,8 +41,8 @@
             <div class="col-lg-6">
                 {!! Form::open(['route' => 'lotes.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
                 <div class="form-group row">
-                    {!! Form::label('data_lote', 'Data do Lote', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('data_lote', 'Data do Lote', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('data_lote',  date("d/m/Y", strtotime(\Carbon\Carbon::now())), ['id' => 'dataform', 'class' => 'form-control']) !!}
                         @error('data_lote')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -51,8 +51,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('lote', 'Identificação do lote', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('lote', 'Identificação do lote', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('lote', old('lote'), ['class' => 'form-control']) !!}
                         @error('lote')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -61,8 +61,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('femeas', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('femeas', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('femeas', old('femeas'), ['class' => 'form-control']) !!}
                         @error('femeas')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -71,8 +71,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('machos', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('machos', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('machos', old('machos'), ['class' => 'form-control']) !!}
                         @error('machos')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -81,8 +81,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-lg-5 col-form-label"></div>
-                    <div class="col-lg-7 text-right">
+                    <div class="col-lg-4 col-form-label"></div>
+                    <div class="col-lg-8 text-right">
                         {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>

@@ -19,15 +19,15 @@ class CreateTableAviario extends Migration
             $table->string('aviario');
             $table->integer('box1_femea');
             $table->integer('box1_macho');
-            $table->integer('box2_femea');
-            $table->integer('box2_macho');
-            $table->integer('box3_femea');
-            $table->integer('box3_macho');
-            $table->integer('box4_femea');
-            $table->integer('box4_macho');
+            $table->integer('box2_femea')->nullable();
+            $table->integer('box2_macho')->nullable();
+            $table->integer('box3_femea')->nullable();
+            $table->integer('box3_macho')->nullable();
+            $table->integer('box4_femea')->nullable();
+            $table->integer('box4_macho')->nullable();
             $table->integer('tot_femea');
             $table->integer('tot_macho');
-            $table->integer('tot_aves');
+            $table->integer('tot_ave');
             $table->timestamps();
         });
     }

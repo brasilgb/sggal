@@ -42,8 +42,8 @@
                 {!! Form::open(['route' => 'aviarios.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
 
                 <div class="form-group row">
-                    <label class="col-lg-5 col-form-label">Data do aviario: </label>
-                    <div class="col-lg-7">
+                    <label class="col-lg-4 col-form-label">Data do aviario: </label>
+                    <div class="col-lg-8">
                         <input id="dataform" class="form-control" type="text" name="data_aviario" value="<?= date("d/m/Y"); ?>">
                         @error('data_aviario')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -52,9 +52,9 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('lote_id', 'Lote', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
-                        {!! Form::select('lote_id', App\Lote::pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), old('lote_id'),['id' => 'loteid', 'class' => 'form-control']) !!}
+                    {!! Form::label('lote_id', 'Lote', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), old('lote_id'),['id' => 'loteid', 'class' => 'form-control']) !!}
                         @error('lote_id')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> O campo lote deve ser selecionado!</div>
                         @enderror
@@ -62,8 +62,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('aviario', 'Identificação do aviário', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('aviario', 'Identificação do aviário', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('aviario', old('aviario'), ['id' => 'nextaviario', 'class' => 'form-control']) !!}
                         @error('aviario')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -72,14 +72,14 @@
                 </div>
                 <!-- Box 1 -->
                 <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gradient-gray">
-                        <h3 class="card-title uppercase"><i class="fa fa-stream"></i> Box 1</h3>
+                    <div class="card-header col-lg-12 card-title bg-gray-light">
+                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 1</h3>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box1_femea', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box1_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box1_femea', old('box1_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box1_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -88,8 +88,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box1_macho', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box1_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box1_macho', old('box1_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box1_macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -99,14 +99,14 @@
 
                 <!-- Box 2 -->
                 <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gradient-gray">
-                        <h3 class="card-title uppercase"><i class="fa fa-stream"></i> Box 2</h3>
+                    <div class="card-header col-lg-12 card-title bg-gray-light">
+                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 2</h3>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box2_femea', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box2_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box2_femea', old('box2_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box2_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -115,8 +115,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box2_macho', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box2_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box2_macho', old('box2_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box2_macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -126,14 +126,14 @@
 
                 <!-- Box 3 -->
                 <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gradient-gray">
-                        <h3 class="card-title uppercase"><i class="fa fa-stream"></i> Box 3</h3>
+                    <div class="card-header col-lg-12 card-title bg-gray-light">
+                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 3</h3>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box3_femea', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box3_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box3_femea', old('box3_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box3_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -142,8 +142,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box3_macho', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box3_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box3_macho', old('box3_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box3_macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -153,14 +153,14 @@
 
                 <!-- Box 4 -->
                 <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gradient-gray">
-                        <h3 class="card-title uppercase"><i class="fa fa-stream"></i> Box 4</h3>
+                    <div class="card-header col-lg-12 card-title bg-gray-light">
+                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 4</h3>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box4_femea', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box4_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box4_femea', old('box4_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box4_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -169,8 +169,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box4_macho', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('box4_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('box4_macho', old('box4_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box4_macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -180,14 +180,14 @@
 
                 <!-- Totais -->
                 <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gradient-gray">
-                        <h3 class="card-title uppercase"><i class="fa fa-stream"></i> Totais</h3>
+                    <div class="card-header col-lg-12 card-title bg-gray-light">
+                        <h3 class="card-title uppercase"><i class="fa fa-boxes"></i> Totais</h3>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('tot_femea', 'Aves fêmeas', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('tot_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('tot_femea', old('tot_femea'), ['id' => 'totfemea', 'class' => 'form-control']) !!}
                         @error('tot_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -196,8 +196,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('tot_macho', 'Aves machos', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('tot_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('tot_macho', old('tot_macho'), ['id' => 'totmacho', 'class' => 'form-control']) !!}
                         @error('tot_macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -206,8 +206,8 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('totave', 'Total de aves', ['class' => 'col-lg-5 col-form-label']) !!}
-                    <div class="col-lg-7">
+                    {!! Form::label('totave', 'Total de aves', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
                         {!! Form::text('tot_ave', old('tot_ave'), ['id' => 'totave', 'class' => 'form-control']) !!}
                         @error('tot_ave')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -216,8 +216,8 @@
                 </div>
 
                 <div class="form-group row">
-                    <div class="col-lg-5 col-form-label"></div>
-                    <div class="col-lg-7 text-right">
+                    <div class="col-lg-4 col-form-label"></div>
+                    <div class="col-lg-8 text-right">
                         {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>

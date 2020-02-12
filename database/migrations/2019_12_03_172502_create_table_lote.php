@@ -19,8 +19,8 @@ class CreateTableLote extends Migration
             $table->string('lote', 50);
             $table->integer('femeas');
             $table->integer('machos');
-            $table->integer('femeas_capitalizadas');
-            $table->integer('machos_capitalizados');
+            $table->integer('femeas_capitalizadas')->nullable();
+            $table->integer('machos_capitalizados')->nullable();
             $table->timestamps();
         });
     }

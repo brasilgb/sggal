@@ -63,20 +63,21 @@ $(function () {
     $('#loteid').change(function (e) {
         e.preventDefault;
         loteid = $(this).val();
-//        alert(base_url + '/returnaviario');
-        $.ajax({
-            type: 'GET',
+        if (loteid !== '') {
+            $.ajax({
+                type: 'GET',
 //            data: {loteid: },
-            url: base_url + '/returnaviario/' + loteid
+                url: base_url + '/returnaviario/' + loteid
 
-        }).done(function (data) {
-          if(data.success){
-            $('#nextaviario').val(data.success);
-            $('#nextaviario').addClass('bg-info disabled');
-        }else{
+            }).done(function (data) {
+                if (data.success) {
+                    $('#nextaviario').val(data.success);
+                    $('#nextaviario').addClass('bg-info disabled');
+                }
+            });
+        } else {
             $('#nextaviario').removeClass('bg-info');
             $('#nextaviario').val('');
         }
-        });
     });
 });
