@@ -15,7 +15,6 @@ class AviarioController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    
     /*
      * @var Lote
      * @var Aviario
@@ -33,12 +32,13 @@ class AviarioController extends Controller {
         $poraviario = '';
         return view('aviarios.index', compact('aviarios', 'poraviario'));
     }
-    
-    
+
     public function search(Request $request) {
         $search = $request->porlote;
         $loteid = $this->lote->where('lote', $search)->get();
-        foreach ($loteid as $lid){$lt = $lid->id_lote;}
+        foreach ($loteid as $lid) {
+            $lt = $lid->id_lote;
+        }
         if (!empty($search)) {
 
             $lotes = $this->aviario->where('lote_id', $lt)->get();
@@ -49,7 +49,6 @@ class AviarioController extends Controller {
             ]);
         }
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -97,7 +96,7 @@ class AviarioController extends Controller {
 
         try {
             $data['data_aviario'] = Carbon::createFromFormat('d/m/Y', $request->data_aviario)->format('Y-m-d');
-            
+
             $aviario = $this->aviario->create($data);
 
             flash('<i class="fa fa-check"></i>Aviario criado com sucesso!')->success();
@@ -209,14 +208,32 @@ class AviarioController extends Controller {
             return redirect()->back();
         }
     }
-    
+
     // Funcoes personalizadas **************************************************
-    
     // Retorna o valor do aviário à partir do lote
     public function returnaviario(Request $request) {
         $search = $request->segment(3);
-        $aviarios = $this->lote->nextAviario($search);
-        return response()->json(['success'=>$aviarios['aviario'] + 1]);
+        $aviarios = $this->aviario->nextAviario($search);
+        return response()->json(['success' => $aviarios['aviario'] + 1]);
+    }
+
+    // Retorna lote e compara com a soma de dados inseridos em aviários
+    public function totlotefemeas(Request $request) {
+        $idlote = $request->segment(3);
+        $totfemeas = $this->aviario->valLote($idlote);
+        foreach ($totfemeas as $femeas):
+            $tf = $femeas->femeas;
+        endforeach;
+        return response()->json(['totfemeas' => $tf]);
+    }
+
+    public function totlotemachos(Request $request) {
+        $idlote = $request->segment(3);
+        $totmachos = $this->aviario->valLote($idlote);
+    foreach ($totmachos as $machos):
+        $tm = $machos->machos;
+    endforeach;
+        return response()->json(['totmachos' => $tm]);
     }
 
 }

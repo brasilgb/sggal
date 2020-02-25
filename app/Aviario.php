@@ -30,4 +30,14 @@ class Aviario extends Model
         return $this->belongsTo(Lote::class, 'lote_id');
     }
     
+    public function nextAviario($search)
+    {
+        return Aviario::where('lote_id', $search)->orderBy('aviario', 'desc')->first();
+    }
+    
+    public function valLote($idlote)
+    {
+        return Lote::where('id_lote', $idlote)->get();
+    }
+    
 }

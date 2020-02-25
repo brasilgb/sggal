@@ -21,8 +21,4 @@ class Lote extends Model
         return $this->hasMany(Aviario::class);
     }
 
-    public function nextAviario($search)
-    {
-        return Aviario::where('lote_id', $search)->orderBy('aviario', 'desc')->first();
-    }
 }

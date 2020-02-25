@@ -80,7 +80,7 @@
                 <div class="form-group row">
                     {!! Form::label('box1_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('box1_femea', $aviario->box1_femea, ['class' => 'form-control input-femea input-total']) !!}
+                        {!! Form::text('box1_femea', $aviario->box1_femea, ['id' => 'box1_femea', 'class' => 'form-control input-femea input-total']) !!}
                         @error('box1_femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -218,7 +218,7 @@
                 <div class="form-group row">
                     <div class="col-lg-4 col-form-label"></div>
                     <div class="col-lg-8 text-right">
-                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary salvar']) !!}
                     </div>
                 </div>
 

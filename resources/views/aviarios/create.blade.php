@@ -218,7 +218,7 @@
                 <div class="form-group row">
                     <div class="col-lg-4 col-form-label"></div>
                     <div class="col-lg-8 text-right">
-                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary salvar']) !!}
                     </div>
                 </div>
 

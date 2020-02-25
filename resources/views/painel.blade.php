@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h5 class="m-0 text-dark">SGGA - SISTEMA DE GERENCIAMENTO DE GRANJAS AVÍCOLAS</h5>
+                <h5 class="m-0 text-dark">SGGA - SISTEMA DE GERENCIAMENTO DE GRANJAS AVÍCOLAS {{$teste}}</h5>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -19,6 +19,7 @@
 </div>
 <!-- /.content-header -->
 <!-- Info boxes -->
+@if($ativo > 0)
 <div class="row">
     <div class="col-12 col-sm-6 col-md-3">
         <div class="info-box">
@@ -80,5 +81,14 @@
     </div>
     <!-- /.col -->
 </div>
+@else
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-default-secondary">
+            <i class="fa fa-lightbulb text-danger"></i> Não há período aberto para esta data, você deve abri-lo para acionar as funções do sistema. <button class="btn btn-danger" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Abrir período</button>
+        </div>
+    </div>
+</div>
+@endif
 <!-- /.row -->
 @endsection

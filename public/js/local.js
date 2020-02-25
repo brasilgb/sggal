@@ -2,9 +2,9 @@ var address = window.location.protocol + '//' + window.location.host + "/";
 var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
 //alert(base_url);
-$(function () {
-    $('.alert').not('.alert-important, .alert-info, .alert-danger').delay(3000).fadeOut(350);
-});
+//$(function () {
+//    $('.alert').not('.alert-important, .alert-info, .alert-danger').delay(3000).fadeOut(350);
+//});
 
 /*================================Calculos form aviarios========================*/
 // Total aves femeas
@@ -56,7 +56,7 @@ $('#nextaviario, #totave, #totmacho, #totfemea').keypress(function (e) {
 });
 
 /*
- * Página create aviário mostra próximo aviário
+ * Página create aviário, mostra próximo aviário
  */
 
 $(function () {
@@ -79,5 +79,51 @@ $(function () {
             $('#nextaviario').removeClass('bg-info');
             $('#nextaviario').val('');
         }
+    });
+});
+
+/*
+ * Página create aviário, compara quantidade lote com soma de boxes do aviário com femeas
+ */
+
+$(function () {
+    $('#box1_femea, #box2_femea, #box3_femea, #box4_femea').change(function (e) {
+        e.preventDefault;
+        femeas = $('#totfemea').val();
+        idlote = $('#loteid').val();
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/totlotefemeas/' + idlote
+        }).done(function (data) {
+            if (femeas > data.totfemeas) {
+                $('.salvar').prop('disabled', true);
+                alert('Ultrapassou o número permitido d e fêmeas...');
+            }else{
+                $('.salvar').prop('disabled', false);
+            }
+        });
+    });
+});
+
+/*
+ * Página create aviário, compara quantidade lote com soma de boxes do aviário com machos
+ */
+
+$(function () {
+    $('#box1_macho, #box2_macho, #box3_macho, #box4_macho').change(function (e) {
+        e.preventDefault;
+        machos = $('#totmacho').val();
+        idlote = $('#loteid').val();
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/totlotemachos/' + idlote
+        }).done(function (data) {
+            if (machos > data.totmachos) {
+                $('.salvar').prop('disabled', true);
+                alert('Ultrapassou o número permitido de machos...');
+            }else{
+                $('.salvar').prop('disabled', false);
+            }
+        });
     });
 });
