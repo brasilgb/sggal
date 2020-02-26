@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Lote;
+use App\Periodo;
 
 class Aviario extends Model
 {
@@ -11,6 +12,7 @@ class Aviario extends Model
     
     protected $fillable = [
         'data_aviario',
+        'periodo',
         'lote_id',
         'aviario',
         'box1_femea',

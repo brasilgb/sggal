@@ -15,6 +15,7 @@ class CreateTableAviario extends Migration
     {
         Schema::create('aviarios', function (Blueprint $table) {
             $table->bigIncrements('id_aviario');
+            $table->integer('periodo');
             $table->date('data_aviario');
             $table->string('aviario');
             $table->integer('box1_femea');

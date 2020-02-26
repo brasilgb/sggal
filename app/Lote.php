@@ -11,6 +11,7 @@ class Lote extends Model
 
     protected $fillable = [
         'data_lote',
+        'periodo',
         'lote',
         'femeas',
         'machos'
@@ -20,5 +21,5 @@ class Lote extends Model
     {
         return $this->hasMany(Aviario::class);
     }
-
+    
 }

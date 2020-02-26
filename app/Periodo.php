@@ -13,4 +13,11 @@ class Periodo extends Model
         'desativacao'
     ];
     
+    public function periodoativo(){
+        $periodo = Periodo::where('ativo', 1)->get();
+        
+        foreach ($periodo as $p):
+            return $p->id_periodo;
+        endforeach;
+    }
 }

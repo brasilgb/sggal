@@ -15,6 +15,7 @@ class CreateTableLote extends Migration
     {
         Schema::create('lotes', function (Blueprint $table) {
             $table->bigIncrements('id_lote');
+            $table->integer('periodo');
             $table->date('data_lote');
             $table->string('lote', 50);
             $table->integer('femeas');

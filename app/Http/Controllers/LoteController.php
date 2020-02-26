@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lote;
+use App\Periodo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,9 +14,10 @@ class LoteController extends Controller {
      */
 
     private $lote;
-
-    public function __construct(Lote $lote) {
+    private $periodo;
+    public function __construct(Lote $lote, Periodo $periodo) {
         $this->lote = $lote;
+        $this->periodo = $periodo;
     }
 
     /**
@@ -60,6 +62,7 @@ class LoteController extends Controller {
      */
     public function store(Request $request) {
         $data = $request->all();
+        $periodo = 
         $rules = [
             'data_lote' => 'date_format:"d/m/Y"|required',
             'lote' => 'required|unique:lotes',
@@ -76,7 +79,7 @@ class LoteController extends Controller {
 
         try {
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
-
+            $data['periodo'] = $this->periodo->periodoativo();
             $lote = $this->lote->create($data);
 
             flash('<i class="fa fa-check"></i>Lote criado com sucesso!')->success();
