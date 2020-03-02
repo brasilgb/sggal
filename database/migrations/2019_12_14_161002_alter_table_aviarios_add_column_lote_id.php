@@ -14,7 +14,7 @@ class AlterTableAviariosAddColumnLoteId extends Migration
     public function up()
     {
         Schema::table('aviarios', function (Blueprint $table) {
-            $table->unsignedBigInteger('lote_id')->after('id_aviario');
+            $table->integer('lote_id')->after('id_aviario');
             $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
         });
     }

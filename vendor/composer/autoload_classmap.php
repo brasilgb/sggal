@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Ave' => $baseDir . '/app/Ave.php',
     'App\\Aviario' => $baseDir . '/app/Aviario.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -15,10 +16,13 @@ return array(
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
+    'App\\Http\\Controllers\\AveController' => $baseDir . '/app/Http/Controllers/AveController.php',
     'App\\Http\\Controllers\\AviarioController' => $baseDir . '/app/Http/Controllers/AviarioController.php',
     'App\\Http\\Controllers\\ColetaController' => $baseDir . '/app/Http/Controllers/ColetaController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\LoteController' => $baseDir . '/app/Http/Controllers/LoteController.php',
+    'App\\Http\\Controllers\\PainelController' => $baseDir . '/app/Http/Controllers/PainelController.php',
+    'App\\Http\\Controllers\\PeriodoController' => $baseDir . '/app/Http/Controllers/PeriodoController.php',
     'App\\Http\\Controllers\\SendEggController' => $baseDir . '/app/Http/Controllers/SendEggController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
@@ -29,6 +33,7 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Lote' => $baseDir . '/app/Lote.php',
+    'App\\Painel' => $baseDir . '/app/Painel.php',
     'App\\Periodo' => $baseDir . '/app/Periodo.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

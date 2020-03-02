@@ -9,7 +9,7 @@ var base_url = address + pathname[1];
 /*================================Calculos form aviarios========================*/
 // Total aves femeas
 $(function () {
-    $(".input-femea").change(function () {
+    $(".input-femea").keyup(function () {
         var total = 0;
         $(".input-femea").each(function (index, element) {
             if ($(element).val()) {
@@ -22,7 +22,7 @@ $(function () {
 
 // Total aves machos
 $(function () {
-    $(".input-macho").change(function () {
+    $(".input-macho").keyup(function () {
         var total = 0;
         $(".input-macho").each(function (index, element) {
             if ($(element).val()) {
@@ -35,7 +35,7 @@ $(function () {
 
 // Total aves
 $(function () {
-    $(".input-total").change(function () {
+    $(".input-total").keyup(function () {
         var total = 0;
         $(".input-total").each(function (index, element) {
             if ($(element).val()) {
@@ -87,8 +87,8 @@ $(function () {
  */
 
 $(function () {
-    $('#box1_femea, #box2_femea, #box3_femea, #box4_femea').change(function (e) {
-        e.preventDefault;
+    $('#box1_femea, #box2_femea, #box3_femea, #box4_femea').keyup(function () {
+//        e.preventDefault;
         femeas = $('#totfemea').val();
         idlote = $('#loteid').val();
         $.ajax({
@@ -96,10 +96,11 @@ $(function () {
             url: base_url + '/totlotefemeas/' + idlote
         }).done(function (data) {
             if (femeas > data.totfemeas) {
-                $('.salvar').prop('disabled', true);
-                alert('Ultrapassou o número permitido d e fêmeas...');
+                $('#box1_macho, #box2_macho, #box3_macho, #box4_macho, .salvar').prop('disabled', true);
+                $("#addAvesAviario").modal("show");
+                $('.sexoaves').html('fêmea').show();
             }else{
-                $('.salvar').prop('disabled', false);
+                $('#box1_macho, #box2_macho, #box3_macho, #box4_macho, .salvar').prop('disabled', false);
             }
         });
     });
@@ -110,8 +111,8 @@ $(function () {
  */
 
 $(function () {
-    $('#box1_macho, #box2_macho, #box3_macho, #box4_macho').change(function (e) {
-        e.preventDefault;
+    $('#box1_macho, #box2_macho, #box3_macho, #box4_macho').keyup(function () {
+//        e.preventDefault;
         machos = $('#totmacho').val();
         idlote = $('#loteid').val();
         $.ajax({
@@ -119,10 +120,11 @@ $(function () {
             url: base_url + '/totlotemachos/' + idlote
         }).done(function (data) {
             if (machos > data.totmachos) {
-                $('.salvar').prop('disabled', true);
-                alert('Ultrapassou o número permitido de machos...');
+                $('#box1_femea, #box2_femea, #box3_femea, #box4_femea, .salvar').prop('disabled', true);
+                $("#addAvesAviario").modal("show");
+                $('.sexoaves').html('macho').show();
             }else{
-                $('.salvar').prop('disabled', false);
+                $('#box1_femea, #box2_femea, #box3_femea, #box4_femea, .salvar').prop('disabled', false);
             }
         });
     });

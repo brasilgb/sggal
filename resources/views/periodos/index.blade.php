@@ -41,17 +41,13 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hoveryy">
                     <tr>
-                        <th>Período</th><th>Situação</th><th>Início</th><th>Término</th><th style="width: 200px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>Período</th><th>Situação</th><th>Início</th><th>Término</th><th style="width: 100px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($periodos as $periodo)
                     <tr>
-                        <td>{{$periodo->id_periodo}}</td><td class="{{$periodo->ativo == "0" ? "bg-warning" : "bg-green"}}">{{$periodo->ativo == "0" ? "Inativo" : "Ativo"}}</td><td>{{date('d/m/Y', strtotime($periodo->created_at))}}</td><td>{{$periodo->desativacao == null ? "" : date('d/m/Y', strtotime($periodo->desativacao))}}</td>
+                        <td>{{$periodo->id_periodo}}</td><td><span style="padding: 8px 10px;width: 100px;" class="{{$periodo->ativo == "0" ? "badge badge-danger" : "badge badge-success"}}">{{$periodo->ativo == "0" ? "Inativo" : "Ativo"}}</span></td><td>{{date('d/m/Y', strtotime($periodo->created_at))}}</td><td>{{$periodo->desativacao == null ? "" : date('d/m/Y', strtotime($periodo->desativacao))}}</td>
                         <td>
-                            
                             <button onclick="window.location.href = '{{route('periodos.atualizaperiodo',['idperiodo' => $periodo->id_periodo, 'ativo'=> $periodo->ativo == 0 ? 1 : 0])}}'" class="btn btn-{{$periodo->ativo == "0" ? "primary" : "warning"}} btn-flat btn-sm text-left" style="width:90px;"><i class="fa fa-{{$periodo->ativo == "0" ? "check-circle" : "times-circle"}}"></i> {{$periodo->ativo == "0" ? "Ativar" : "Desativar"}}</button>
-                            {!! Form::open(['route' => ['periodos.destroy', 'ativo' => $periodo->id_periodo], 'method' => 'DELETE', 'class' => 'form-inline', 'style' => 'float:right']) !!}                              
-                            {!! Form::button('<i class="fas fa-trash"></i> Excluir', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat btn-sm']) !!}
-                            {!! Form::close() !!}
                         </td>
                     </tr>
                     @if($pordata == '')

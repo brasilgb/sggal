@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box1_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box1_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box1_femea', old('box1_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box1_femea')
@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box1_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box1_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box1_macho', old('box1_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box1_macho')
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box2_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box2_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box2_femea', old('box2_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box2_femea')
@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box2_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box2_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box2_macho', old('box2_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box2_macho')
@@ -132,7 +132,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box3_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box3_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box3_femea', old('box3_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box3_femea')
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box3_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box3_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box3_macho', old('box3_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box3_macho')
@@ -159,7 +159,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box4_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box4_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box4_femea', old('box4_femea'), ['class' => 'form-control input-femea input-total']) !!}
                         @error('box4_femea')
@@ -169,7 +169,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('box4_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('box4_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('box4_macho', old('box4_macho'), ['class' => 'form-control input-macho input-total']) !!}
                         @error('box4_macho')
@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('tot_femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('tot_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('tot_femea', old('tot_femea'), ['id' => 'totfemea', 'class' => 'form-control']) !!}
                         @error('tot_femea')
@@ -196,7 +196,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('tot_macho', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('tot_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('tot_macho', old('tot_macho'), ['id' => 'totmacho', 'class' => 'form-control']) !!}
                         @error('tot_macho')
@@ -229,7 +229,26 @@
         </div>
     </div>
     <!-- /.card -->
+    <!-- Modal -->
+    <div id="addAvesAviario" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-light">
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-red"></i> Dados incorretos</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><i class="fas fa-hand-point-right text-info"></i> Opa, o número de aves <span class="sexoaves" style="display: none;"></span> adicionado ao campo do formulário, ultrapassou o número de aves <span class="sexoaves" style="display: none;"></span> definidos no lote!</p>
+                </div>
+                <div class="modal-footer justify-content-between bg-gradient-light">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
-</div>
-
-@endsection
+    @endsection

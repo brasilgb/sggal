@@ -95,11 +95,12 @@ class AviarioController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
+            $data['id_aviario'] = $this->aviario->lastaviario();
             $data['data_aviario'] = Carbon::createFromFormat('d/m/Y', $request->data_aviario)->format('Y-m-d');
 
-            $aviario = $this->aviario->create($data);
+            $this->aviario->create($data);
 
-            flash('<i class="fa fa-check"></i>Aviario criado com sucesso!')->success();
+            flash('<i class="fa fa-check"></i> Aviario criado com sucesso!')->success();
             return redirect()->route('aviarios.index');
         } catch (Exception $e) {
 
@@ -230,9 +231,9 @@ class AviarioController extends Controller {
     public function totlotemachos(Request $request) {
         $idlote = $request->segment(3);
         $totmachos = $this->aviario->valLote($idlote);
-    foreach ($totmachos as $machos):
-        $tm = $machos->machos;
-    endforeach;
+        foreach ($totmachos as $machos):
+            $tm = $machos->machos;
+        endforeach;
         return response()->json(['totmachos' => $tm]);
     }
 

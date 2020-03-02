@@ -61,6 +61,7 @@ class LoteController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+
         $data = $request->all();
         $periodo = 
         $rules = [
@@ -78,11 +79,13 @@ class LoteController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
+//            $data = Lote::firstOrCreate(['id_lote' => $this->lote->lastlote()]);
+            $data['id_lote'] = $this->lote->lastlote();
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
             $data['periodo'] = $this->periodo->periodoativo();
             $lote = $this->lote->create($data);
 
-            flash('<i class="fa fa-check"></i>Lote criado com sucesso!')->success();
+            flash('<i class="fa fa-check"></i> Lote criado com sucesso!')->success();
             return redirect()->route('lotes.index');
         } catch (Exception $e) {
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAviario extends Migration
+class CreateAviarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class CreateTableAviario extends Migration
     public function up()
     {
         Schema::create('aviarios', function (Blueprint $table) {
-            $table->bigIncrements('id_aviario');
-            $table->integer('periodo');
+            $table->integer('id_aviario')->primary();
+            $table->integer('periodo')->nullable();
             $table->date('data_aviario');
             $table->string('aviario');
             $table->integer('box1_femea');

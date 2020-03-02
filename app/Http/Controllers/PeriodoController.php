@@ -72,7 +72,7 @@ class PeriodoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Periodo $periodo) {
-        //
+//
     }
 
 }

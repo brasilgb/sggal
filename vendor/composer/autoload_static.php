@@ -424,6 +424,7 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
     );
 
     public static $classMap = array (
+        'App\\Ave' => __DIR__ . '/../..' . '/app/Ave.php',
         'App\\Aviario' => __DIR__ . '/../..' . '/app/Aviario.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -433,10 +434,13 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
+        'App\\Http\\Controllers\\AveController' => __DIR__ . '/../..' . '/app/Http/Controllers/AveController.php',
         'App\\Http\\Controllers\\AviarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/AviarioController.php',
         'App\\Http\\Controllers\\ColetaController' => __DIR__ . '/../..' . '/app/Http/Controllers/ColetaController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\LoteController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoteController.php',
+        'App\\Http\\Controllers\\PainelController' => __DIR__ . '/../..' . '/app/Http/Controllers/PainelController.php',
+        'App\\Http\\Controllers\\PeriodoController' => __DIR__ . '/../..' . '/app/Http/Controllers/PeriodoController.php',
         'App\\Http\\Controllers\\SendEggController' => __DIR__ . '/../..' . '/app/Http/Controllers/SendEggController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
@@ -447,6 +451,7 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Lote' => __DIR__ . '/../..' . '/app/Lote.php',
+        'App\\Painel' => __DIR__ . '/../..' . '/app/Painel.php',
         'App\\Periodo' => __DIR__ . '/../..' . '/app/Periodo.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
