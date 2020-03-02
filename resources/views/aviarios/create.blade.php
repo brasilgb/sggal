@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fa fa-pallet"></i> Aviários</h1>
+                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-cube"></i> Aviários</h3>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -23,11 +23,11 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><a href="{{route('aviarios.index')}}" class="btn btn-primary btn-flat"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
+                <h3 class="card-title"><a href="{{route('aviarios.index')}}" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
+                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
+                    {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar aviarios do lote']) !!}
                     <div class="input-group-append">
                         {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submite', 'class' => 'btn btn-primary']) !!}
                     </div>
@@ -39,7 +39,7 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'aviarios.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+                {!! Form::open(['route' => 'aviarios.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label">Data do aviario: </label>

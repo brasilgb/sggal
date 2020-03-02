@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Aviario;
 use App\Lote;
+use App\Periodo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,12 +20,14 @@ class AviarioController extends Controller {
      * @var Lote
      * @var Aviario
      */
+    private $periodo;
     private $lote;
     protected $aviario;
 
-    public function __construct(Aviario $aviario, Lote $lote) {
-        $this->aviario = $aviario;
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario) {
+        $this->periodo = $periodo;
         $this->lote = $lote;
+        $this->aviario = $aviario;
     }
 
     public function index() {
@@ -36,18 +39,19 @@ class AviarioController extends Controller {
     public function search(Request $request) {
         $search = $request->porlote;
         $loteid = $this->lote->where('lote', $search)->get();
-        foreach ($loteid as $lid) {
-            $lt = $lid->id_lote;
-        }
-        if (!empty($search)) {
-
-            $lotes = $this->aviario->where('lote_id', $lt)->get();
-
-            return view('aviarios.index', [
-                'aviarios' => $lotes,
-                'poraviario' => $search
-            ]);
-        }
+        if($loteid->count() > 0):
+            foreach ($loteid as $lid) {
+                $lt = $lid->id_lote;
+            }
+             $aviarios = $this->aviario->where('lote_id', $lt)->get();
+                return view('aviarios.index', [
+                    'aviarios' => $aviarios,
+                    'poraviario' => $search
+                ]);
+        else:
+            flash('<i class="fa fa-check"></i> Lote não encontrado, verifique se digitou corretamente o nome do lote!')->error();
+            return redirect()->route('aviarios.index');
+        endif;
     }
 
     /**
@@ -97,7 +101,7 @@ class AviarioController extends Controller {
         try {
             $data['id_aviario'] = $this->aviario->lastaviario();
             $data['data_aviario'] = Carbon::createFromFormat('d/m/Y', $request->data_aviario)->format('Y-m-d');
-
+            $data['periodo'] = $this->periodo->periodoativo();
             $this->aviario->create($data);
 
             flash('<i class="fa fa-check"></i> Aviario criado com sucesso!')->success();
@@ -197,7 +201,7 @@ class AviarioController extends Controller {
             $aviario->delete();
 
             flash('<i class="fa fa-check"></i> Aviario removido com sucesso!')->success();
-            return redirect()->route('aviarios.index', ['aviario' => $aviario->id_aviario]);
+            return redirect()->route('aviarios.index');
         } catch (Exception $e) {
             $message = 'Erro ao remover o aviario';
 
@@ -221,18 +225,18 @@ class AviarioController extends Controller {
     // Retorna lote e compara com a soma de dados inseridos em aviários
     public function totlotefemeas(Request $request) {
         $idlote = $request->segment(3);
-        $totfemeas = $this->aviario->valLote($idlote);
-        foreach ($totfemeas as $femeas):
-            $tf = $femeas->femeas;
+        $totfemea = $this->aviario->valLote($idlote);
+        foreach ($totfemea as $femea):
+            $tf = $femea->femea;
         endforeach;
         return response()->json(['totfemeas' => $tf]);
     }
 
     public function totlotemachos(Request $request) {
         $idlote = $request->segment(3);
-        $totmachos = $this->aviario->valLote($idlote);
-        foreach ($totmachos as $machos):
-            $tm = $machos->machos;
+        $totmacho = $this->aviario->valLote($idlote);
+        foreach ($totmacho as $macho):
+            $tm = $macho->macho;
         endforeach;
         return response()->json(['totmachos' => $tm]);
     }

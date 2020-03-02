@@ -232,7 +232,7 @@ return [
         ],
         [
             'text' => ' Lotes e aviários',
-            'icon' => 'fas fa-fw fa-warehouse',
+            'icon' => 'fas fa-fw fa-cubes',
             'submenu' => [
                 [
                     'text' => ' Lotes',

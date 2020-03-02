@@ -14,8 +14,8 @@ class Lote extends Model {
         'data_lote',
         'periodo',
         'lote',
-        'femeas',
-        'machos'
+        'femea',
+        'macho'
     ];
 
     public function aviarios() {

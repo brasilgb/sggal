@@ -19,7 +19,8 @@ class CreateEstoqueAvesTable extends Migration
             $table->integer('aviario');
             $table->integer('femea');
             $table->integer('macho');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP')); 
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
     }
 

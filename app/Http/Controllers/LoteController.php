@@ -15,6 +15,7 @@ class LoteController extends Controller {
 
     private $lote;
     private $periodo;
+
     public function __construct(Lote $lote, Periodo $periodo) {
         $this->lote = $lote;
         $this->periodo = $periodo;
@@ -34,15 +35,17 @@ class LoteController extends Controller {
 
     public function search(Request $request) {
         $search = $request->porlote;
-        if (!empty($search)) {
+        $lotes = $this->lote->where('lote', $search)->get();
 
-            $lotes = $this->lote->where('lote', $search)->get();
-
+        if ($lotes->count() > 0):
             return view('lotes.index', [
                 'lotes' => $lotes,
                 'porlote' => $search
             ]);
-        }
+        else:
+            flash('<i class="fa fa-check"></i> Lote não encontrado, verifique se digitou corretamente o nome do lote!')->error();
+            return redirect()->route('lotes.index');
+        endif;
     }
 
     /**
@@ -63,12 +66,11 @@ class LoteController extends Controller {
     public function store(Request $request) {
 
         $data = $request->all();
-        $periodo = 
-        $rules = [
+        $periodo = $rules = [
             'data_lote' => 'date_format:"d/m/Y"|required',
             'lote' => 'required|unique:lotes',
-            'femeas' => 'required|integer',
-            'machos' => 'required|integer'
+            'femea' => 'required|integer',
+            'macho' => 'required|integer'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -79,7 +81,7 @@ class LoteController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
-//            $data = Lote::firstOrCreate(['id_lote' => $this->lote->lastlote()]);
+
             $data['id_lote'] = $this->lote->lastlote();
             $data['data_lote'] = Carbon::createFromFormat('d/m/Y', $request->data_lote)->format('Y-m-d');
             $data['periodo'] = $this->periodo->periodoativo();
@@ -134,8 +136,8 @@ class LoteController extends Controller {
         $rules = [
             'data_lote' => 'date_format:"d/m/Y"|required',
             'lote' => 'required',
-            'femeas' => 'required|integer',
-            'machos' => 'required|integer'
+            'femea' => 'required|integer',
+            'macho' => 'required|integer'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -173,7 +175,7 @@ class LoteController extends Controller {
             $lote->delete();
 
             flash('<i class="fa fa-check"></i> Lote removido com sucesso!')->success();
-            return redirect()->route('lotes.index', ['lote' => $lote->id_lote]);
+            return redirect()->route('lotes.index');
         } catch (Exception $e) {
             $message = 'Erro ao remover o lote';
 

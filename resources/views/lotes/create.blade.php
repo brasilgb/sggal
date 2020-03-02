@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark"><i class="fa fa-pallet"></i> Lotes</h1>
+                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-cubes"></i> Lotes</h3>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -23,9 +23,9 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><a href="{{route('lotes.index')}}" class="btn btn-primary btn-flat"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
+                <h3 class="card-title"><a href="{{route('lotes.index')}}" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
+                {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
                     {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
                     <div class="input-group-append">
@@ -39,7 +39,7 @@
         <div class="card-body">
 
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'lotes.store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+                {!! Form::open(['route' => 'lotes.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
                 <div class="form-group row">
                     {!! Form::label('data_lote', 'Data do Lote', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
@@ -61,20 +61,20 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('femeas', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('femeas', old('femeas'), ['class' => 'form-control']) !!}
-                        @error('femeas')
+                        {!! Form::text('femea', old('femea'), ['class' => 'form-control']) !!}
+                        @error('femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('machos', 'Aves machos', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('machos', old('machos'), ['class' => 'form-control']) !!}
-                        @error('machos')
+                        {!! Form::text('macho', old('macho'), ['class' => 'form-control']) !!}
+                        @error('macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>

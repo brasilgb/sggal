@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
+class ComposerStaticInit0e7dd9f7e5795025e1d59f2430adffc0
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -1344,6 +1344,7 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
         'Illuminate\\Broadcasting\\Broadcasters\\RedisBroadcaster' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/Broadcasters/RedisBroadcaster.php',
         'Illuminate\\Broadcasting\\Broadcasters\\UsePusherChannelConventions' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/Broadcasters/UsePusherChannelConventions.php',
         'Illuminate\\Broadcasting\\Channel' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/Channel.php',
+        'Illuminate\\Broadcasting\\EncryptedPrivateChannel' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/EncryptedPrivateChannel.php',
         'Illuminate\\Broadcasting\\InteractsWithSockets' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/InteractsWithSockets.php',
         'Illuminate\\Broadcasting\\PendingBroadcast' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php',
         'Illuminate\\Broadcasting\\PresenceChannel' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/PresenceChannel.php',
@@ -4492,6 +4493,7 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
         'phpDocumentor\\Reflection\\Types\\Array_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Array_.php',
         'phpDocumentor\\Reflection\\Types\\Boolean' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Boolean.php',
         'phpDocumentor\\Reflection\\Types\\Callable_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Callable_.php',
+        'phpDocumentor\\Reflection\\Types\\ClassString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/ClassString.php',
         'phpDocumentor\\Reflection\\Types\\Collection' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Collection.php',
         'phpDocumentor\\Reflection\\Types\\Compound' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Compound.php',
         'phpDocumentor\\Reflection\\Types\\Context' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Context.php',
@@ -4516,10 +4518,10 @@ class ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit5d99da62b263c08bb6e8a5c109f8374b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit0e7dd9f7e5795025e1d59f2430adffc0::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit0e7dd9f7e5795025e1d59f2430adffc0::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0e7dd9f7e5795025e1d59f2430adffc0::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit0e7dd9f7e5795025e1d59f2430adffc0::$classMap;
 
         }, null, ClassLoader::class);
     }
