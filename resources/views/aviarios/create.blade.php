@@ -83,6 +83,7 @@
                             </h3>
                         </div>
                     </div>
+                    
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionAviario">
                         <div class="form-group row">
                             {!! Form::label('box1_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}

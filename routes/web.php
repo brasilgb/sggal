@@ -35,3 +35,4 @@ Route::get('periodos', 'PeriodoController@index')->name('periodos.index');
 Route::post('periodos/search', 'PeriodoController@search');
 Route::get('periodos/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('periodos.ativaperiodo');
 Route::get('periodos/atualizaperiodo/{idperiodo}/{ativo}', 'PeriodoController@atualizaperiodo')->name('periodos.atualizaperiodo');
+Route::get('periodos/periodoativo', 'PeriodoController@periodoativo');

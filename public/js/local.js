@@ -138,3 +138,22 @@ $(function () {
         });
     });
 });
+
+$(document).ready(function () {
+//	alert('ok');
+    $.ajax({
+        url: 'periodos/periodoativo'
+    }).done(function (data) {
+//        alert(data);
+        if (data > 0) {
+            $('.nav-item').children("a").click(function () {
+                return true;
+            });
+            $('.novoperiodo').prop("disabled", true);
+        } else {
+            $('.nav-item').children("a").click(function () {
+                return false;
+            });
+        }
+    });
+});

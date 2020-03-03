@@ -85,7 +85,7 @@
 <div class="row">
     <div class="col-12">
         <div class="alert alert-default-secondary">
-            <i class="fa fa-lightbulb text-danger"></i> Não há período aberto para esta data, você deve abri-lo para acionar as funções do sistema. <button class="btn btn-danger" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Abrir período</button>
+            <i class="fa fa-lightbulb text-danger"></i> Não há período aberto para esta data, você deve abri-lo para acionar as funções do sistema. <button class="ativarperiodo btn btn-danger" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Abrir período</button>
         </div>
     </div>
 </div>

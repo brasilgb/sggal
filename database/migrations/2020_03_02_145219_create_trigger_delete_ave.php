@@ -14,9 +14,26 @@ class CreateTriggerDeleteAve extends Migration
     public function up()
     {
         DB::unprepared('
-                CREATE TRIGGER `TRG_delete_aves` AFTER DELETE ON `aviarios` FOR EACH ROW 
+CREATE TRIGGER `TRG_delete_aves` AFTER DELETE ON `aviarios` FOR EACH ROW 
 BEGIN
-      CALL SP_AtualizaEstoqueAves (old.id_aviario, old.lote_id, old.aviario, old.tot_femea * -1, old.tot_macho * -1);
+      CALL SP_AtualizaEstoqueAves (
+      old.id_aviario, 
+      old.periodo, 
+      old.lote_id, 
+      old.aviario, 
+      old.box1_femea * -1, 
+      old.box1_macho * -1,
+      old.box2_femea * -1, 
+      old.box2_macho * -1,
+      old.box3_femea * -1, 
+      old.box3_macho * -1,
+      old.box4_femea * -1, 
+      old.box4_macho * -1,
+      old.tot_femea * -1, 
+      old.tot_macho * -1,
+      old.tot_ave * -1
+      )
+      ;
 END
                 ');
     }

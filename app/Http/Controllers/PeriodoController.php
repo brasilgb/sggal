@@ -64,15 +64,9 @@ class PeriodoController extends Controller {
         $produto->update($data);
         return redirect()->route('periodos.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Periodo  $periodo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Periodo $periodo) {
-//
+    
+    public function periodoativo(){
+        $ativo = $this->periodo->where('ativo', 1)->get();
+        return $ativo->count();
     }
-
 }

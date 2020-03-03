@@ -70,114 +70,137 @@
                         @enderror
                     </div>
                 </div>
-                <!-- Box 1 -->
-                <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gray-light">
-                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 1</h3>
+                
+                <!--Colapse***********************-->
+                <div class="accordion" id="accordionAviario">
+                    <!-- Box 1 -->
+                    <div class="form-group row">
+                        <div class="card-header col-lg-12 bg-gray-light" id="headingOne">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <i class="fa fa-box"></i> Box 1
+                                </button>
+                            </h3>
+                        </div>
                     </div>
-                </div>
+                    
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionAviario">
+                        <div class="form-group row">
+                            {!! Form::label('box1_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box1_femea', $aviario->box1_femea, ['class' => 'form-control input-femea input-total']) !!}
+                                @error('box1_femea')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="form-group row">
-                    {!! Form::label('box1_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box1_femea', $aviario->box1_femea, ['id' => 'box1_femea', 'class' => 'form-control input-femea input-total']) !!}
-                        @error('box1_femea')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
+                        <div class="form-group row">
+                            {!! Form::label('box1_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box1_macho', $aviario->box1_macho, ['class' => 'form-control input-macho input-total']) !!}
+                                @error('box1_macho')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('box1_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box1_macho', $aviario->box1_macho, ['class' => 'form-control input-macho input-total']) !!}
-                        @error('box1_macho')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
+                    <!-- Box 2 -->
+                    <div class="form-group row">
+                        <div class="card-header col-lg-12 card-title bg-gray-light" id="headingTwo">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <i class="fa fa-box"></i> Box 2
+                                </button>
+                            </h3>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Box 2 -->
-                <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gray-light">
-                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 2</h3>
+                    <div id="collapseTwo" class="collapse collapsed" aria-labelledby="headingTwo" data-parent="#accordionAviario">
+                        <div class="form-group row">
+                            {!! Form::label('box2_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box2_femea', $aviario->box2_femea, ['class' => 'form-control input-femea input-total']) !!}
+                                @error('box2_femea')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            {!! Form::label('box2_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box2_macho', $aviario->box2_macho, ['class' => 'form-control input-macho input-total']) !!}
+                                @error('box2_macho')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group row">
-                    {!! Form::label('box2_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box2_femea', $aviario->box2_femea, ['class' => 'form-control input-femea input-total']) !!}
-                        @error('box2_femea')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
+                    <!-- Box 3 -->
+                    <div class="form-group row">
+                        <div class="card-header col-lg-12 card-title bg-gray-light" id="headingThree">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <i class="fa fa-box"></i> Box 3
+                                </button>
+                            </h3>
+                        </div>
                     </div>
-                </div>
+                    <div id="collapseThree" class="collapse collapsed" aria-labelledby="headingThree" data-parent="#accordionAviario">
+                        <div class="form-group row">
+                            {!! Form::label('box3_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box3_femea', $aviario->box3_femea, ['class' => 'form-control input-femea input-total']) !!}
+                                @error('box3_femea')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="form-group row">
-                    {!! Form::label('box2_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box2_macho', $aviario->box2_macho, ['class' => 'form-control input-macho input-total']) !!}
-                        @error('box2_macho')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
+                        <div class="form-group row">
+                            {!! Form::label('box3_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box3_macho', $aviario->box3_macho, ['class' => 'form-control input-macho input-total']) !!}
+                                @error('box3_macho')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Box 3 -->
-                <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gray-light">
-                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 3</h3>
+                    <!-- Box 4 -->
+                    <div class="form-group row">
+                        <div class="card-header col-lg-12 card-title bg-gray-light" id="headingFour">
+                            <h3 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    <i class="fa fa-box"></i> Box 4
+                                </button>
+                            </h3>
+                        </div>
                     </div>
-                </div>
+                    <div id="collapseFour" class="collapse collapsed" aria-labelledby="headingFour" data-parent="#accordionAviario">
+                        <div class="form-group row">
+                            {!! Form::label('box4_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box4_femea', $aviario->box4_femea, ['class' => 'form-control input-femea input-total']) !!}
+                                @error('box4_femea')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                <div class="form-group row">
-                    {!! Form::label('box3_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box3_femea', $aviario->box3_femea, ['class' => 'form-control input-femea input-total']) !!}
-                        @error('box3_femea')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('box3_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box3_macho', $aviario->box3_macho, ['class' => 'form-control input-macho input-total']) !!}
-                        @error('box3_macho')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <!-- Box 4 -->
-                <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gray-light">
-                        <h3 class="card-title uppercase"><i class="fa fa-box"></i> Box 4</h3>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('box4_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box4_femea', $aviario->box4_femea, ['class' => 'form-control input-femea input-total']) !!}
-                        @error('box4_femea')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('box4_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('box4_macho', $aviario->box4_macho, ['class' => 'form-control input-macho input-total']) !!}
-                        @error('box4_macho')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
+                        <div class="form-group row">
+                            {!! Form::label('box4_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
+                            <div class="col-lg-8">
+                                {!! Form::text('box4_macho', $aviario->box4_macho, ['class' => 'form-control input-macho input-total']) !!}
+                                @error('box4_macho')
+                                <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                      </div>  
+                    <!--Div fim colapse-->
                 <!-- Totais -->
                 <div class="form-group row">
                     <div class="card-header col-lg-12 card-title bg-gray-light">
