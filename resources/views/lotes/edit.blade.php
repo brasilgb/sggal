@@ -27,9 +27,9 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'lotes/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porlote', null, ['class' => 'form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
+                    {!! Form::text('porlote', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por lote']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['type' => 'submite', 'class' => 'btn btn-primary']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('femea', 'Aves fêmeas', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('femea', $lote->femea, ['class' => 'form-control']) !!}
                         @error('femea')

@@ -36,7 +36,6 @@ class LoteController extends Controller {
     public function search(Request $request) {
         $search = $request->porlote;
         $lotes = $this->lote->where('lote', $search)->get();
-
         if ($lotes->count() > 0):
             return view('lotes.index', [
                 'lotes' => $lotes,

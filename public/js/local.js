@@ -2,9 +2,18 @@ var address = window.location.protocol + '//' + window.location.host + "/";
 var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
 //alert(base_url);
-//$(function () {
+
+$(function () {
+    $('.input-search').keyup(function (e) {
+        e.preventDefault;
+        if ($(this).val() === '') {
+            $('#search-btn').prop('disabled', true);
+        } else {
+            $('#search-btn').prop('disabled', false);
+        }
+    });
 //    $('.alert').not('.alert-important, .alert-info, .alert-danger').delay(3000).fadeOut(350);
-//});
+});
 
 /*================================Calculos form aviarios========================*/
 // Total aves femeas
@@ -99,7 +108,7 @@ $(function () {
                 $('#box1_macho, #box2_macho, #box3_macho, #box4_macho, .salvar').prop('disabled', true);
                 $("#addAvesAviario").modal("show");
                 $('.sexoaves').html('fêmea').show();
-            }else{
+            } else {
                 $('#box1_macho, #box2_macho, #box3_macho, #box4_macho, .salvar').prop('disabled', false);
             }
         });
@@ -123,7 +132,7 @@ $(function () {
                 $('#box1_femea, #box2_femea, #box3_femea, #box4_femea, .salvar').prop('disabled', true);
                 $("#addAvesAviario").modal("show");
                 $('.sexoaves').html('macho').show();
-            }else{
+            } else {
                 $('#box1_femea, #box2_femea, #box3_femea, #box4_femea, .salvar').prop('disabled', false);
             }
         });
