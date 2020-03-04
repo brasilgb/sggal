@@ -29,9 +29,9 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'periodos/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('pordata', null, ['id' => 'dataform', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por data']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'dataform', 'class' => 'date-search form-control form-control-navbar', 'placeholder' => 'Buscar por data']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'date-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}

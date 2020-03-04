@@ -15,6 +15,16 @@ $(function () {
 //    $('.alert').not('.alert-important, .alert-info, .alert-danger').delay(3000).fadeOut(350);
 });
 
+$(function () {
+    $('.date-search').change(function (e) {
+        e.preventDefault;
+        if ($(this).val() === '') {
+            $('#date-btn').prop('disabled', true);
+        } else {
+            $('#date-btn').prop('disabled', false);
+        }
+    });
+});
 /*================================Calculos form aviarios========================*/
 // Total aves femeas
 $(function () {
@@ -140,7 +150,6 @@ $(function () {
 });
 
 $(document).ready(function () {
-//	alert('ok');
     $.ajax({
         url: 'periodos/periodoativo'
     }).done(function (data) {
@@ -150,10 +159,14 @@ $(document).ready(function () {
                 return true;
             });
             $('.novoperiodo').prop("disabled", true);
+
         } else {
             $('.nav-item').children("a").click(function () {
                 return false;
             });
+            urlcompare = 'http://sggal/periodos';
+            if (window.location != urlcompare)
+                window.location.href = 'http://sggal/periodos';
         }
     });
 });

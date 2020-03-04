@@ -27,46 +27,47 @@ class PeriodoController extends Controller {
         $pordata = '';
         return view('periodos.index', compact('periodos', 'pordata'));
     }
-    
-    
+
     public function search(Request $request) {
         $search = $request->pordata;
         $data = Carbon::createFromFormat('d/m/Y', $search)->format('Y-m-d');
-        if (!empty($search)) {
-            
-            $periodos = $this->periodo->where('created_at', 'like', '%'.$data.'%')->get();
-
+        $periodos = $this->periodo->where('created_at', 'like', '%' . $data . '%')->get();
+        if ($periodos->count() > 0):
             return view('periodos.index', [
                 'periodos' => $periodos,
                 'pordata' => $search
             ]);
-        }
+        else:
+            flash('<i class="fa fa-check"></i> Período não encontrado, verifique se selecionou a data desejada corretamente!')->error();
+            return redirect()->route('periodos.index');
+        endif;
     }
-    
-    public function ativaperiodo(Request $request){
+
+    public function ativaperiodo(Request $request) {
         $ativo = $request->segment(3);
         $data['ativo'] = $ativo;
         $this->periodo->create($data);
         return redirect()->route('periodos.index');
     }
-    
+
     public function atualizaperiodo(Request $request) {
         $equilibra = $this->periodo->where('ativo', 1);
         $data['ativo'] = 0;
         $data['desativacao'] = Carbon::now();
         $equilibra->update($data);
-        
+
         $idperiodo = $request->segment(3);
         $ativo = $request->segment(4);
         $data['ativo'] = $ativo;
-        $data['desativacao'] = $ativo == 1 ?null : Carbon::now();
+        $data['desativacao'] = $ativo == 1 ? null : Carbon::now();
         $produto = $this->periodo->find($idperiodo);
         $produto->update($data);
         return redirect()->route('periodos.index');
     }
-    
-    public function periodoativo(){
+
+    public function periodoativo() {
         $ativo = $this->periodo->where('ativo', 1)->get();
         return $ativo->count();
     }
+
 }
