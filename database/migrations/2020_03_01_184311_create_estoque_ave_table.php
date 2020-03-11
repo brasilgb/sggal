@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstoqueAvesTable extends Migration
+class CreateEstoqueAveTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,12 +20,12 @@ class CreateEstoqueAvesTable extends Migration
             $table->integer('aviario');
             $table->integer('box1_femea');
             $table->integer('box1_macho');
-            $table->integer('box2_femea');
-            $table->integer('box2_macho');
-            $table->integer('box3_femea');
-            $table->integer('box3_macho');
-            $table->integer('box4_femea');
-            $table->integer('box4_macho');
+            $table->integer('box2_femea')->nullable();
+            $table->integer('box2_macho')->nullable();
+            $table->integer('box3_femea')->nullable();
+            $table->integer('box3_macho')->nullable();
+            $table->integer('box4_femea')->nullable();
+            $table->integer('box4_macho')->nullable();
             $table->integer('tot_femea');
             $table->integer('tot_macho');
             $table->integer('tot_ave');
@@ -41,6 +41,6 @@ class CreateEstoqueAvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_estoque_aves');
+        Schema::dropIfExists('table_estoque_ave');
     }
 }

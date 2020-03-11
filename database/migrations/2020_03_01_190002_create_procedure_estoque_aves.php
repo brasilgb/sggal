@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class CreateProcedureEstoqueAves extends Migration {
 
@@ -38,8 +36,8 @@ select count(*) into contador from estoque_ave where id_estoque = SP_id_ave;
 
 if contador > 0 then
 update estoque_ave set 
-lote = SP_lote, 
 periodo = SP_periodo, 
+lote = SP_lote, 
 aviario = SP_aviario, 
 box1_femea = box1_femea + SP_box1_femea, 
 box1_macho = box1_macho + SP_box1_macho, 

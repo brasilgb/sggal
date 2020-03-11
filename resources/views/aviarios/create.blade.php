@@ -265,7 +265,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><i class="fas fa-hand-point-right text-info"></i> Opa, o número de aves <span class="sexoaves" style="display: none;"></span> adicionado ao campo do formulário, ultrapassou o número de aves <span class="sexoaves" style="display: none;"></span> definidos no lote!</p>
+                    <p><i class="fas fa-hand-point-right text-info"></i> Opa, o número de aves <span class="sexoaves" style="display: none;"></span> adicionado ao campo do formulário, ultrapassou o número de aves <span class="sexoaves" style="display: none;"></span> disponíveis no lote!</p>
                 </div>
                 <div class="modal-footer justify-content-between bg-gradient-light">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

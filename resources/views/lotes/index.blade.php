@@ -46,12 +46,9 @@
                     <tr>
                         <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femea}}</td><td>{{$lote->femea_capitalizadas}}</td><td>{{$lote->macho}}</td><td>{{$lote->macho_capitalizados}}</td><td>{{$lote->femea + $lote->macho}}</td><td>0</td><td>{{date("d/m/Y", strtotime(\Carbon\Carbon::now()))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
-                            <form style="float: right;" action="{{route('lotes.destroy', ['lote' => $lote->id_lote])}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-flat btn-sm"><i class="fas fa-trash"></i> Excluir</button>
-                            </form>
+                            <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i> Editar</button>
+                            <button data-toggle="modal" onclick="deleteData({{$lote->id_lote}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            <!--<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$lote->id_lote}})" data-target="#DeleteModal" class="btn btn-sm btn-danger btn-flat"><i class="fa fa-trash"></i> Delete</a>-->
                         </td>
                     </tr>
                     @if($porlote == '')
@@ -66,7 +63,49 @@
         </div>
     </div>
     <!-- /.card -->
-
 </div>
 
+<div id="DeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <form action="" id="deleteForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-danger">
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Confirmar exclusão</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    @method('DELETE')
+                    <p class="text-center">Tem certeza de que deseja excluir este lote?<br>
+                        <strong class="text-red">ATENÇÂO</strong><br> Será ecluido o lote e junto todos os aviários pertencentes ao mensmo.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+    function deleteData(id)
+     {
+         var id = id;
+         var url = '{{ route("lotes.destroy", ":id") }}';
+         url = url.replace(':id', id);
+         $("#deleteForm").attr('action', url);
+     }
+
+     function formSubmit()
+     {
+         $("#deleteForm").submit();
+     }
+</script>
 @endsection

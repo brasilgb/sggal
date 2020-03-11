@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Lote;
-use App\Periodo;
 
 class Aviario extends Model {
 
