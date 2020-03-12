@@ -48,8 +48,7 @@
                         <td>
                             <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i> Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$lote->id_lote}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
-                            <!--<a href="javascript:;" data-toggle="modal" onclick="deleteData({{$lote->id_lote}})" data-target="#DeleteModal" class="btn btn-sm btn-danger btn-flat"><i class="fa fa-trash"></i> Delete</a>-->
-                        </td>
+                            </td>
                     </tr>
                     @if($porlote == '')
                     {{$lotes->links()}}
@@ -85,16 +84,15 @@
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
+                        <button type="button" class="btn btn-success btn-flat" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="" class="btn btn-danger btn-flat" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
                     </center>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<script>
-
+<script type="text/javascript">
     function deleteData(id)
      {
          var id = id;

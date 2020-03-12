@@ -47,10 +47,8 @@
                         <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femea}}</td><td>{{$aviario->tot_macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
-                            {!! Form::open(['route' => ['aviarios.destroy', 'aviario' => $aviario->id_aviario], 'method' => 'DELETE', 'class' => 'form-inline', 'style' => 'float:right']) !!}                              
-                            {!! Form::button('<i class="fas fa-trash"></i> Excluir', ['type' => 'submit', 'class' => 'btn btn-danger btn-flat btn-sm']) !!}
-                            {!! Form::close() !!}
-                        </td>
+                            <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            </td>
                     </tr>
                     @if($poraviario == '')
                     {{$aviarios->links()}}
@@ -67,4 +65,44 @@
 
 </div>
 
+<div id="DeleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <form action="" id="deleteForm" method="post">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-danger">
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Confirmar exclusão</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    @method('DELETE')
+                    <p class="text-center">Tem certeza de que deseja excluir este aviário?</p>
+                </div>
+                <div class="modal-footer">
+                    <center>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
+                    </center>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function deleteData(id)
+     {
+         var id = id;
+         var url = '{{ route("aviarios.destroy", ":id") }}';
+         url = url.replace(':id', id);
+         $("#deleteForm").attr('action', url);
+     }
+
+     function formSubmit()
+     {
+         $("#deleteForm").submit();
+     }
+</script>
 @endsection

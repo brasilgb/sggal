@@ -70,7 +70,7 @@
                         @enderror
                     </div>
                 </div>
-                
+
                 <!--Colapse***********************-->
                 <div class="accordion" id="accordionAviario">
                     <!-- Box 1 -->
@@ -83,7 +83,7 @@
                             </h3>
                         </div>
                     </div>
-                    
+
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionAviario">
                         <div class="form-group row">
                             {!! Form::label('box1_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
@@ -199,82 +199,83 @@
                                 @enderror
                             </div>
                         </div>
-                      </div>  
+                    </div>  
                     <!--Div fim colapse-->
-                <!-- Totais -->
-                <div class="form-group row">
-                    <div class="card-header col-lg-12 card-title bg-gray-light">
-                        <h3 class="card-title uppercase"><i class="fa fa-boxes"></i> Totais</h3>
+                    <!-- Totais -->
+                    <div class="form-group row">
+                        <div class="card-header col-lg-12 card-title bg-gray-light">
+                            <h3 class="card-title uppercase"><i class="fa fa-boxes"></i> Totais</h3>
+                        </div>
                     </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('tot_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-8">
+                            {!! Form::text('tot_femea', $aviario->tot_femea, ['id' => 'totfemea', 'class' => 'form-control']) !!}
+                            @error('tot_femea')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('tot_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-8">
+                            {!! Form::text('tot_macho', $aviario->tot_macho, ['id' => 'totmacho', 'class' => 'form-control']) !!}
+                            @error('tot_macho')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('totave', 'Total de aves', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-8">
+                            {!! Form::text('tot_ave', $aviario->tot_ave, ['id' => 'totave', 'class' => 'form-control']) !!}
+                            @error('tot_ave')
+                            <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-form-label"></div>
+                        <div class="col-lg-8 text-right">
+                            {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary salvar']) !!}
+                        </div>
+                    </div>
+
+                    {!! Form::close() !!}
+
                 </div>
 
-                <div class="form-group row">
-                    {!! Form::label('tot_femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('tot_femea', $aviario->tot_femea, ['id' => 'totfemea', 'class' => 'form-control']) !!}
-                        @error('tot_femea')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('tot_macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('tot_macho', $aviario->tot_macho, ['id' => 'totmacho', 'class' => 'form-control']) !!}
-                        @error('tot_macho')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('totave', 'Total de aves', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('tot_ave', $aviario->tot_ave, ['id' => 'totave', 'class' => 'form-control']) !!}
-                        @error('tot_ave')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-lg-4 col-form-label"></div>
-                    <div class="col-lg-8 text-right">
-                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary salvar']) !!}
-                    </div>
-                </div>
-
-                {!! Form::close() !!}
-
-            </div>
-
-        </div>
-    </div>
-    <!-- /.card -->
-
-</div>
-
-<!-- Modal -->
-<div id="addAvesAviario" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-gradient-light">
-                <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-red"></i> Dados incorretos</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p><i class="fas fa-hand-point-right text-info"></i> Opa, o número de aves <span class="sexoaves" style="display: none;"></span> adicionado ao campo do formulário, ultrapassou o número de aves <span class="sexoaves" style="display: none;"></span> definidos no lote!</p>
-            </div>
-            <div class="modal-footer justify-content-between bg-gradient-light">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
             </div>
         </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+        <!-- /.card -->
 
-@endsection
+    </div>
+
+    <!-- Modal -->
+    <div id="addAvesAviario" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-gradient-danger">
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Reajuste os dados</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">O número de aves <span class="sexoaves" style="display: none;"></span> 
+                        adicionado ao campo do formulário, ultrapassou o número de aves 
+                        <span class="sexoaves" style="display: none;"></span> disponíveis no lote!</p>
+                </div>
+                <div class="modal-footer right-content-between">
+                    <button type="button" class="btn btn-success btn-flat float-right" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    @endsection

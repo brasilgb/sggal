@@ -258,17 +258,19 @@
     <div id="addAvesAviario" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header bg-gradient-light">
-                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle text-red"></i> Dados incorretos</h4>
+                <div class="modal-header bg-gradient-danger">
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Reajuste os dados</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><i class="fas fa-hand-point-right text-info"></i> Opa, o número de aves <span class="sexoaves" style="display: none;"></span> adicionado ao campo do formulário, ultrapassou o número de aves <span class="sexoaves" style="display: none;"></span> disponíveis no lote!</p>
+                    <p class="text-center">O número de aves <span class="sexoaves" style="display: none;"></span> 
+                        adicionado ao campo do formulário, ultrapassou o número de aves 
+                        <span class="sexoaves" style="display: none;"></span> disponíveis no lote!</p>
                 </div>
-                <div class="modal-footer justify-content-between bg-gradient-light">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <div class="modal-footer right-content-between">
+                    <button type="button" class="btn btn-success btn-flat float-right" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
             <!-- /.modal-content -->

@@ -226,14 +226,14 @@ class AviarioController extends Controller {
     // Retorna lote e compara com a soma de dados inseridos em aviários
     public function totlotefemeas(Request $request) {
         $idlote = $request->segment(3);
-        $countestoque = \DB::table("estoque_ave")->where('lote', $idlote)->get()->count();
+        $countaviario = $this->aviario->where('lote_id', $idlote)->get()->count();
         $totfemealote = $this->aviario->valLote($idlote);
         foreach ($totfemealote as $femea):
         $femealote = $femea->femea;
         endforeach;
-        if ($countestoque > 0):
-            $femeaestoque = \DB::table("estoque_ave")->where('lote', $idlote)->get()->sum('tot_femea');
-            $tf = $femealote - $femeaestoque;
+        if ($countaviario > 0):
+            $femeaaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('tot_femea');
+            $tf = $femealote - $femeaaviario;
         else:
             $tf = $femealote;
         endif;
@@ -242,14 +242,14 @@ class AviarioController extends Controller {
 
     public function totlotemachos(Request $request) {
         $idlote = $request->segment(3);
-        $countestoque = \DB::table("estoque_ave")->where('lote', $idlote)->get()->count();
+        $countmacho = $this->aviario->where('lote_id', $idlote)->get()->count();
         $totmacholote = $this->aviario->valLote($idlote);
         foreach ($totmacholote as $macho):
             $macholote = $macho->macho;
         endforeach;
-        if ($countestoque > 0):
-            $machoestoque = \DB::table("estoque_ave")->where('lote', $idlote)->get()->sum('tot_macho');
-            $tm = $macholote - $machoestoque;
+        if ($countmacho > 0):
+            $machoaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('tot_macho');
+            $tm = $macholote - $machoaviario;
         else:
             $tm = $macholote;
         endif;
