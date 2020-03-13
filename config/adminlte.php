@@ -254,12 +254,14 @@ return [
             'submenu' => [
                 [
                     'text' => 'Baixa de aves',
-                    'url' => '#',
+                    'url' => 'baixaaves',
+                    'active' => ['baixaaves', 'baixaaves/*', 'regex:@^baixaaves/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Peso das aves',
-                    'url' => '#',
+                    'url' => 'pesoaves',
+                    'active' => ['pesoaves', 'pesoaves/*', 'regex:@^pesoaves/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],

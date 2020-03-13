@@ -255,5 +255,17 @@ class AviarioController extends Controller {
         endif;
         return response()->json(['totmachos' => $tm]);
     }
+    
+    public function aviariosdolote(Request $request)
+    {
+        $idlote = $request->all();
+//        $aviarios = $this->aviario->where('lote_id', $idlote)->get();
+//        $list = "<option value=\"\"> Selecione o lote</option>";
+//        foreach ($aviarios as $aviario):
+//            $list .= "<option value=\"$aviario->id_aviario\">$aviario->aviario</option>";
+//        endforeach;
+//        return $list;
+        return response()->json(['success'=>'Got Simple Ajax Request.']);
+    }
 
 }

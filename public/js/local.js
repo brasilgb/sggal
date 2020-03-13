@@ -171,3 +171,29 @@ $(document).ready(function () {
     });
 });
 
+// Combobox com aviários de um lote
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+$(function () {
+    $('#loteid').change(function (e) {
+        e.preventDefault;
+        loteid = $(this).val();
+
+        $.ajax({
+            type: 'POST',
+            ur: '/aviarios/aviariosdolote',
+            data:{loteid:loteid}
+        }).done(function (data) {
+            $('#aviario_id').html(data.success);
+        }).fail(function(){
+           
+        });
+    });
+});

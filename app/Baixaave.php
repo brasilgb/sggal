@@ -3,15 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Lote;
 
-class Aviario extends Model {
-
-    protected $primaryKey = 'id_aviario';
+class Baixaave extends Model
+{
+    
+    protected $primaryKey = 'id_baixa';
     public $incrementing = false;
     protected $fillable = [
-        'id_aviario',
-        'data_aviario',
+        'id_baixa',
+        'data_baixa',
         'periodo',
         'lote_id',
         'aviario',
@@ -32,24 +32,23 @@ class Aviario extends Model {
         return $this->belongsTo(Lote::class, 'lote_id');
     }
 
-    public function nextAviario($search) {
-        return Aviario::where('lote_id', $search)->orderBy('id_aviario', 'desc')->first();
+    public function nextBaixa($search) {
+        return Baixaave::where('lote_id', $search)->orderBy('id_baixa', 'desc')->first();
     }
 
     public function valLote($idlote) {
         return Lote::where('id_lote', $idlote)->get();
     }
 
-    public function lastaviario() {
-        $lastaviario = Aviario::orderBy('id_aviario', 'desc')->get();
+    public function lastbaixa() {
+        $lastbaixa = Baixaave::orderBy('id_baixa', 'desc')->get();
 
-        if ($lastaviario->count() > 0):
-            foreach ($lastaviario as $last):
-                return $last->id_aviario + 1;
+        if ($lastbaixa->count() > 0):
+            foreach ($lastbaixa as $last):
+                return $last->id_baixa + 1;
             endforeach;
         else:
             return 1;
         endif;
     }
-
 }
