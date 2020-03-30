@@ -2,19 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Lote;
+use App\Aviario;
+use App\Coleta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
-class ColetaController extends Controller
-{
+class ColetaController extends Controller {
+    /*
+     * @var Coleta
+     */
+
+    protected $lote;
+    protected $aviario;
+    protected $coleta;
+
+    public function __construct(Lote $lote, Aviario $aviario, Coleta $coleta) {
+        $this->lote = $lote;
+        $this->aviario = $aviario;
+        $this->coleta = $coleta;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('coletas.index');
+    public function index() {
+        $coletas = $this->coleta->paginate(15);
+        $pordata = '';
+        return view('coletas.index', compact('coletas', 'pordata'));
     }
 
     /**
@@ -22,9 +41,9 @@ class ColetaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('coletas.create');
+    public function create() {
+        $lotes = $this->lote->all();
+        return view('coletas.create', compact('lotes'));
     }
 
     /**
@@ -33,8 +52,39 @@ class ColetaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+        $data = $request->all();
+        $rules = [
+            'data_coleta' => 'date_format:"d/m/Y"|required',
+            'hora_coleta' => 'required',
+            'id_lote' => 'required',
+            'aviario_id' => 'required',
+            'coleta' => 'required|integer',
+            'limpos_ninho' => 'required|integer',
+            'sujos_ninho' => 'required|integer',
+            'cama_incubaveis' => 'required|integer',
+            'duas_gemas' => 'required|integer',
+            'pequenos' => 'required|integer',
+            'trincados' => 'required|integer',
+            'casca_fina' => 'required|integer',
+            'deformados' => 'required|integer',
+            'frios' => 'required|integer',
+            'sujos_nao_aproveitados' => 'required|integer',
+            'esmagados_quebrados' => 'required|integer',
+            'descarte' => 'required|integer',
+            'cama_nao_incubaveis' => 'required|integer',
+            'incubaveis' => 'required|integer',
+            'incubaveis_bons' => 'required|integer',
+            'comerciais' => 'required|integer',
+            'postura_dia' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make()->validate();
         return view('coletas.index');
     }
 
@@ -44,8 +94,7 @@ class ColetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -55,8 +104,7 @@ class ColetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -67,8 +115,7 @@ class ColetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -78,8 +125,15 @@ class ColetaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
+    // Funcoes personalizadas **************************************************
+    // Retorna o valor do aviário à partir do lote
+    public function numcoleta($data, $idlote, $idaviario) {
+        $coletas = $this->coleta->nextcoleta($data, $idlote, $idaviario);
+        return response()->json(['coleta' => $coletas['coleta'] + 1]);
+    }
+
 }

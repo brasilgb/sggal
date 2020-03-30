@@ -53,7 +53,7 @@
                 <div class="form-group row">
                     {!! Form::label('lote', 'Identificação do lote', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('lote', old('lote'), ['class' => 'form-control']) !!}
+                        {!! Form::text('lote', old('lote'), ['id' => 'lote', 'class' => 'form-control']) !!}
                         @error('lote')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTriggerInsertAve extends Migration {
+class CreateTriggerInsertAviario extends Migration {
 
     /**
      * Run the migrations.
@@ -11,16 +11,16 @@ class CreateTriggerInsertAve extends Migration {
      */
     public function up() {
         DB::unprepared('
-CREATE TRIGGER `TRG_insert_aves` AFTER INSERT ON `aves` 
+CREATE TRIGGER `TRG_insert_aviarios` AFTER INSERT ON `aviarios` 
 FOR EACH ROW 
 BEGIN
       CALL SP_AtualizaEstoqueAves (
       new.id_aviario, 
       new.periodo, 
       new.lote_id, 
-      new.femea * -1, 
-      new.macho * -1,
-      new.tot_ave * -1
+      new.femea, 
+      new.macho,
+      new.tot_ave
       );
 END
                 ');
@@ -32,7 +32,7 @@ END
      * @return void
      */
     public function down() {
-        DB::unprepared('DROP TRIGGER `TRG_insert_aves`');
+        DB::unprepared('DROP TRIGGER `TRG_insert_aviarios`');
     }
 
 }

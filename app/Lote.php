@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Aviario;
-
+use App\Ave;
+use App\Coleta;
 class Lote extends Model {
 
     protected $primaryKey = 'id_lote';
@@ -20,6 +21,14 @@ class Lote extends Model {
 
     public function aviarios() {
         return $this->hasMany(Aviario::class);
+    }
+
+    public function aves() {
+        return $this->hasMany(Ave::class);
+    }
+
+    public function coletas() {
+        return $this->hasMany(Coleta::class);
     }
 
     public function lastlote() {

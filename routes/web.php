@@ -17,27 +17,46 @@
 
 Route::get('/', 'PainelController@painel');
 
-Route::resource('coletas', 'ColetaController');
+// Operações dos períodos de produção
+Route::prefix('periodos')->name('periodos.')->group(function(){
+    Route::get('/', 'PeriodoController@index')->name('index');
+    Route::get('/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('ativaperiodo');
+    Route::get('/atualizaperiodo/{idperiodo}/{ativo}', 'PeriodoController@atualizaperiodo')->name('atualizaperiodo');
+    Route::get('/periodoativo/{ativo}', 'PeriodoController@periodoativo')->name('periodoativo');
+    Route::post('/search', 'PeriodoController@search')->name('search');
+});
 
-//Route::resource('periodos', 'PeriodoController');
-Route::get('periodos', 'PeriodoController@index')->name('periodos.index');
-Route::post('periodos/search', 'PeriodoController@search');
-Route::get('periodos/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('periodos.ativaperiodo');
-Route::get('periodos/atualizaperiodo/{idperiodo}/{ativo}', 'PeriodoController@atualizaperiodo')->name('periodos.atualizaperiodo');
-Route::get('periodos/periodoativo', 'PeriodoController@periodoativo');
-
+// Operações nos lotes de aves
 Route::resource('lotes', 'LoteController');
 Route::post('lotes/search', 'LoteController@search');
 
-Route::resource('aviarios', 'AviarioController');
-Route::post('aviarios/aviariosdolote', 'AviarioController@aviariosdolote');
-Route::post('aviarios/search', 'AviarioController@search');
-Route::get('aviarios/returnaviario/{idlote}', 'AviarioController@returnaviario');
-Route::get('aviarios/totlotefemeas/{loteid}', 'AviarioController@totlotefemeas');
-Route::get('aviarios/totlotemachos/{loteid}', 'AviarioController@totlotemachos');
+// Operações nos aviários
+Route::prefix('aviarios')->name('aviarios.')->group(function() {
+    Route::get('/', 'AviarioController@index')->name('index');
+    Route::get('/create', 'AviarioController@create')->name('create');
+    Route::get('edit/{aviario}', 'AviarioController@show')->name('show');
+    Route::get('/returnaviario/{idlote}', 'AviarioController@returnaviario')->name('returnaviario');
+    Route::get('/totlotefemeas/{loteid}', 'AviarioController@totlotefemeas')->name('totlotefemeas');
+    Route::get('/totlotemachos/{loteid}', 'AviarioController@totlotemachos')->name('totlotemachos');
+    Route::put('/store', 'AviarioController@store')->name('store');
+    Route::put('/update/{aviario}', 'AviarioController@update')->name('update');
+    Route::post('/search', 'AviarioController@search')->name('search');
+    Route::delete('/destroy/{aviario}', 'AviarioController@destroy')->name('destroy');
+});
 
-Route::resource('baixaaves', 'BaixaaveController');
-Route::post('baixaaves/search', 'BaixaaveController@search');
-Route::get('baixaaves/returnbaixaave/{idlote}', 'BaixaaveController@returnbaixaave');
-Route::get('baixaaves/totlotefemeas/{loteid}', 'BaixaaveController@totlotefemeas');
-Route::get('baixaaves/totlotemachos/{loteid}', 'BaixaaveController@totlotemachos');
+// Operações nas baixas de aves
+Route::prefix('aves')->name('aves.')->group(function() {
+    Route::get('/', 'AveController@index')->name('index');
+    Route::get('/create', 'AveController@create')->name('create');
+    Route::get('show/{ave}', 'AveController@show')->name('show');
+    Route::get('/returnave/{idlote}', 'AveController@returnave')->name('returnave');
+    Route::get('/avesestoque/{loteid}/{idaviario}/{sexo}', 'AveController@avesestoque')->name('avesestoque');
+    Route::get('/aviariosdolote/{loteid}', 'AveController@aviariosdolote')->name('aviariosdolote');
+    Route::put('/store', 'AveController@store')->name('store');
+    Route::put('/update/{ave}', 'AveController@update')->name('update');
+    Route::post('/search', 'AveController@search')->name('search');
+    Route::delete('/destroy/{ave}', 'AveController@destroy')->name('destroy');
+});
+
+Route::resource('coletas', 'ColetaController');
+Route::get('coletas/numcoleta/{data}/{idlote}/{idaviario}', 'ColetaController@numcoleta')->name('coletas.numcoleta');

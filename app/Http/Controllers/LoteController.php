@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lote;
+use App\Aviario;
 use App\Periodo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -14,10 +15,12 @@ class LoteController extends Controller {
      */
 
     private $lote;
+    private $aviario;
     private $periodo;
 
-    public function __construct(Lote $lote, Periodo $periodo) {
+    public function __construct(Lote $lote, Periodo $periodo, Aviario $aviario) {
         $this->lote = $lote;
+        $this->aviario = $aviario;
         $this->periodo = $periodo;
     }
 
@@ -30,7 +33,10 @@ class LoteController extends Controller {
 
         $lotes = $this->lote->paginate(15);
         $porlote = '';
-        return view('lotes.index', compact('lotes', 'porlote'));
+        $numaviarios = function($idlote){
+          return $this->aviario->where('lote_id', $idlote)->get()->count();
+        };
+        return view('lotes.index', compact('lotes', 'porlote', 'numaviarios'));
     }
 
     public function search(Request $request) {

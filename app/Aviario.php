@@ -15,16 +15,8 @@ class Aviario extends Model {
         'periodo',
         'lote_id',
         'aviario',
-        'box1_femea',
-        'box1_macho',
-        'box2_femea',
-        'box2_macho',
-        'box3_femea',
-        'box3_macho',
-        'box4_femea',
-        'box4_macho',
-        'tot_femea',
-        'tot_macho',
+        'femea',
+        'macho',
         'tot_ave'
     ];
 

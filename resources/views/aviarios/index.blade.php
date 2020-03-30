@@ -38,13 +38,13 @@
         <div class="card-body">
             @include("flash::message")
             <div class="table-responsive">
-                <table class="table table-striped table-condensed table-hoveryy">
+                <table class="table table-striped table-condensed table-hover">
                     <tr>
                         <th>ID</th><th>Lote</th><th>Aviario</th><th>Fêmeas</th><th>Machos</th><th>Total</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($aviarios as $aviario)
                     <tr>
-                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->tot_femea}}</td><td>{{$aviario->tot_macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
+                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->femea}}</td><td>{{$aviario->macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>

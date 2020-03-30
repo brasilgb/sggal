@@ -254,8 +254,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Baixa de aves',
-                    'url' => 'baixaaves',
-                    'active' => ['baixaaves', 'baixaaves/*', 'regex:@^baixaaves/[0-9]+$@'],
+                    'url' => 'aves',
+                    'active' => ['aves', 'aves/*', 'regex:@^aves/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [

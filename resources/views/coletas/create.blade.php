@@ -23,203 +23,193 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><button disabled="" class="btn btn-primary btn-flat btn-disabled"><i class="fas fa-plus-square"></i> Adicionar coleta</button></h3>
+                <h3 class="card-title"><a href="{{route('coletas.index')}}" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                <form class="form-inline ml-3">
-                    <div class="input-group input-group-sm">
-                        <input id="datasearch" class="form-control form-control-navbar" type="search" placeholder="Buscar por data" aria-label="Buscar">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+                {!! Form::open(['url' => 'coletas/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
+                <div class="input-group input-group-sm">
+                    {!! Form::text('porcoleta', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por data']) !!}
+                    <div class="input-group-append">
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
-                </form>
+                </div>
+                {!! Form::close() !!}
+                <!--SEARCH FORM-->
             </div>
         </div>
         <div class="card-body">
             @include("flash::message")
-            
-            <div class="col-lg-6">
-                
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+            {!! Form::open(['route' => 'coletas.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group row">
+                        {!! Form::label('dataform', 'Data da coleta', ['class' => 'col-lg-4 col-form-label', 'autofocus' => true]) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('datacoleta', date("d/m/Y", strtotime(\Carbon\Carbon::now())), ['id' => 'dataform', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('horacoleta', 'Hora da coleta', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('horacoleta', date("H:i", strtotime(\Carbon\Carbon::now())), ['id' => 'horacoleta', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('loteid', 'Lote', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::select('horacoleta', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), old('lote'), ['id' => 'loteid', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('id_aviario', 'Aviario', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::select('id_aviario', ['0' => 'Selecione o lote'], old('aviario'), ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('numcoleta', 'N° da coleta', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('coleta', old('coleta'), ['id' => 'numcoleta', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('limpos_ninho', 'Limpos do ninho', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('limpos_ninho', old('limpos_ninho'), ['id' => 'limpos_ninho', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('sujos_ninho', 'Sujos do ninho', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('sujos_ninho', old('sujos_ninho'), ['id' => 'sujos_ninho', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('cama_incubaveis', 'De cama incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('cama_incubaveis', old('cama_incubaveis'), ['id' => 'cama_incubaveis', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('duas_gemas', 'Duas gemas', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('duas_gemas', old('duas_gemas'), ['id' => 'duas_gemas', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('pequenos', 'Pequenos', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('pequenos', old('pequenos'), ['id' => 'pequenos', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        {!! Form::label('trincados', 'Trincados', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('trincados', old('trincados'), ['id' => 'trincados', 'class' => 'form-control']) !!}
+                        </div>
+                    </div>
+
                 </div>
-                @endif
-                
-                <form class="form-horizontal" action="{{route('coletas.store')}}" method="POST">
-                    @csrf
+                <div class="col-lg-6">
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Data da coleta: </label>
-                        <div class="col-lg-7">
-                            <input id="dataform" class="form-control" type="text" name="datacoleta" value="<?= date("d/m/Y"); ?>">
+                        {!! Form::label('casca_fina', 'Casca fina', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('casca_fina', old('casca_fina'), ['id' => 'casca_fina', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Hora da coleta: </label>
-                        <div class="col-lg-7">
-                            <input id="horacoleta" class="form-control" type="text" name="horacoleta" value="<?= date("H:i"); ?>">
+                        {!! Form::label('deformados', 'Deformados', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('deformados', old('deformados'), ['id' => 'deformados', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Lote: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('frios', 'Frios', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('frios', old('frios'), ['id' => 'frios', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Aviário: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('sujos_nao_aproveitaveis', 'Sujos não aproveitaveis', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('sujos_nao_aproveitaveis', old('sujos_nao_aproveitaveis'), ['id' => 'sujos_nao_aproveitaveis', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Num. da coleta: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('esmagados_quebrados', 'Esmagados e quebrados', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('esmagados_quebrados', old('esmagados_quebrados'), ['id' => 'esmagados_quebrados', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Limpos do ninho: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('descarte', 'Descarte', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('descarte', old('descarte'), ['id' => 'descarte', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Sujos do ninho: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('cama_nao_incubaveis', 'De cama não incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('cama_nao_incubaveis', old('cama_nao_incubaveis'), ['id' => 'cama_nao_incubaveis', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">De cama incubáveis: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('incubaveis', 'Total incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('incubaveis', old('incubaveis'), ['id' => 'incubaveis', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Duas gemas: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('incubaveis_bons', 'Total de incubáveis bons', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('incubaveis_bons', old('incubaveis_bons'), ['id' => 'incubaveis_bons', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Pequenos: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('comerciais', 'Total comerciais', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('comerciais', old('comerciais'), ['id' => 'comerciais', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Trincados: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        {!! Form::label('postura_dia', 'Postura do dia', ['class' => 'col-lg-4 col-form-label']) !!}
+                        <div class="col-lg-6">
+                            {!! Form::text('postura_dia', old('postura_dia'), ['id' => 'postura_dia', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Casca fina: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
+                        <div class="col-lg-4 col-form-label"></div>
+                        <div class="col-lg-6 text-right">
+                            {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary salvar']) !!}
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Deformados: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
+                </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Frios: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Sujos não aproveitáveis: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Esmagados e quebrados: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">De cama não incubáveis: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Total de incubáveis: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Total de incubáveis bons: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Total de incubáveis bons: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Total comerciais: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-lg-5 col-form-label">Postura do dia: </label>
-                        <div class="col-lg-7">
-                            <input class="form-control" type="text" name="data">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <div class="col-lg-5 col-form-label"></div>
-                        <div class="col-lg-7 text-right">
-                            <button class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
+            </div></form>
         </div>
-    </div>
+    </div> 
     <!-- /.card -->
 
 </div>

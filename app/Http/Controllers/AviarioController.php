@@ -79,17 +79,8 @@ class AviarioController extends Controller {
             'data_aviario' => 'date_format:"d/m/Y"|required',
             'aviario' => 'required',
             'lote_id' => 'required',
-            'box1_femea' => 'required|integer',
-            'box1_macho' => 'required|integer',
-//            'box2_femea' => 'required|integer',
-//            'box2_macho' => 'required|integer',
-//            'box3_femea' => 'required|integer',
-//            'box3_macho' => 'required|integer',
-//            'box4_femea' => 'required|integer',
-//            'box4_macho' => 'required|integer',
-            'tot_femea' => 'required|integer',
-            'tot_macho' => 'required|integer',
-            'tot_ave' => 'required|integer'
+            'femea' => 'required|integer',
+            'macho' => 'required|integer'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -154,17 +145,8 @@ class AviarioController extends Controller {
             'data_aviario' => 'date_format:"d/m/Y"|required',
             'aviario' => 'required',
             'lote_id' => 'required',
-            'box1_femea' => 'required|integer',
-            'box1_macho' => 'required|integer',
-//            'box2_femea' => 'required|integer',
-//            'box2_macho' => 'required|integer',
-//            'box3_femea' => 'required|integer',
-//            'box3_macho' => 'required|integer',
-//            'box4_femea' => 'required|integer',
-//            'box4_macho' => 'required|integer',
-            'tot_femea' => 'required|integer',
-            'tot_macho' => 'required|integer',
-            'tot_ave' => 'required|integer'
+            'femea' => 'required|integer',
+            'macho' => 'required|integer'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -256,16 +238,4 @@ class AviarioController extends Controller {
         return response()->json(['totmachos' => $tm]);
     }
     
-    public function aviariosdolote(Request $request)
-    {
-        $idlote = $request->all();
-//        $aviarios = $this->aviario->where('lote_id', $idlote)->get();
-//        $list = "<option value=\"\"> Selecione o lote</option>";
-//        foreach ($aviarios as $aviario):
-//            $list .= "<option value=\"$aviario->id_aviario\">$aviario->aviario</option>";
-//        endforeach;
-//        return $list;
-        return response()->json(['success'=>'Got Simple Ajax Request.']);
-    }
-
 }
