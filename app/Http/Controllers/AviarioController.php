@@ -199,22 +199,20 @@ class AviarioController extends Controller {
 
     // Funcoes personalizadas **************************************************
     // Retorna o valor do aviário à partir do lote
-    public function returnaviario(Request $request) {
-        $search = $request->segment(3);
+    public function returnaviario($search = 0) {
         $aviarios = $this->aviario->nextAviario($search);
         return response()->json(['success' => $aviarios['aviario'] + 1]);
     }
 
-    // Retorna lote e compara com a soma de dados inseridos em aviários
-    public function totlotefemeas(Request $request) {
-        $idlote = $request->segment(3);
+    // Retorna lote e compara com a soma de dados inseridos em aviários em json
+    public function totlotefemeas($idlote = 0) {
         $countaviario = $this->aviario->where('lote_id', $idlote)->get()->count();
         $totfemealote = $this->aviario->valLote($idlote);
         foreach ($totfemealote as $femea):
-        $femealote = $femea->femea;
+            $femealote = $femea->femea;
         endforeach;
         if ($countaviario > 0):
-            $femeaaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('tot_femea');
+            $femeaaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('femea');
             $tf = $femealote - $femeaaviario;
         else:
             $tf = $femealote;
@@ -222,20 +220,19 @@ class AviarioController extends Controller {
         return response()->json(['totfemeas' => $tf]);
     }
 
-    public function totlotemachos(Request $request) {
-        $idlote = $request->segment(3);
+    public function totlotemachos($idlote = 0) {
         $countmacho = $this->aviario->where('lote_id', $idlote)->get()->count();
         $totmacholote = $this->aviario->valLote($idlote);
         foreach ($totmacholote as $macho):
             $macholote = $macho->macho;
         endforeach;
         if ($countmacho > 0):
-            $machoaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('tot_macho');
+            $machoaviario = $this->aviario->where('lote_id', $idlote)->get()->sum('macho');
             $tm = $macholote - $machoaviario;
         else:
             $tm = $macholote;
         endif;
         return response()->json(['totmachos' => $tm]);
     }
-    
+
 }

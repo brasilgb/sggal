@@ -75,6 +75,7 @@
                     {!! Form::label('femea', 'Aves fêmea', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('femea', old('femea'), ['id' => 'femea', 'class' => 'form-control input-total']) !!}
+                        <div class="info-num-aves num-femeas" style="display: none;">Há <strong class="text-red"></strong> aves fêmea disponíveis para inserção.</div>
                         @error('femea')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -85,6 +86,7 @@
                     {!! Form::label('macho', 'Aves macho', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('macho', old('macho'), ['id' => 'macho', 'class' => 'form-control input-total']) !!}
+                        <div class="info-num-aves num-machos" style="display: none;">Há <strong class="text-red"></strong> aves macho disponíveis para inserção.</div>
                         @error('macho')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror

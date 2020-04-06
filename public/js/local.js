@@ -31,19 +31,19 @@ $(function () {
  * 
  * dessabilita digitacao em campos do formulario
  */
-$(function(){
+$(function () {
     $('#nextaviario, #numcoleta').keypress(function (e) {
         e.preventDefault;
         return false;
     });
 });
 
-$(function(){
-    $('#lote, .input-search').keyup(function(e){
+$(function () {
+    $('#lote, .input-search').keyup(function (e) {
         e.preventDefault;
         $(this).val($(this).val().toUpperCase());
     });
-    
+
 });
 /*
  * Página create aviário, mostra próximo aviário
@@ -72,7 +72,7 @@ $(function () {
 });
 
 /*
- * Página create aviário, compara quantidade lote com soma de boxes do aviário com femeas
+ * Página create aviário, compara quantidade lote com soma dos aviários com femeas
  */
 
 $(function () {
@@ -96,7 +96,7 @@ $(function () {
 });
 
 /*
- * Página create aviário, compara quantidade lote com soma de boxes do aviário com machos
+ * Página create aviário, compara quantidade lote com soma dos aviários com machos
  */
 
 $(function () {
@@ -116,6 +116,55 @@ $(function () {
                 $('#femea, .salvar').prop('disabled', false);
             }
         });
+    });
+});
+
+/*
+ * Número de aves fêmea permitidos em aviários
+ */
+$(function () {
+    $('#loteid').change(function (e) {
+        e.preventDefault;
+        idlote = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/totlotefemeas/' + idlote
+        }).done(function (data) {
+            $('.num-femeas').show('fade');
+            $('.num-femeas > strong').html(data.totfemeas);
+        });
+
+    });
+});
+
+/*
+ * Número de aves macho permitidos em aviários
+ */
+
+$(document).ready(function () {
+        idlote = $(this).val();
+        idlote = pathname[3];
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/totlotemachos/' + idlote
+        }).done(function (data) {
+            $('.num-machos').show('fade');
+            $('.num-machos > strong').html(data.totmachos);
+        });
+
+    });
+$(function () {
+    $('#loteid').change(function (e) {
+        e.preventDefault;
+        idlote = $(this).val();
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/totlotemachos/' + idlote
+        }).done(function (data) {
+            $('.num-machos').show('fade');
+            $('.num-machos > strong').html(data.totmachos);
+        });
+
     });
 });
 
@@ -141,6 +190,9 @@ $(document).ready(function () {
     });
 });
 
+/*
+ * Preenche dropdown com aviários do lote
+ */
 $(function () {
     $('#loteid').change(function (e) {
         e.preventDefault;
@@ -198,7 +250,7 @@ $(function () {
                 $('.salvar').prop('disabled', true);
                 $("#baixaaves").modal("show");
                 $('.sexoaves').html(sexo == 1 ? 'fêmea' : 'macho').show();
-            }else{
+            } else {
                 $('.salvar').prop('disabled', false);
             }
         });
@@ -206,13 +258,14 @@ $(function () {
 });
 // Data portugues para ingles
 function FormataStringData(data) {
-  var dia  = data.split("/")[0];
-  var mes  = data.split("/")[1];
-  var ano  = data.split("/")[2];
+    var dia = data.split("/")[0];
+    var mes = data.split("/")[1];
+    var ano = data.split("/")[2];
 
-  return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
-  // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
-};
+    return ano + '-' + ("0" + mes).slice(-2) + '-' + ("0" + dia).slice(-2);
+    // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+}
+;
 
 
 // Preenche com o número da coleta
@@ -221,13 +274,13 @@ $(function () {
         lote = $('#loteid').val();
         aviario = $(this).val();
         datacoleta = FormataStringData($('#dataform').val());
-        
+
         console.log(datacoleta);
-            $.ajax({
-                url: base_url + '/numcoleta/'+datacoleta+'/'+lote+'/'+aviario,
-                type: 'GET'
-            }).done(function (data) {
-                $('#numcoleta').val(data.coleta).addClass('bg-info');
-            });
+        $.ajax({
+            url: base_url + '/numcoleta/' + datacoleta + '/' + lote + '/' + aviario,
+            type: 'GET'
+        }).done(function (data) {
+            $('#numcoleta').val(data.coleta).addClass('bg-info');
+        });
     });
 });
