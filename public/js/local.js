@@ -76,15 +76,17 @@ $(function () {
  */
 
 $(function () {
-    $('#femea').keyup(function () {
-//        e.preventDefault;
+    $('#femea').keyup(function (e) {
+        e.preventDefault;
+        dbfemea = $('#db-femea').val();
         femeas = $('#femea').val();
         idlote = $('#loteid').val();
         $.ajax({
             type: 'GET',
             url: base_url + '/totlotefemeas/' + idlote
         }).done(function (data) {
-            if (femeas > data.totfemeas) {
+            sumfemea = parseInt(data.totfemeas) + parseInt(dbfemea);
+            if (femeas > sumfemea) {
                 $('#macho, .salvar').prop('disabled', true);
                 $("#addAvesAviario").modal("show");
                 $('.sexoaves').html('fêmea').show();
@@ -100,15 +102,17 @@ $(function () {
  */
 
 $(function () {
-    $('#macho').keyup(function () {
-//        e.preventDefault;
+    $('#macho').keyup(function (e) {
+        e.preventDefault;
+        dbmacho = $('#db-macho').val();
         machos = $('#macho').val();
         idlote = $('#loteid').val();
         $.ajax({
             type: 'GET',
             url: base_url + '/totlotemachos/' + idlote
         }).done(function (data) {
-            if (machos > data.totmachos) {
+            summacho = parseInt(data.totmachos) + parseInt(dbmacho);
+            if (machos > summacho) {
                 $('#femea, .salvar').prop('disabled', true);
                 $("#addAvesAviario").modal("show");
                 $('.sexoaves').html('macho').show();
@@ -122,6 +126,18 @@ $(function () {
 /*
  * Número de aves fêmea permitidos em aviários
  */
+$(document).ready(function () {
+    idlote = pathname[3];
+    $.ajax({
+        type: 'GET',
+        url: base_url + '/totlotefemeas/' + idlote
+    }).done(function (data) {
+        $('.num-femeas').show('fade');
+        $('.num-femeas > strong').html(data.totfemeas);
+    });
+
+});
+
 $(function () {
     $('#loteid').change(function (e) {
         e.preventDefault;
@@ -140,19 +156,17 @@ $(function () {
 /*
  * Número de aves macho permitidos em aviários
  */
-
 $(document).ready(function () {
-        idlote = $(this).val();
-        idlote = pathname[3];
-        $.ajax({
-            type: 'GET',
-            url: base_url + '/totlotemachos/' + idlote
-        }).done(function (data) {
-            $('.num-machos').show('fade');
-            $('.num-machos > strong').html(data.totmachos);
-        });
-
+    idlote = pathname[3];
+    $.ajax({
+        type: 'GET',
+        url: base_url + '/totlotemachos/' + idlote
+    }).done(function (data) {
+        $('.num-machos').show('fade');
+        $('.num-machos > strong').html(data.totmachos);
     });
+
+});
 $(function () {
     $('#loteid').change(function (e) {
         e.preventDefault;
@@ -168,6 +182,9 @@ $(function () {
     });
 });
 
+/*
+ * Libera sistema se periodo estiver ativo
+ */
 $(document).ready(function () {
     $.ajax({
         url: 'periodos/periodoativo'
@@ -229,9 +246,50 @@ $(function () {
 
 
 /*
+ * Número de aves fêmea permitidos em aves
+ */
+//$(document).ready(function () {
+//    idlote = pathname[3];
+//    $.ajax({
+//        type: 'GET',
+//        url: base_url + '/totlotefemeas/' + idlote
+//    }).done(function (data) {
+//        $('.num-femeas').show('fade');
+//        $('.num-femeas > strong').html(data.totfemeas);
+//    });
+//
+//});
+
+$(function () {
+    $('#sexo').change(function (e) {
+        e.preventDefault;
+        quant = $(this).val();
+        idlote = $('#loteid').val();
+        sexo = $('#sexo').val();
+        numave = $('#numave').val();
+        idaviario = $('#aviariosdolote').val();
+        switch (sexo){
+            case 1: descsexo = 'fêmea';
+                break;
+            case 2: descsexo = 'macho';
+                break;
+        }
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
+        }).done(function (data) {
+            sumave = parseInt(data.totaves) + parseInt(numave);
+            $('.est-aves').show('fade');
+            $('.est-aves > strong').html(sumave);
+            $('.est-aves > span').html(descsexo);
+        });
+
+    });
+});
+
+/*
  * Página aves, compara quantidade de aves com estoque
  */
-
 $(function () {
     $('#quantidade').keyup(function (e) {
         e.preventDefault;
