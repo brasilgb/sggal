@@ -44,7 +44,7 @@
                     </tr>
                     @forelse($aves as $ave)
                     <tr>
-                        <td>{{$ave->id_ave}}</td><td>{{$ave->lote->lote}}</td><td>{{$ave->aviario}}</td><td>{{$ave->femea > 0 ? 'Fêmea' : 'Macho'}}</td><td>{{$ave->femea > 0 ? $ave->femea : $ave->macho}}</td><td>{{$motivos($ave->motivo)}}</td><td>{{date('d/m/Y', strtotime($ave->data_ave))}}</td>
+                        <td>{{$ave->id_ave}}</td><td>{{$ave->lote->lote}}</td><td>{{$ave->id_aviario}}</td><td>{{$ave->femea > 0 ? 'Fêmea' : 'Macho'}}</td><td>{{$ave->femea > 0 ? $ave->femea : $ave->macho}}</td><td>{{$motivos($ave->motivo)}}</td><td>{{date('d/m/Y', strtotime($ave->data_ave))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('aves.show',['ave'=>$ave->id_ave])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$ave->id_ave}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>

@@ -85,6 +85,7 @@
                     {!! Form::label('quantidade', 'Quantidade de aves', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('quantidade', $ave->femea > 0 ? $ave->femea : $ave->macho, ['id' => 'quantidade', 'class' => 'form-control input-total']) !!}
+                        <div class="info-num-aves est-aves">Há <strong class="text-red"></strong> aves <span></span> disponíveis no aviário.</div>
                         @error('quantidade')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror

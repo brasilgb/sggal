@@ -248,18 +248,6 @@ $(function () {
 /*
  * Número de aves fêmea permitidos em aves
  */
-//$(document).ready(function () {
-//    idlote = pathname[3];
-//    $.ajax({
-//        type: 'GET',
-//        url: base_url + '/totlotefemeas/' + idlote
-//    }).done(function (data) {
-//        $('.num-femeas').show('fade');
-//        $('.num-femeas > strong').html(data.totfemeas);
-//    });
-//
-//});
-
 $(function () {
     $('#sexo').change(function (e) {
         e.preventDefault;
@@ -269,9 +257,9 @@ $(function () {
         numave = $('#numave').val();
         idaviario = $('#aviariosdolote').val();
         switch (sexo){
-            case 1: descsexo = 'fêmea';
+            case '1': descsexo = 'fêmea';
                 break;
-            case 2: descsexo = 'macho';
+            case '2': descsexo = 'macho';
                 break;
         }
         $.ajax({
