@@ -17,7 +17,6 @@ class CreateEstoqueAvesTable extends Migration
             $table->bigIncrements('id_estoque');
             $table->integer('id_aviario');
             $table->integer('periodo');
-            $table->integer('lote');
             $table->integer('femea');
             $table->integer('macho');
             $table->integer('tot_ave');

@@ -85,7 +85,7 @@
                     {!! Form::label('quantidade', 'Quantidade de aves', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('quantidade', $ave->femea > 0 ? $ave->femea : $ave->macho, ['id' => 'quantidade', 'class' => 'form-control input-total']) !!}
-                        <div class="info-num-aves est-aves">Há <strong class="text-red"></strong> aves <span></span> disponíveis no aviário.</div>
+                        <div class="info-num-aves est-aves" style="display: none;">Há <strong class="text-red"></strong> aves <span></span> disponíveis no aviário.</div>
                         @error('quantidade')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -123,7 +123,7 @@
 
 <!-- Modal -->
  <div id="baixaaves" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-gradient-danger">
                     <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i> Reajuste os dados</h4>

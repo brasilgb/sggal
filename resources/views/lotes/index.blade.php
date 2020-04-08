@@ -65,7 +65,7 @@
 </div>
 
 <div id="DeleteModal" class="modal fade" role="dialog">
-    <div class="modal-dialog ">
+    <div class="modal-dialog modal-dialog-centered">
         <!-- Modal content-->
         <form action="" id="deleteForm" method="post">
             <div class="modal-content">
