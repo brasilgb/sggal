@@ -58,7 +58,7 @@ class ColetaController extends Controller {
             'data_coleta' => 'date_format:"d/m/Y"|required',
             'hora_coleta' => 'required',
             'id_lote' => 'required',
-            'aviario_id' => 'required',
+            'id_aviario' => 'required',
             'coleta' => 'required|integer',
             'limpos_ninho' => 'required|integer',
             'sujos_ninho' => 'required|integer',
@@ -84,8 +84,19 @@ class ColetaController extends Controller {
             'date_format' => 'O campo data do aviário só aceita datas!',
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
-        $validator = Validator::make()->validate();
-        return view('coletas.index');
+        $validator = Validator::make($data, $rules, $messages)->validate();
+        try {
+        
+            flash('<i class="fa fa-check"></i> Coleta salva com sucesso!')->success();
+            return redirect()->route('aviario.index');
+        } catch (Exception $e) {
+            $message = 'Que merda!';
+            if (env('APP_DEBUG')){
+                $message = $e->getMessage();
+            }
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**

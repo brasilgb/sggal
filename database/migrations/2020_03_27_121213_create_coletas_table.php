@@ -16,7 +16,7 @@ class CreateColetasTable extends Migration
         Schema::create('coletas', function (Blueprint $table) {
             $table->integer('id_coleta')->primary();
             $table->integer('id_lote');
-            $table->integer('aviario_id');
+            $table->integer('id_aviario');
             $table->integer('periodo');
             $table->integer('coleta');
             $table->dateTime('data_coleta');

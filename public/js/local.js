@@ -1,7 +1,57 @@
 var address = window.location.protocol + '//' + window.location.host + "/";
 var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
-
+// ===========================Cálculos coleta diária===========================
+// Postura total de incubaveis bons
+$(function () {
+    $(".incubaveisbons").change(function () {
+        var total = 0;
+        $(".incubaveisbons").each(function (index, element) {
+            if ($(element).val()) {
+                total += parseInt($(element).val());
+            }
+        });
+        $("#incubaveisbons").val(total).addClass('bg-gray-light');
+    });
+});
+// Postura total de incubaveis
+$(function () {
+    $(".incubaveis").change(function () {
+        var total = 0;
+        $(".incubaveis").each(function (index, element) {
+            if ($(element).val()) {
+                total += parseInt($(element).val());
+            }
+        });
+        $("#incubaveis").val(total).addClass('bg-gray-light');
+    });
+});
+// Postura total de comerciais
+$(function () {
+    $(".comerciais").change(function () {
+        var total = 0;
+        $(".comerciais").each(function (index, element) {
+            if ($(element).val()) {
+                total += parseInt($(element).val());
+            }
+        });
+        $("#comerciais").val(total).addClass('bg-gray-light');
+    });
+});
+// Postura total do dia
+$(function () {
+    $(".posturadia").change(function () {
+        var total = 0;
+        $(".posturadia").each(function (index, element) {
+            if ($(element).val()) {
+                total += parseInt($(element).val());
+            }
+        });
+        $("#posturadia").val(total).addClass('bg-gray-light');
+    });
+});
+// ===============Fim cálculos coletas diárias================================
+// Desabilita botões campos de busca
 $(function () {
     $('.input-search').keyup(function (e) {
         e.preventDefault;
@@ -23,7 +73,7 @@ $(function () {
                 total += parseInt($(element).val());
             }
         });
-        $("#totave").val(total).addClass('bg-aqua-ativo');
+        $("#totave").val(total);
     });
 });
 /*=========FIM Cálculos form aviarios==========*/
@@ -32,7 +82,7 @@ $(function () {
  * dessabilita digitacao em campos do formulario
  */
 $(function () {
-    $('#nextaviario, #numcoleta').keypress(function (e) {
+    $('#nextaviario, #numcoleta, #incubaveisbons, #incubaveis, #comerciais, #posturadia').keypress(function (e) {
         e.preventDefault;
         return false;
     });
@@ -61,11 +111,11 @@ $(function () {
             }).done(function (data) {
                 if (data.success) {
                     $('#nextaviario').val(data.success);
-                    $('#nextaviario').addClass('bg-info');
+                    $('#nextaviario').addClass('bg-gray-light');
                 }
             });
         } else {
-            $('#nextaviario').removeClass('bg-info');
+            $('#nextaviario').removeClass('bg-gray-light');
             $('#nextaviario').val('');
         }
     });
@@ -332,13 +382,11 @@ $(function () {
         lote = $('#loteid').val();
         aviario = $(this).val();
         datacoleta = FormataStringData($('#dataform').val());
-
-        console.log(datacoleta);
         $.ajax({
             url: base_url + '/numcoleta/' + datacoleta + '/' + lote + '/' + aviario,
             type: 'GET'
         }).done(function (data) {
-            $('#numcoleta').val(data.coleta).addClass('bg-info');
+            $('#numcoleta').val(data.coleta).addClass('bg-blue');
         });
     });
 });
