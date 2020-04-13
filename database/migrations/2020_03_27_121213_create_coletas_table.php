@@ -15,12 +15,11 @@ class CreateColetasTable extends Migration
     {
         Schema::create('coletas', function (Blueprint $table) {
             $table->integer('id_coleta')->primary();
-            $table->integer('id_lote');
             $table->integer('id_aviario');
             $table->integer('periodo');
             $table->integer('coleta');
-            $table->dateTime('data_coleta');
-            $table->dateTime('hora_coleta');
+            $table->date('data_coleta');
+            $table->time('hora_coleta');
             $table->integer('limpos_ninho');
             $table->integer('sujos_ninho');
             $table->integer('cama_incubaveis');
@@ -30,7 +29,7 @@ class CreateColetasTable extends Migration
             $table->integer('casca_fina');
             $table->integer('deformados');
             $table->integer('frios');
-            $table->integer('sujos_nao_aproveitados');
+            $table->integer('sujos_nao_aproveitaveis');
             $table->integer('esmagados_quebrados');
             $table->integer('descarte');
             $table->integer('cama_nao_incubaveis');

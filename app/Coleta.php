@@ -10,12 +10,12 @@ class Coleta extends Model {
     public $incrementing = false;
     protected $fillable = [
         'id_coleta',
-        'id_lote',
-        'aviario_id',
+        'lote_id',
+        'id_aviario',
         'periodo',
+        'coleta',
         'data_coleta',
         'hora_coleta',
-        'coleta',
         'limpos_ninho',
         'sujos_ninho',
         'cama_incubaveis',
@@ -25,7 +25,7 @@ class Coleta extends Model {
         'casca_fina',
         'deformados',
         'frios',
-        'sujos_nao_aproveitados',
+        'sujos_nao_aproveitaveis',
         'esmagados_quebrados',
         'descarte',
         'cama_nao_incubaveis',
@@ -40,7 +40,7 @@ class Coleta extends Model {
     }
 
     public function nextcoleta($data, $idlote, $idaviario) {
-        return Coleta::where('data_coleta', $data)->where('lote_id', $idlote)->where('aviario_id', $idaviario)->orderBy('coleta', 'desc')->first();
+        return Coleta::where('data_coleta', $data)->where('lote_id', $idlote)->where('id_aviario', $idaviario)->orderBy('coleta', 'desc')->first();
     }
 
     public function valLote($idlote) {
@@ -59,4 +59,10 @@ class Coleta extends Model {
         endif;
     }
 
+    public function numaviario($idaviario){
+        $aviarios = Aviario::where('id_aviario', $idaviario)->get();
+        foreach ($aviarios as $aviario){
+            return $aviario->aviario;
+        }
+    }
 }

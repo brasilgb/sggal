@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lote;
 use App\Aviario;
 use App\Coleta;
+use App\Periodo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,7 +20,8 @@ class ColetaController extends Controller {
     protected $aviario;
     protected $coleta;
 
-    public function __construct(Lote $lote, Aviario $aviario, Coleta $coleta) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta) {
+        $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
         $this->coleta = $coleta;
@@ -33,7 +35,10 @@ class ColetaController extends Controller {
     public function index() {
         $coletas = $this->coleta->paginate(15);
         $pordata = '';
-        return view('coletas.index', compact('coletas', 'pordata'));
+        $numaviario = function($idaviario){
+         return $this->coleta->numaviario($idaviario);
+        };
+        return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
     }
 
     /**
@@ -55,10 +60,10 @@ class ColetaController extends Controller {
     public function store(Request $request) {
         $data = $request->all();
         $rules = [
+            'lote_id' => 'required',
+            'id_aviario' => 'required',
             'data_coleta' => 'date_format:"d/m/Y"|required',
             'hora_coleta' => 'required',
-            'id_lote' => 'required',
-            'id_aviario' => 'required',
             'coleta' => 'required|integer',
             'limpos_ninho' => 'required|integer',
             'sujos_ninho' => 'required|integer',
@@ -69,7 +74,7 @@ class ColetaController extends Controller {
             'casca_fina' => 'required|integer',
             'deformados' => 'required|integer',
             'frios' => 'required|integer',
-            'sujos_nao_aproveitados' => 'required|integer',
+            'sujos_nao_aproveitaveis' => 'required|integer',
             'esmagados_quebrados' => 'required|integer',
             'descarte' => 'required|integer',
             'cama_nao_incubaveis' => 'required|integer',
@@ -86,12 +91,15 @@ class ColetaController extends Controller {
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
         try {
-        
+            $data['id_coleta'] = $this->coleta->lastcoleta();
+            $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
+            $data['periodo'] = $this->periodo->periodoativo();
+            $this->coleta->create($data);
             flash('<i class="fa fa-check"></i> Coleta salva com sucesso!')->success();
-            return redirect()->route('aviario.index');
+            return redirect()->route('coletas.index');
         } catch (Exception $e) {
             $message = 'Que merda!';
-            if (env('APP_DEBUG')){
+            if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
             }
             flash($message)->warning();
@@ -105,8 +113,8 @@ class ColetaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
-        //
+    public function show(Coleta $coleta) {
+        return view('coletas.edit', compact('coleta'));
     }
 
     /**
@@ -115,8 +123,8 @@ class ColetaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(Coleta $coleta) {
+        return redirect()->route('coletas.show', ['coleta' => $coleta->id_coleta]);
     }
 
     /**
@@ -126,8 +134,8 @@ class ColetaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Request $request, Coleta $coleta) {
+        $data = $request->all();
     }
 
     /**

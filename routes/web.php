@@ -58,5 +58,14 @@ Route::prefix('aves')->name('aves.')->group(function() {
     Route::delete('/destroy/{ave}', 'AveController@destroy')->name('destroy');
 });
 
-Route::resource('coletas', 'ColetaController');
-Route::get('coletas/numcoleta/{data}/{idlote}/{idaviario}', 'ColetaController@numcoleta')->name('coletas.numcoleta');
+// Operações nas baixas de aves
+Route::prefix('coletas')->name('coletas.')->group(function() {
+    Route::get('/', 'ColetaController@index')->name('index');
+    Route::get('/create', 'ColetaController@create')->name('create');
+    Route::get('show/{coleta}', 'ColetaController@show')->name('show');
+    Route::put('/store', 'ColetaController@store')->name('store');
+    Route::put('/update/{ave}', 'ColetaController@update')->name('update');
+    Route::post('/search', 'ColetaController@search')->name('search');
+    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
+    Route::get('/numcoleta/{data}/{idlote}/{idaviario}', 'ColetaController@numcoleta')->name('numcoleta');
+});
