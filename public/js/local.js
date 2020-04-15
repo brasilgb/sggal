@@ -14,6 +14,7 @@ $(function () {
         $("#incubaveisbons").val(total).addClass('bg-gray-light');
     });
 });
+
 // Postura total de incubaveis
 $(function () {
     $(".incubaveis").change(function () {
@@ -103,6 +104,7 @@ $(function () {
     $('#loteid').change(function (e) {
         e.preventDefault;
         loteid = $(this).val();
+
         if (loteid !== '') {
             $.ajax({
                 type: 'GET',

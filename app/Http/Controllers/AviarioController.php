@@ -129,7 +129,7 @@ class AviarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Aviario $aviario) {
-        return redirect()->route('aviarios.show', ['aviario' => $aviario->id_lote]);
+        return redirect()->route('aviarios.show', ['aviario' => $aviario->id_aviario]);
     }
 
     /**
@@ -199,9 +199,14 @@ class AviarioController extends Controller {
 
     // Funcoes personalizadas **************************************************
     // Retorna o valor do aviário à partir do lote
-    public function returnaviario($search = 0) {
+    public function returnaviario(Request $request) {
+        $search = $request->segment(3);
         $aviarios = $this->aviario->nextAviario($search);
-        return response()->json(['success' => $aviarios['aviario'] + 1]);
+        if ($aviarios):
+            return response()->json(['success' => $aviarios['aviario'] + 1]);
+        else:
+            return response()->json(['success' => 1]);
+        endif;
     }
 
     // Retorna lote e compara com a soma de dados inseridos em aviários em json

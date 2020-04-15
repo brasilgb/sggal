@@ -38,14 +38,14 @@
         </div>
         <div class="card-body">
             @include("flash::message")
-            {!! Form::open(['route' => 'coletas.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group row">
                         {!! Form::label('dataform', 'Data da coleta', ['class' => 'col-lg-4 col-form-label', 'autofocus' => true]) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('data_coleta', date("d/m/Y", strtotime(\Carbon\Carbon::now())), ['id' => 'dataform', 'class' => 'form-control']) !!}
+                            {!! Form::text('data_coleta', date("d/m/Y", strtotime($coleta->data_coleta)), ['id' => 'dataform', 'class' => 'form-control']) !!}
                             @error('data_coleta')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -55,7 +55,7 @@
                     <div class="form-group row">
                         {!! Form::label('horacoleta', 'Hora da coleta', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('hora_coleta', date("H:i", strtotime(\Carbon\Carbon::now())), ['id' => 'horacoleta', 'class' => 'form-control']) !!}
+                            {!! Form::text('hora_coleta', date("H:i", strtotime($coleta->hora_coleta)), ['id' => 'horacoleta', 'class' => 'form-control']) !!}
                             @error('hora_coleta')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         {!! Form::label('loteid', 'Lote', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), old('lote_id'), ['id' => 'loteid', 'class' => 'form-control']) !!}
+                            {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), $coleta->lote_id, ['id' => 'loteid', 'class' => 'form-control']) !!}
                             @error('lote_id')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -75,7 +75,7 @@
                     <div class="form-group row">
                         {!! Form::label('id_aviario', 'Aviario', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('id_aviario', ['' => 'Selecione o lote'], old('aviario'), ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
+                            {!! Form::select('id_aviario', ['' => 'Selecione o lote'], $coleta->id_aviario, ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
                             @error('id_aviario')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror

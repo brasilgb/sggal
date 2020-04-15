@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
             @include("flash::message")
-            {!! Form::open(['route' => 'coletas.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => 'coletas.store', 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
             <div class="row">
                 <div class="col-lg-6">

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Lote;
 use App\Aviario;
 use App\Coleta;
 use App\Periodo;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ColetaController extends Controller {
@@ -19,6 +18,7 @@ class ColetaController extends Controller {
     protected $lote;
     protected $aviario;
     protected $coleta;
+    protected $periodo;
 
     public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta) {
         $this->periodo = $periodo;
@@ -35,8 +35,8 @@ class ColetaController extends Controller {
     public function index() {
         $coletas = $this->coleta->paginate(15);
         $pordata = '';
-        $numaviario = function($idaviario){
-         return $this->coleta->numaviario($idaviario);
+        $numaviario = function($idaviario) {
+            return $this->coleta->numaviario($idaviario);
         };
         return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
     }
@@ -114,7 +114,8 @@ class ColetaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Coleta $coleta) {
-        return view('coletas.edit', compact('coleta'));
+        $lotes = $this->lote->all();
+        return view('coletas.edit', compact('coleta', 'lotes'));
     }
 
     /**
@@ -152,7 +153,11 @@ class ColetaController extends Controller {
     // Retorna o valor do aviário à partir do lote
     public function numcoleta($data, $idlote, $idaviario) {
         $coletas = $this->coleta->nextcoleta($data, $idlote, $idaviario);
-        return response()->json(['coleta' => $coletas['coleta'] + 1]);
+        if ($coletas):
+            return response()->json(['coleta' => $coletas['coleta'] + 1]);
+        else:
+            return response()->json(['coleta' => 1]);
+        endif;
     }
 
 }

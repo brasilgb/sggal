@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Lote;
 class Coleta extends Model {
-
-    protected $prymarykey = 'id_coleta';
+    
+    protected $primaryKey = 'id_coleta';
     public $incrementing = false;
     protected $fillable = [
         'id_coleta',
@@ -58,7 +58,7 @@ class Coleta extends Model {
             return 1;
         endif;
     }
-
+    
     public function numaviario($idaviario){
         $aviarios = Aviario::where('id_aviario', $idaviario)->get();
         foreach ($aviarios as $aviario){

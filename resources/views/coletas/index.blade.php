@@ -46,7 +46,7 @@
                     <tr>
                         <td>{{$coleta->id_coleta}}</td><td>{{$coleta->coleta}}</td><td>{{$coleta->lote->lote}}</td><td>{{$numaviario($coleta->id_aviario)}}</td><td>{{$coleta->incubaveis_bons}}</td><td>{{$coleta->incubaveis}}</td><td>{{$coleta->comerciais}}</td><td>{{$coleta->postura_dia}}</td><td>{{date("d/m/Y", strtotime($coleta->data_coleta))}} - {{ date("h:i",strtotime($coleta->hora_coleta))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('coletas.show',['coleta'=>$coleta->id_coleta])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i> Editar</button>
+                            <button onclick="window.location.href = '{{route('coletas.show',['coleta' => $coleta->id_coleta])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i> Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$coleta->id_coleta}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>

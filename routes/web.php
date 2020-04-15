@@ -18,7 +18,7 @@
 Route::get('/', 'PainelController@painel');
 
 // Operações dos períodos de produção
-Route::prefix('periodos')->name('periodos.')->group(function(){
+Route::prefix('periodos')->name('periodos.')->group(function() {
     Route::get('/', 'PeriodoController@index')->name('index');
     Route::get('/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('ativaperiodo');
     Route::get('/atualizaperiodo/{idperiodo}/{ativo}', 'PeriodoController@atualizaperiodo')->name('atualizaperiodo');
@@ -34,7 +34,7 @@ Route::post('lotes/search', 'LoteController@search');
 Route::prefix('aviarios')->name('aviarios.')->group(function() {
     Route::get('/', 'AviarioController@index')->name('index');
     Route::get('/create', 'AviarioController@create')->name('create');
-    Route::get('edit/{aviario}', 'AviarioController@show')->name('show');
+    Route::get('/edit/{aviario}', 'AviarioController@show')->name('show');
     Route::get('/returnaviario/{idlote}', 'AviarioController@returnaviario')->name('returnaviario');
     Route::get('/totlotefemeas/{loteid}', 'AviarioController@totlotefemeas')->name('totlotefemeas');
     Route::get('/totlotemachos/{loteid}', 'AviarioController@totlotemachos')->name('totlotemachos');
@@ -48,7 +48,7 @@ Route::prefix('aviarios')->name('aviarios.')->group(function() {
 Route::prefix('aves')->name('aves.')->group(function() {
     Route::get('/', 'AveController@index')->name('index');
     Route::get('/create', 'AveController@create')->name('create');
-    Route::get('show/{ave}', 'AveController@show')->name('show');
+    Route::get('/show/{ave}', 'AveController@show')->name('show');
     Route::get('/returnave/{idlote}', 'AveController@returnave')->name('returnave');
     Route::get('/avesestoque/{loteid}/{idaviario}/{sexo}', 'AveController@avesestoque')->name('avesestoque');
     Route::get('/aviariosdolote/{loteid}', 'AveController@aviariosdolote')->name('aviariosdolote');
@@ -59,13 +59,14 @@ Route::prefix('aves')->name('aves.')->group(function() {
 });
 
 // Operações nas baixas de aves
+Route::resource('coletas', 'ColetaController');
 Route::prefix('coletas')->name('coletas.')->group(function() {
-    Route::get('/', 'ColetaController@index')->name('index');
-    Route::get('/create', 'ColetaController@create')->name('create');
-    Route::get('show/{coleta}', 'ColetaController@show')->name('show');
-    Route::put('/store', 'ColetaController@store')->name('store');
-    Route::put('/update/{ave}', 'ColetaController@update')->name('update');
+//    Route::get('/', 'ColetaController@index')->name('index');
+//    Route::get('/create', 'ColetaController@create')->name('create');
+//    Route::get('/show/{coleta}', 'ColetaController@show')->name('show');
+//    Route::put('/store', 'ColetaController@store')->name('store');
+//    Route::put('/update/{coleta}', 'ColetaController@update')->name('update');
     Route::post('/search', 'ColetaController@search')->name('search');
-    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
+//    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
     Route::get('/numcoleta/{data}/{idlote}/{idaviario}', 'ColetaController@numcoleta')->name('numcoleta');
 });
