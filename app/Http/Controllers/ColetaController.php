@@ -41,6 +41,20 @@ class ColetaController extends Controller {
         return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
     }
 
+    public function search(Request $request) {
+        $pordata = $request->pordata;
+        $coletas = $this->coleta->where('data_coleta', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
+        if ($coletas->count() > 0):
+            $numaviario = function($idaviario) {
+            return $this->coleta->numaviario($idaviario);
+        };
+        return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
+        else:
+            flash('<i class="fa fa-check"></i> Coletas não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
+            return redirect()->route('coletas.index');
+        endif;
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -113,9 +127,15 @@ class ColetaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Coleta $coleta) {
-        $lotes = $this->lote->all();
-        return view('coletas.edit', compact('coleta', 'lotes'));
+    public function show(Request $request, Coleta $coleta) {
+        $idcoleta = $request->segment(2);
+        $coletas = $this->coleta->where('id_coleta', $idcoleta)->get();
+        foreach ($coletas as $lote) {
+            $idlote = $lote->lote_id;
+        }
+        $aviarios = $this->aviario->where('lote_id', $idlote)->get();
+        $lotes = $this->lote->where('id_lote', $idlote)->get();
+        return view('coletas.edit', compact('coleta', 'lotes', 'aviarios'));
     }
 
     /**
@@ -145,8 +165,22 @@ class ColetaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(Coleta $coleta) {
+        try {
+            $coleta->delete();
+
+            flash('<i class="fa fa-check"></i> Coleta removido com sucesso!')->success();
+            return redirect()->route('coletas.index');
+        } catch (Exception $e) {
+            $message = 'Erro ao remover o coleta';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     // Funcoes personalizadas **************************************************

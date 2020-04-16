@@ -209,7 +209,7 @@ class AveController extends Controller {
         foreach ($aves as $lote) {
             $idlote = $lote->lote_id;
         }
-        $aviarios = $this->aviario->where('lote_id', $idlote);
+        $aviarios = $this->aviario->where('lote_id', $idlote)->get();
         $motivos = self::OPT_MOTIVOS;
         return view('aves.edit', compact('ave', 'lotes', 'aviarios', 'motivos'));
     }

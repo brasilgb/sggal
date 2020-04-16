@@ -23,7 +23,7 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><a href="{{route('aviarios.index')}}" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
+                <h3 class="card-title"><a href="{{route('aviarios.index')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'aviarios/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
@@ -137,7 +137,7 @@
                     <span class="sexoaves" style="display: none;"></span> disponíveis no lote!</p>
             </div>
             <div class="modal-footer right-content-between">
-                <button type="button" class="btn btn-success btn-flat float-right" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-success float-right" data-dismiss="modal">Fechar</button>
             </div>
         </div>
         <!-- /.modal-content -->

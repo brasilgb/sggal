@@ -22,11 +22,11 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><button onclick="window.location.href = '{{route('coletas.create')}}'" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-plus-square"></i> Adicionar coleta</button></h3>
+                <h3 class="card-title"><button onclick="window.location.href = '{{route('coletas.create')}}'" class="btn btn-primary btn-sm"><i class="fas fa-plus-square"></i> Adicionar coleta</button></h3>
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'coletas/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porcoleta', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por coleta']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por coleta']) !!}
                     <div class="input-group-append">
                         {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
@@ -46,10 +46,11 @@
                     <tr>
                         <td>{{$coleta->id_coleta}}</td><td>{{$coleta->coleta}}</td><td>{{$coleta->lote->lote}}</td><td>{{$numaviario($coleta->id_aviario)}}</td><td>{{$coleta->incubaveis_bons}}</td><td>{{$coleta->incubaveis}}</td><td>{{$coleta->comerciais}}</td><td>{{$coleta->postura_dia}}</td><td>{{date("d/m/Y", strtotime($coleta->data_coleta))}} - {{ date("h:i",strtotime($coleta->hora_coleta))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('coletas.show',['coleta' => $coleta->id_coleta])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i> Editar</button>
-                            <button data-toggle="modal" onclick="deleteData({{$coleta->id_coleta}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            <button onclick="window.location.href = '{{route('coletas.show',['coleta' => $coleta->id_coleta])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</button>
+                            <button data-toggle="modal" onclick="deleteData({{$coleta->id_coleta}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>
+                    
                     @if($pordata == '')
                     {{$coletas->links()}}
                     @endif
@@ -65,7 +66,7 @@
 </div>
 
 <div id="DeleteModal" class="modal fade" role="dialog">
-    <div class="modal-dialog ">
+    <div class="modal-dialog">
         <!-- Modal content-->
         <form action="" id="deleteForm" method="post">
             <div class="modal-content">
@@ -78,14 +79,12 @@
                 <div class="modal-body">
                     @csrf
                     @method('DELETE')
-                    <p class="text-center">Tem certeza de que deseja excluir este coleta?<br>
-                        <strong class="text-red">ATENÇÂO</strong><br> Será ecluido o coleta e junto todos os aviários pertencentes ao mensmo.
-                    </p>
+                    <p class="text-center">Tem certeza de que deseja excluir este coleta?</p>
                 </div>
                 <div class="modal-footer">
                     <center>
-                        <button type="button" class="btn btn-success btn-flat" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="" class="btn btn-danger btn-flat" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" name="" class="btn btn-danger" data-dismiss="modal" onclick="formSubmit()">Sim, excluir</button>
                     </center>
                 </div>
             </div>

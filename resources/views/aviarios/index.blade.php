@@ -22,7 +22,7 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><button onclick="window.location.href = '{{route('aviarios.create')}}'" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-plus-square"></i> Adicionar aviario</button></h3>
+                <h3 class="card-title"><button onclick="window.location.href = '{{route('aviarios.create')}}'" class="btn btn-primary btn-sm"><i class="fas fa-plus-square"></i> Adicionar aviario</button></h3>
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'aviarios/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
@@ -46,8 +46,8 @@
                     <tr>
                         <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->femea}}</td><td>{{$aviario->macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-flat btn-sm"><i class="fa fa-edit"></i>Editar</button>
-                            <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-flat btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
+                            <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>
                     @if($poraviario == '')
@@ -66,7 +66,7 @@
 </div>
 
 <div id="DeleteModal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog">
         <!-- Modal content-->
         <form action="" id="deleteForm" method="post">
             <div class="modal-content">

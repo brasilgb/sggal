@@ -23,7 +23,7 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><a href="{{route('coletas.index')}}" class="btn btn-primary btn-flat btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
+                <h3 class="card-title"><a href="{{route('coletas.index')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'coletas/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
             @include("flash::message")
-            {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
             <div class="row">
                 <div class="col-lg-6">
@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         {!! Form::label('loteid', 'Lote', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), $coleta->lote_id, ['id' => 'loteid', 'class' => 'form-control']) !!}
+                            {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote'), $coleta->lote_id, ['id' => 'loteid', 'class' => 'form-control']) !!}
                             @error('lote_id')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -75,7 +75,7 @@
                     <div class="form-group row">
                         {!! Form::label('id_aviario', 'Aviario', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::select('id_aviario', ['' => 'Selecione o lote'], $coleta->id_aviario, ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
+                            {!! Form::select('id_aviario', $aviarios->pluck('aviario', 'id_aviario'), $coleta->id_aviario, ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
                             @error('id_aviario')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -85,7 +85,7 @@
                     <div class="form-group row">
                         {!! Form::label('coleta', 'N° da coleta', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('coleta', old('coleta'), ['id' => 'numcoleta', 'class' => 'form-control']) !!}
+                            {!! Form::text('coleta', $coleta->coleta, ['id' => 'numcoleta', 'class' => 'form-control']) !!}
                             @error('coleta')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -95,7 +95,7 @@
                     <div class="form-group row">
                         {!! Form::label('limpos_ninho', 'Limpos do ninho', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('limpos_ninho', old('limpos_ninho'), ['id' => 'limpos_ninho', 'class' => 'incubaveisbons incubaveis posturadia form-control']) !!}
+                            {!! Form::text('limpos_ninho', $coleta->limpos_ninho, ['id' => 'limpos_ninho', 'class' => 'incubaveisbons incubaveis posturadia form-control']) !!}
                             @error('limpos_ninho')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -105,7 +105,7 @@
                     <div class="form-group row">
                         {!! Form::label('sujos_ninho', 'Sujos do ninho', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('sujos_ninho', old('sujos_ninho'), ['id' => 'sujos_ninho', 'class' => 'incubaveisbons incubaveis posturadia form-control']) !!}
+                            {!! Form::text('sujos_ninho', $coleta->sujos_ninho, ['id' => 'sujos_ninho', 'class' => 'incubaveisbons incubaveis posturadia form-control']) !!}
                             @error('sujos_ninho')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -115,7 +115,7 @@
                     <div class="form-group row">
                         {!! Form::label('cama_incubaveis', 'De cama incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('cama_incubaveis', old('cama_incubaveis'), ['id' => 'cama_incubaveis', 'class' => 'incubaveis posturadia form-control']) !!}
+                            {!! Form::text('cama_incubaveis', $coleta->cama_incubaveis, ['id' => 'cama_incubaveis', 'class' => 'incubaveis posturadia form-control']) !!}
                             @error('cama_incubaveis')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -125,7 +125,7 @@
                     <div class="form-group row">
                         {!! Form::label('duas_gemas', 'Duas gemas', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('duas_gemas', old('duas_gemas'), ['id' => 'duas_gemas', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('duas_gemas', $coleta->duas_gemas, ['id' => 'duas_gemas', 'class' => 'comerciais posturadia form-control']) !!}
                             @error('duas_gemas')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -135,7 +135,7 @@
                     <div class="form-group row">
                         {!! Form::label('pequenos', 'Pequenos', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('pequenos', old('pequenos'), ['id' => 'pequenos', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('pequenos', $coleta->pequenos, ['id' => 'pequenos', 'class' => 'comerciais posturadia form-control']) !!}
                             @error('pequenos')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -145,7 +145,7 @@
                     <div class="form-group row">
                         {!! Form::label('trincados', 'Trincados', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('trincados', old('trincados'), ['id' => 'trincados', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('trincados', $coleta->trincados, ['id' => 'trincados', 'class' => 'comerciais posturadia form-control']) !!}
                             @error('trincados')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -157,7 +157,7 @@
                     <div class="form-group row">
                         {!! Form::label('casca_fina', 'Casca fina', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('casca_fina', old('casca_fina'), ['id' => 'casca_fina', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('casca_fina', $coleta->casca_fina, ['id' => 'casca_fina', 'class' => 'comerciais posturadia form-control']) !!}
                             @error('casca_fina')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -167,7 +167,7 @@
                     <div class="form-group row">
                         {!! Form::label('deformados', 'Deformados', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('deformados', old('deformados'), ['id' => 'deformados', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('deformados', $coleta->deformados, ['id' => 'deformados', 'class' => 'comerciais posturadia form-control']) !!}
                             @error('deformados')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -177,7 +177,7 @@
                     <div class="form-group row">
                         {!! Form::label('frios', 'Frios', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('frios', old('frios'), ['id' => 'frios', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('frios', $coleta->frios, ['id' => 'frios', 'class' => 'comerciais posturadia form-control']) !!}
                         @error('frios')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -187,7 +187,7 @@
                     <div class="form-group row">
                         {!! Form::label('sujos_nao_aproveitaveis', 'Sujos não aproveitaveis', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('sujos_nao_aproveitaveis', old('sujos_nao_aproveitaveis'), ['id' => 'sujos_nao_aproveitaveis', 'class' => 'posturadia form-control']) !!}
+                            {!! Form::text('sujos_nao_aproveitaveis', $coleta->sujos_nao_aproveitaveis, ['id' => 'sujos_nao_aproveitaveis', 'class' => 'posturadia form-control']) !!}
                         @error('sujos_nao_aproveitaveis')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -197,7 +197,7 @@
                     <div class="form-group row">
                         {!! Form::label('esmagados_quebrados', 'Esmagados e quebrados', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('esmagados_quebrados', old('esmagados_quebrados'), ['id' => 'esmagados_quebrados', 'class' => 'posturadia form-control']) !!}
+                            {!! Form::text('esmagados_quebrados', $coleta->esmagados_quebrados, ['id' => 'esmagados_quebrados', 'class' => 'posturadia form-control']) !!}
                         @error('esmagados_quebrados')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -207,7 +207,7 @@
                     <div class="form-group row">
                         {!! Form::label('descarte', 'Descarte', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('descarte', old('descarte'), ['id' => 'descarte', 'class' => 'posturadia form-control']) !!}
+                            {!! Form::text('descarte', $coleta->descarte, ['id' => 'descarte', 'class' => 'posturadia form-control']) !!}
                         @error('descarte')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -217,7 +217,7 @@
                     <div class="form-group row">
                         {!! Form::label('cama_nao_incubaveis', 'De cama não incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('cama_nao_incubaveis', old('cama_nao_incubaveis'), ['id' => 'cama_nao_incubaveis', 'class' => 'comerciais posturadia form-control']) !!}
+                            {!! Form::text('cama_nao_incubaveis', $coleta->cama_nao_incubaveis, ['id' => 'cama_nao_incubaveis', 'class' => 'comerciais posturadia form-control']) !!}
                         @error('cama_nao_incubaveis')
                             <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                             @enderror
@@ -227,28 +227,28 @@
                     <div class="form-group row">
                         {!! Form::label('incubaveis', 'Incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('incubaveis', old('incubaveis'), ['id' => 'incubaveis', 'class' => 'form-control']) !!}
+                            {!! Form::text('incubaveis', $coleta->incubaveis, ['id' => 'incubaveis', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
                         {!! Form::label('incubaveis_bons', 'Incubáveis bons', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('incubaveis_bons', old('incubaveis_bons'), ['id' => 'incubaveisbons', 'class' => 'form-control']) !!}
+                            {!! Form::text('incubaveis_bons', $coleta->incubaveis_bons, ['id' => 'incubaveisbons', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
                         {!! Form::label('comerciais', 'Comerciais', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('comerciais', old('comerciais'), ['id' => 'comerciais', 'class' => 'form-control']) !!}
+                            {!! Form::text('comerciais', $coleta->comerciais, ['id' => 'comerciais', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 
                     <div class="form-group row">
                         {!! Form::label('postura_dia', 'Postura do dia', ['class' => 'col-lg-4 col-form-label']) !!}
                         <div class="col-lg-6">
-                            {!! Form::text('postura_dia', old('postura_dia'), ['id' => 'posturadia', 'class' => 'form-control']) !!}
+                            {!! Form::text('postura_dia', $coleta->postura_dia, ['id' => 'posturadia', 'class' => 'form-control']) !!}
                         </div>
                     </div>
 

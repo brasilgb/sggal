@@ -23,7 +23,7 @@
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
                 <h3 class="card-title">
-                    <button class="novoperiodo btn btn-sm btn-primary btn-flat" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Novo período</button>
+                    <button class="novoperiodo btn btn-sm btn-primary" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Novo período</button>
                 </h3>
                 
                 <!-- SEARCH FORM -->
@@ -49,7 +49,7 @@
                     <tr>
                         <td>{{$periodo->id_periodo}}</td><td><span style="padding: 8px 10px;width: 100px;" class="{{$periodo->ativo == "0" ? "badge badge-danger" : "badge badge-success"}}">{{$periodo->ativo == "0" ? "Inativo" : "Ativo"}}</span></td><td>{{date('d/m/Y', strtotime($periodo->created_at))}}</td><td>{{$periodo->desativacao == null ? "" : date('d/m/Y', strtotime($periodo->desativacao))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('periodos.atualizaperiodo',['idperiodo' => $periodo->id_periodo, 'ativo'=> $periodo->ativo == 0 ? 1 : 0])}}'" class="btn btn-{{$periodo->ativo == "0" ? "primary" : "warning"}} btn-flat btn-sm text-left" style="width:90px;" id="btn-at-des"><i class="fa fa-{{$periodo->ativo == "0" ? "check-circle" : "times-circle"}}"></i> {{$periodo->ativo == "0" ? "Ativar" : "Desativar"}}</button>
+                            <button onclick="window.location.href = '{{route('periodos.atualizaperiodo',['idperiodo' => $periodo->id_periodo, 'ativo'=> $periodo->ativo == 0 ? 1 : 0])}}'" class="btn btn-{{$periodo->ativo == "0" ? "primary" : "warning"}} btn-sm text-left" style="width:90px;" id="btn-at-des"><i class="fa fa-{{$periodo->ativo == "0" ? "check-circle" : "times-circle"}}"></i> {{$periodo->ativo == "0" ? "Ativar" : "Desativar"}}</button>
                         </td>
                     </tr>
                     @if($pordata == '')
