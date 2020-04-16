@@ -12,7 +12,7 @@
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="{{route('coletas.index')}}">Coletas</a></li>
-                    <li class="breadcrumb-item active">Adicionar coleta</li>
+                    <li class="breadcrumb-item active">Alterar coleta</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
             @include("flash::message")
-            {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+            {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
             <div class="row">
                 <div class="col-lg-6">

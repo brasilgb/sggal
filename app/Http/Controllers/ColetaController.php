@@ -33,7 +33,7 @@ class ColetaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $coletas = $this->coleta->paginate(15);
+        $coletas = $this->coleta->where('data_coleta',date("Y-m-d", strtotime(\Carbon\Carbon::now())))->paginate(15);
         $pordata = '';
         $numaviario = function($idaviario) {
             return $this->coleta->numaviario($idaviario);
@@ -104,6 +104,7 @@ class ColetaController extends Controller {
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
+        
         try {
             $data['id_coleta'] = $this->coleta->lastcoleta();
             $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
@@ -112,7 +113,7 @@ class ColetaController extends Controller {
             flash('<i class="fa fa-check"></i> Coleta salva com sucesso!')->success();
             return redirect()->route('coletas.index');
         } catch (Exception $e) {
-            $message = 'Que merda!';
+            $message = 'Erro ao inserir coleta!';
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
             }
@@ -157,6 +158,49 @@ class ColetaController extends Controller {
      */
     public function update(Request $request, Coleta $coleta) {
         $data = $request->all();
+        $rules = [
+            'data_coleta' => 'date_format:"d/m/Y"|required',
+            'hora_coleta' => 'required',
+            'coleta' => 'required|integer',
+            'limpos_ninho' => 'required|integer',
+            'sujos_ninho' => 'required|integer',
+            'cama_incubaveis' => 'required|integer',
+            'duas_gemas' => 'required|integer',
+            'pequenos' => 'required|integer',
+            'trincados' => 'required|integer',
+            'casca_fina' => 'required|integer',
+            'deformados' => 'required|integer',
+            'frios' => 'required|integer',
+            'sujos_nao_aproveitaveis' => 'required|integer',
+            'esmagados_quebrados' => 'required|integer',
+            'descarte' => 'required|integer',
+            'cama_nao_incubaveis' => 'required|integer',
+            'incubaveis' => 'required|integer',
+            'incubaveis_bons' => 'required|integer',
+            'comerciais' => 'required|integer',
+            'postura_dia' => 'required|integer'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+        
+        try {
+            $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
+            $this->coleta->update($data);
+            flash('<i class="fa fa-check"></i> Coleta alterada com sucesso!')->success();
+            return redirect()->route('coletas.show', ['coleta' => $coleta->id_coleta]);
+        } catch (Exception $e) {
+            $message = 'Erro ao atualizar coleta!';
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
