@@ -158,6 +158,7 @@ class ColetaController extends Controller {
      */
     public function update(Request $request, Coleta $coleta) {
         $data = $request->all();
+        
         $rules = [
             'data_coleta' => 'date_format:"d/m/Y"|required',
             'hora_coleta' => 'required',
@@ -190,7 +191,7 @@ class ColetaController extends Controller {
         
         try {
             $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
-            $this->coleta->update($data);
+            $coleta->update($data);
             flash('<i class="fa fa-check"></i> Coleta alterada com sucesso!')->success();
             return redirect()->route('coletas.show', ['coleta' => $coleta->id_coleta]);
         } catch (Exception $e) {

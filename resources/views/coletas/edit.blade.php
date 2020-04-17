@@ -39,8 +39,7 @@
         <div class="card-body">
             @include("flash::message")
             {!! Form::open(['route' => ['coletas.update', 'coleta' => $coleta->id_coleta], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
-
-            <div class="row">
+                <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group row">
                         {!! Form::label('dataform', 'Data da coleta', ['class' => 'col-lg-4 col-form-label', 'autofocus' => true]) !!}

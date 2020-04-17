@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEstoqueAvesTable extends Migration
+class CreateEstoqueOvosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateEstoqueAvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('estoque_aves', function (Blueprint $table) {
+        Schema::create('estoque_ovos', function (Blueprint $table) {
             $table->bigIncrements('id_estoque');
             $table->integer('id_aviario');
             $table->integer('periodo');
-            $table->integer('femea');
-            $table->integer('macho');
-            $table->integer('tot_ave');
+            $table->integer('incubaveis');
+            $table->integer('comerciais');
+            $table->integer('total');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP')); 
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
@@ -32,6 +32,6 @@ class CreateEstoqueAvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estoque_aves');
+        Schema::dropIfExists('estoque_ovos');
     }
 }
