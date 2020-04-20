@@ -15,7 +15,6 @@ class CreateEstoqueOvosTable extends Migration
     {
         Schema::create('estoque_ovos', function (Blueprint $table) {
             $table->bigIncrements('id_estoque');
-            $table->integer('id_aviario');
             $table->integer('periodo');
             $table->integer('incubaveis');
             $table->integer('comerciais');

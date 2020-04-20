@@ -26,9 +26,9 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'envios/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('pordata', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar envios por data', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar envios por data', 'autocomplete' => 'off']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -40,17 +40,17 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <tr>
-                        <th>ID</th><th>Lote</th><th>Aviario</th><th>Incubaveis</th><th>Comerciais</th><th>Total</th><th>Data e hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Lote</th><th>Incubaveis</th><th>Comerciais</th><th>Total</th><th>Data e hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($envios as $envio)
                     <tr>
-                        <td>{{$envio->id_envio}}</td><td>{{$envio->lote->lote}}</td><td>{{$envio->id_aviario}}</td><td>{{$envio->incubaveis}}</td><td>{{$envio->comerciais}}</td><td>{{$envio->postura_dia}}</td><td>{{date('d/m/Y', strtotime($envio->data_envio))}}</td>
+                        <td>{{$envio->id_envio}}</td><td>{{$envio->lote->lote}}</td><td>{{$envio->incubaveis}}</td><td>{{$envio->comerciais}}</td><td>{{$envio->postura_dia}}</td><td>{{date('d/m/Y', strtotime($envio->data_envio))}} - {{date('H:i', strtotime($envio->hora_envio))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('envios.show',['envio'=>$envio->id_envio])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$envio->id_envio}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>
-                    @if($porenvio == '')
+                    @if($pordata == '')
                     {{$envios->links()}}
                     @endif
                     @empty
@@ -79,7 +79,7 @@
                 <div class="modal-body">
                     @csrf
                     @method('DELETE')
-                    <p class="text-center">Tem certeza de que deseja excluir esta baixa?</p>
+                    <p class="text-center">Tem certeza de que deseja excluir este envio?</p>
                 </div>
                 <div class="modal-footer">
                     <center>

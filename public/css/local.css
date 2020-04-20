@@ -22,7 +22,7 @@ select.form-control {
     padding: 2px 2px 0px 2px;
 }
 
-.info-num-aves{
+.info-num-aves, .est-ovos{
     background-color: #eee;
     color: #555;
     border: 1px solid #ccc;

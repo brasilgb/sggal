@@ -83,7 +83,7 @@ $(function () {
  * dessabilita digitacao em campos do formulario
  */
 $(function () {
-    $('#nextaviario, #numcoleta, #incubaveisbons, #incubaveis, #comerciais, #posturadia').keypress(function (e) {
+    $('#nextaviario, #numcoleta, #incubaveisbons, #incubaveis, #comerciais, #posturadia, #totalenvio').keypress(function (e) {
         e.preventDefault;
         return false;
     });
@@ -366,6 +366,7 @@ $(function () {
         });
     });
 });
+
 // Data portugues para ingles
 function FormataStringData(data) {
     var dia = data.split("/")[0];
@@ -376,7 +377,6 @@ function FormataStringData(data) {
     // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
 }
 ;
-
 
 // Preenche com o número da coleta
 $(function () {
@@ -389,6 +389,75 @@ $(function () {
             type: 'GET'
         }).done(function (data) {
             $('#numcoleta').val(data.coleta).addClass('bg-blue');
+        });
+    });
+});
+
+// Total envio de ovos
+$(function () {
+    $(".totalenvio").keyup(function () {
+        var total = 0;
+        $(".totalenvio").each(function (index, element) {
+            if ($(element).val()) {
+                total += parseInt($(element).val());
+            }
+        });
+        $("#totalenvio").val(total).addClass('bg-gray-light');
+    });
+});
+
+// Quantidades de ovos incubaveis e comerciais campos de envios
+$(function () {
+    $('#loteid').change(function (e) {
+        e.preventDefault();
+        idlote = $(this).val();
+        $.ajax({
+            url: base_url + '/estoqueovos/' + idlote,
+            type: 'GET'
+        }).done(function (data) {
+            $('.info-incubaveis').show('fade');
+            $('.info-incubaveis > strong').html(data.incubaveis);
+            $('.info-comerciais').show('fade');
+            $('.info-comerciais > strong').html(data.comerciais);
+        });
+    });
+});
+$(document).ready(function () {
+    idlote = $('#loteid').val();
+    $.ajax({
+        url: base_url + '/estoqueovos/' + idlote,
+        type: 'GET'
+    }).done(function (data) {
+        $('.info-incubaveis').show('fade');
+        $('.info-incubaveis > strong').html(data.incubaveis);
+        $('.info-comerciais').show('fade');
+        $('.info-comerciais > strong').html(data.comerciais);
+    });
+});
+
+
+/*
+ * Página envios, compara quantidade de ovos com estoque
+ */
+$(function () {
+    $('#envioincubaveis').keyup(function (e) {
+        e.preventDefault;
+        incubaveis = $(this).val();
+        idlote = $('#loteid').val();
+        numincubaveis = $('#numincubaveis').val();
+//        alert(incubaveis+'-'+idlote+'-'+numincubaveis);
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/estoqueovos/' + idlote
+        }).done(function (data) {
+            sumincubaveis = parseInt(data.incubaveis) + parseInt(numincubaveis);
+            if (incubaveis > sumincubaveis) {
+                $('.salvar').prop('disabled', true);
+                $("#baixaenvios").modal('toggle', 'handleUpdate', {keyboard: true, focus: true});
+                $('.sexoaves').html(sexo == 1 ? 'fêmea' : 'macho').show();
+            } else {
+                $('.salvar').prop('disabled', false);
+            }
         });
     });
 });

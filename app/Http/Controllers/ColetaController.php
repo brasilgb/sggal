@@ -158,7 +158,6 @@ class ColetaController extends Controller {
      */
     public function update(Request $request, Coleta $coleta) {
         $data = $request->all();
-        
         $rules = [
             'data_coleta' => 'date_format:"d/m/Y"|required',
             'hora_coleta' => 'required',

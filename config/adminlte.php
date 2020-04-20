@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
       |--------------------------------------------------------------------------
@@ -181,8 +182,8 @@ return [
         [
             'text' => ' Envio de ovos',
             'url' => 'envios',
+            'active' => ['envios', 'envios/*', 'regex:@^envios/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-truck',
-            
         ],
         [
             'text' => ' Períodos',

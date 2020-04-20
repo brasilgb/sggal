@@ -80,5 +80,6 @@ Route::prefix('envios')->name('envios.')->group(function() {
 //    Route::put('/store', 'ColetaController@store')->name('store');
 //    Route::put('/update/{coleta}', 'ColetaController@update')->name('update');
     Route::post('/search', 'EnvioController@search')->name('search');
+    Route::get('/estoqueovos/{loteid}', 'EnvioController@estoqueovos')->name('estoqueovos');
 //    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });

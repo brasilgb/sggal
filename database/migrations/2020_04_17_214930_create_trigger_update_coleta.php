@@ -15,7 +15,6 @@ CREATE TRIGGER `TRG_update_coleta` AFTER UPDATE ON `coletas`
 FOR EACH ROW 
 BEGIN
       CALL SP_AtualizaEstoqueOvos (
-      new.id_aviario, 
       new.periodo, 
       new.lote_id, 
       new.incubaveis - old.incubaveis, 

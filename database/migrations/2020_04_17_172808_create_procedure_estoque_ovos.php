@@ -13,7 +13,6 @@ class CreateProcedureEstoqueOvos extends Migration {
         DB::unprepared('
 DROP PROCEDURE IF EXISTS `SP_AtualizaEstoqueOvos`;            
 CREATE PROCEDURE `SP_AtualizaEstoqueOvos` (
-IN `SP_aviario` INT(10),
 IN `SP_periodo` INT(10),
 IN `SP_lote` INT(10),
 IN `SP_incubaveis` INT(10),
@@ -23,27 +22,24 @@ IN `SP_total` INT(10)
 
 BEGIN
 declare contador int(10);
-select count(*) into contador from estoque_ovos where id_aviario = SP_aviario;
+select count(*) into contador from estoque_ovos where lote_id = SP_lote;
 
 if contador > 0 then
 update estoque_ovos set 
-id_aviario = SP_aviario, 
 periodo = SP_periodo, 
 lote_id = SP_lote, 
 incubaveis = incubaveis + SP_incubaveis, 
 comerciais = comerciais + SP_comerciais,
 postura_dia = postura_dia + SP_total
-where id_aviario = SP_aviario;
+where lote_id = SP_lote;
 else
 insert into estoque_ovos (
-id_aviario, 
 periodo,
 lote_id, 
 incubaveis, 
 comerciais,
 postura_dia
 ) values(
-SP_aviario, 
 SP_periodo,
 SP_lote,
 SP_incubaveis, 

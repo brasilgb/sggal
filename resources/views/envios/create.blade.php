@@ -27,9 +27,9 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'envios/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porlote', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar envios do lote']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar envios por data']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submite', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submite', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -39,7 +39,7 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'envios.store', 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'envios.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label">Data do envio </label>
@@ -54,8 +54,8 @@
                 <div class="form-group row">
                     {!! Form::label('horaenvio', 'Hora do envio', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('hora_coleta', date("H:i", strtotime(\Carbon\Carbon::now())), ['id' => 'horacoleta', 'class' => 'form-control']) !!}
-                        @error('hora_coleta')
+                        {!! Form::text('hora_envio', date("H:i", strtotime(\Carbon\Carbon::now())), ['id' => 'horaenvio', 'class' => 'form-control']) !!}
+                        @error('hora_envio')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
@@ -72,34 +72,33 @@
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('id_aviario', 'Aviário', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('incubaveis', 'Incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::select('id_aviario', ['0' => 'Selecione o lote'], old('aviario'), ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
-                        @error('id_aviario')
+                        {!! Form::text('incubaveis', old('incubaveis'), ['id' => 'envioincubaveis', 'class' => 'totalenvio form-control']) !!}
+                        {!! Form::text('numincubaveis', '0', ['id' => 'numincubaveis']) !!}
+                        <div class="info-incubaveis est-ovos" style="display: none;">Há <strong class="text-red"></strong> ovos incubávies disponíveis no lote.</div>
+                        @error('incubaveis')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('incubaveis', 'Incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('incubaveis', old('incubaveis'), ['id' => '', 'class' => 'form-control']) !!}
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
                     {!! Form::label('comerciais', 'Comerciais', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('comerciais', old('comerciais'), ['id' => '', 'class' => 'form-control']) !!}
+                        {!! Form::text('comerciais', old('comerciais'), ['id' => 'enviocomerciais', 'class' => 'totalenvio form-control']) !!}
+                        {!! Form::text('numcomerciais', '0', ['id' => 'numcomerciais']) !!}
+                        <div class="info-comerciais est-ovos" style="display: none;">Há <strong class="text-red"></strong> ovos comerciais disponíveis no lote.</div>
+                        @error('comerciais')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('postura_dia', 'Postura do dia', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('totalenvio', 'Total para envio', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('postura_dia', old('postura_dia'), ['id' => '', 'class' => 'form-control']) !!}
+                        {!! Form::text('postura_dia', old('postura_dia'), ['id' => 'totalenvio', 'class' => 'form-control']) !!}
                     </div>
                 </div>
 

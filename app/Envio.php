@@ -10,7 +10,6 @@ class Envio extends Model {
     public $incrementing = false;
     protected $fillable = [
         'id_envio',
-        'id_aviario',
         'data_envio',
         'hora_envio',
         'periodo',
@@ -36,17 +35,12 @@ class Envio extends Model {
         $lastenvio = Envio::orderBy('id_envio', 'desc')->get();
 
         if ($lastenvio->count() > 0):
-            foreach ($lastave as $last):
+            foreach ($lastenvio as $last):
                 return $last->id_envio + 1;
             endforeach;
         else:
             return 1;
         endif;
-    }
-
-    public function getEnvios($idlote = 0) {
-        $envios = Envio::where('lote_id', $idlote)->get();
-        return $envios;
     }
 
 }

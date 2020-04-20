@@ -17,7 +17,6 @@ class CreateEnviosTable extends Migration
             $table->integer('id_envio');
             $table->date('data_envio');
             $table->time('hora_envio');
-            $table->integer('id_aviario');
             $table->integer('periodo');
             $table->integer('incubaveis');
             $table->integer('comerciais');
