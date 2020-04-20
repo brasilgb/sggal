@@ -19,7 +19,7 @@ class CreateEstoqueOvosTable extends Migration
             $table->integer('periodo');
             $table->integer('incubaveis');
             $table->integer('comerciais');
-            $table->integer('total');
+            $table->integer('postura_dia');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP')); 
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

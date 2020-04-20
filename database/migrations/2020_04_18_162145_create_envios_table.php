@@ -14,7 +14,14 @@ class CreateEnviosTable extends Migration
     public function up()
     {
         Schema::create('envios', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id_envio');
+            $table->date('data_envio');
+            $table->time('hora_envio');
+            $table->integer('id_aviario');
+            $table->integer('periodo');
+            $table->integer('incubaveis');
+            $table->integer('comerciais');
+            $table->integer('postura_dia');
             $table->timestamps();
         });
     }

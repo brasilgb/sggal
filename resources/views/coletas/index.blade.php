@@ -40,11 +40,11 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <tr>
-                        <th>ID</th><th>Coleta</th><th>Lote</th><th>Aviário</th><th>Incubáveis bons</th><th>Tot. incubáveis</th><th>Tot. comerciais</th><th>Postura dia</th><th>Data e hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Coleta</th><th>Lote</th><th>Aviário</th><th>Incubáveis</th><th>Comerciais</th><th>Postura do dia</th><th>Data e hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($coletas as $coleta)
                     <tr>
-                        <td>{{$coleta->id_coleta}}</td><td>{{$coleta->coleta}}</td><td>{{$coleta->lote->lote}}</td><td>{{$numaviario($coleta->id_aviario)}}</td><td>{{$coleta->incubaveis_bons}}</td><td>{{$coleta->incubaveis}}</td><td>{{$coleta->comerciais}}</td><td>{{$coleta->postura_dia}}</td><td>{{date("d/m/Y", strtotime($coleta->data_coleta))}} - {{ date("h:i",strtotime($coleta->hora_coleta))}}</td>
+                        <td>{{$coleta->id_coleta}}</td><td>{{$coleta->coleta}}</td><td>{{$coleta->lote->lote}}</td><td>{{$numaviario($coleta->id_aviario)}}</td><td>{{$coleta->incubaveis}}</td><td>{{$coleta->comerciais}}</td><td>{{$coleta->postura_dia}}</td><td>{{date("d/m/Y", strtotime($coleta->data_coleta))}} - {{ date("h:i",strtotime($coleta->hora_coleta))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('coletas.show',['coleta' => $coleta->id_coleta])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$coleta->id_coleta}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>

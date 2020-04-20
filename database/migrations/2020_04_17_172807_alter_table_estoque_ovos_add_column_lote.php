@@ -14,8 +14,8 @@ class AlterTableEstoqueOvosAddColumnLote extends Migration
     public function up()
     {
         Schema::table('estoque_ovos', function (Blueprint $table) {
-            $table->integer('lote')->after('periodo');
-            $table->foreign('lote')->references('id_lote')->on('lotes')->onDelete('cascade');
+            $table->integer('lote_id')->after('periodo');
+            $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
         });
     }
 
@@ -27,8 +27,8 @@ class AlterTableEstoqueOvosAddColumnLote extends Migration
     public function down()
     {
         Schema::table('estoque_ovos', function (Blueprint $table) {
-            $table->dropForeign('ovos_lote_foreign');
-            $table->dropColumn('lote');
+            $table->dropForeign('envios_lote_foreign');
+            $table->dropColumn('lote_id');
         });
     }
 }

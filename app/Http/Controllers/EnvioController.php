@@ -2,11 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Periodo;
+use App\Lote;
+use App\Aviario;
 use App\Envio;
 use Illuminate\Http\Request;
 
 class EnvioController extends Controller
 {
+    /*
+     * @var Periodo
+     * @var Lote
+     * @var Aviario
+     * @var Envio
+     */
+    
+    protected $periodo;
+    protected $lote;
+    protected $aviario;
+    protected $envio;
+    
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Envio $envio) {
+        $this->periodo = $periodo;
+        $this->lote = $lote;
+        $this->aviario = $aviario;
+        $this->envio = $envio;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +36,8 @@ class EnvioController extends Controller
      */
     public function index()
     {
-        return view('envios.index');
+        $envios = $this->envio->paginate(15);
+        return view('envios.index', compact('envios'));
     }
 
     /**
@@ -24,7 +47,8 @@ class EnvioController extends Controller
      */
     public function create()
     {
-        //
+        $lotes = $this->lote->all();
+        return view('envios.create', compact('lotes'));
     }
 
     /**

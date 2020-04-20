@@ -29,19 +29,19 @@ if contador > 0 then
 update estoque_ovos set 
 id_aviario = SP_aviario, 
 periodo = SP_periodo, 
-lote = SP_lote, 
+lote_id = SP_lote, 
 incubaveis = incubaveis + SP_incubaveis, 
 comerciais = comerciais + SP_comerciais,
-total = total + SP_total
+postura_dia = postura_dia + SP_total
 where id_aviario = SP_aviario;
 else
 insert into estoque_ovos (
 id_aviario, 
 periodo,
-lote, 
+lote_id, 
 incubaveis, 
 comerciais,
-total
+postura_dia
 ) values(
 SP_aviario, 
 SP_periodo,

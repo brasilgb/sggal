@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTriggerDeleteAviario extends Migration
+class CreateTriggerDeleteEnvio extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,18 @@ class CreateTriggerDeleteAviario extends Migration
     public function up()
     {
         DB::unprepared('
-CREATE TRIGGER `TRG_delete_aviarios` AFTER DELETE ON `aviarios` FOR EACH ROW 
+CREATE TRIGGER `TRG_delete_envios` AFTER DELETE ON `envios` 
+FOR EACH ROW 
 BEGIN
-      CALL SP_AtualizaEstoqueAves (
+      CALL SP_AtualizaEstoqueOvos (
       old.id_aviario, 
       old.periodo, 
       old.lote_id, 
-      old.femea * -1, 
-      old.macho * -1,
-      old.tot_ave * -1
-      );
+      old.incubaveis, 
+      old.comerciais,
+      old.postura_dia
+      )
+      ;
 END
                 ');
     }
@@ -33,6 +35,6 @@ END
      */
     public function down()
     {
-        DB::unprepared('DROP TRIGGER `TRG_delete_aviarios`');
+        DB::unprepared('DROP TRIGGER `TRG_delete_envios`');
     }
 }

@@ -4,7 +4,49 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Envio extends Model
-{
-    //
+class Envio extends Model {
+
+    protected $primaryKey = 'id_envio';
+    public $incrementing = false;
+    protected $fillable = [
+        'id_envio',
+        'id_aviario',
+        'data_envio',
+        'hora_envio',
+        'periodo',
+        'lote_id',
+        'incubaveis',
+        'comerciais',
+        'postura_dia'
+    ];
+
+    public function lote() {
+        return $this->belongsTo(Lote::class, 'lote_id');
+    }
+
+    public function nextEnvio($search) {
+        return Envio::where('lote_id', $search)->orderBy('id_envio', 'desc')->first();
+    }
+
+    public function valLote($idlote) {
+        return Lote::where('id_lote', $idlote)->get();
+    }
+
+    public function lastenvio() {
+        $lastenvio = Envio::orderBy('id_envio', 'desc')->get();
+
+        if ($lastenvio->count() > 0):
+            foreach ($lastave as $last):
+                return $last->id_envio + 1;
+            endforeach;
+        else:
+            return 1;
+        endif;
+    }
+
+    public function getEnvios($idlote = 0) {
+        $envios = Envio::where('lote_id', $idlote)->get();
+        return $envios;
+    }
+
 }
