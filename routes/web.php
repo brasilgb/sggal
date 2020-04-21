@@ -83,3 +83,16 @@ Route::prefix('envios')->name('envios.')->group(function() {
     Route::get('/estoqueovos/{loteid}', 'EnvioController@estoqueovos')->name('estoqueovos');
 //    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });
+
+// Operações nas peso de aves
+Route::resource('pesos', 'PesoController');
+Route::prefix('pesos')->name('pesos.')->group(function() {
+//    Route::get('/', 'ColetaController@index')->name('index');
+//    Route::get('/create', 'ColetaController@create')->name('create');
+//    Route::get('/show/{coleta}', 'ColetaController@show')->name('show');
+//    Route::put('/store', 'ColetaController@store')->name('store');
+//    Route::put('/update/{coleta}', 'ColetaController@update')->name('update');
+    Route::post('/search', 'PesoController@search')->name('search');
+    Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
+//    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
+});

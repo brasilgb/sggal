@@ -43,7 +43,7 @@ class EnvioController extends Controller {
         $pordata = $request->pordata;
         $envios = $this->envio->where('data_envio', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
         if ($envios->count() > 0):
-            return view('envios.index', compact('envios', 'pordata', 'numaviario'));
+            return view('envios.index', compact('envios', 'pordata'));
         else:
             flash('<i class="fa fa-check"></i> Envios não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
             return redirect()->route('envios.index');

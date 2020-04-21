@@ -75,7 +75,7 @@
                     {!! Form::label('incubaveis', 'Incubáveis', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('incubaveis', old('incubaveis'), ['id' => 'envioincubaveis', 'class' => 'totalenvio form-control']) !!}
-                        {!! Form::text('numincubaveis', '0', ['id' => 'numincubaveis']) !!}
+                        {!! Form::hidden('numincubaveis', '0', ['id' => 'numincubaveis']) !!}
                         <div class="info-incubaveis est-ovos" style="display: none;">Há <strong class="text-red"></strong> ovos incubávies disponíveis no lote.</div>
                         @error('incubaveis')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -87,7 +87,7 @@
                     {!! Form::label('comerciais', 'Comerciais', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('comerciais', old('comerciais'), ['id' => 'enviocomerciais', 'class' => 'totalenvio form-control']) !!}
-                        {!! Form::text('numcomerciais', '0', ['id' => 'numcomerciais']) !!}
+                        {!! Form::hidden('numcomerciais', '0', ['id' => 'numcomerciais']) !!}
                         <div class="info-comerciais est-ovos" style="display: none;">Há <strong class="text-red"></strong> ovos comerciais disponíveis no lote.</div>
                         @error('comerciais')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
@@ -120,7 +120,7 @@
 
 <!-- /.card -->
 <!-- Modal -->
-<div id="baixaenvios" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+<div id="ovosenvios" class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-gradient-danger">
@@ -130,9 +130,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p class="text-center">O número de envios <span class="sexoenvios" style="display: none;"></span> 
-                    adicionado ao campo do formulário, ultrapassou o número de envios 
-                    <span class="sexoenvios" style="display: none;"></span> disponíveis em estoque!</p>
+                <p class="text-center">O número de ovos <span class="tipoovos"></span> 
+                    adicionado ao campo do formulário, ultrapassou o número de ovos 
+                    <span class="tipoovos"></span> disponíveis no estoque!</p>
             </div>
             <div class="modal-footer right-content-between">
                 <button type="button" class="btn btn-success float-right" data-dismiss="modal">Fechar</button>

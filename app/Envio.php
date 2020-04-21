@@ -23,10 +23,6 @@ class Envio extends Model {
         return $this->belongsTo(Lote::class, 'lote_id');
     }
 
-    public function nextEnvio($search) {
-        return Envio::where('lote_id', $search)->orderBy('id_envio', 'desc')->first();
-    }
-
     public function valLote($idlote) {
         return Lote::where('id_lote', $idlote)->get();
     }

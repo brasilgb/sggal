@@ -52,4 +52,10 @@ class Ave extends Model
         return $aviarios;
     }
     
+    public function numaviario($idaviario){
+        $aviarios = Aviario::where('id_aviario', $idaviario)->get();
+        foreach ($aviarios as $aviario){
+            return $aviario->aviario;
+        }
+    }
 }

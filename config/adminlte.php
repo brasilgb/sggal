@@ -261,8 +261,8 @@ return [
                 ],
                 [
                     'text' => 'Peso das aves',
-                    'url' => 'pesoaves',
-                    'active' => ['pesoaves', 'pesoaves/*', 'regex:@^pesoaves/[0-9]+$@'],
+                    'url' => 'pesos',
+                    'active' => ['pesos', 'pesos/*', 'regex:@^pesos/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],

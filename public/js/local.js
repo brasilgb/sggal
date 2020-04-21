@@ -445,7 +445,6 @@ $(function () {
         incubaveis = $(this).val();
         idlote = $('#loteid').val();
         numincubaveis = $('#numincubaveis').val();
-//        alert(incubaveis+'-'+idlote+'-'+numincubaveis);
         $.ajax({
             type: 'GET',
             url: base_url + '/estoqueovos/' + idlote
@@ -453,8 +452,29 @@ $(function () {
             sumincubaveis = parseInt(data.incubaveis) + parseInt(numincubaveis);
             if (incubaveis > sumincubaveis) {
                 $('.salvar').prop('disabled', true);
-                $("#baixaenvios").modal('toggle', 'handleUpdate', {keyboard: true, focus: true});
-                $('.sexoaves').html(sexo == 1 ? 'fêmea' : 'macho').show();
+                $("#ovosenvios").modal('toggle', 'handleUpdate', {keyboard: true, focus: true});
+                $('.tipoovos').html('incubáveis').show();
+            } else {
+                $('.salvar').prop('disabled', false);
+            }
+        });
+    });
+});
+$(function () {
+    $('#enviocomerciais').keyup(function (e) {
+        e.preventDefault;
+        comerciais = $(this).val();
+        idlote = $('#loteid').val();
+        numcomerciais = $('#numcomerciais').val();
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/estoqueovos/' + idlote
+        }).done(function (data) {
+            sumcomerciais = parseInt(data.comerciais) + parseInt(numcomerciais);
+            if (comerciais > sumcomerciais) {
+                $('.salvar').prop('disabled', true);
+                $("#ovosenvios").modal('toggle', 'handleUpdate', {keyboard: true, focus: true});
+                $('.tipoovos').html('comerciais').show();
             } else {
                 $('.salvar').prop('disabled', false);
             }

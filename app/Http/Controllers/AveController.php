@@ -88,7 +88,10 @@ class AveController extends Controller {
                     break;
             }
         };
-        return view('aves.index', compact('aves', 'porave', 'motivos'));
+        $numaviarios = function($idaviario) {
+            return $this->ave->numaviario($idaviario);
+        };
+        return view('aves.index', compact('aves', 'porave', 'motivos', 'numaviarios'));
     }
 
     public function search(Request $request) {
