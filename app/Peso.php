@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Peso extends Model
 {
     protected $primarykey = 'id_peso';
-    public $incrementing = null;
+    public $incrementing = false;
     protected $fillable =[
         'id_peso',
         'data_peso',

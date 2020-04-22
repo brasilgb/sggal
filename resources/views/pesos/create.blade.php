@@ -40,7 +40,6 @@
             @include("flash::message")
             <div class="col-lg-6">
                 {!! Form::open(['route' => 'pesos.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
-
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label">Data de pesagem: </label>
                     <div class="col-lg-8">

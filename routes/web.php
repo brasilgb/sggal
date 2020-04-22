@@ -18,6 +18,7 @@
 Route::get('/', 'PainelController@painel');
 
 // Operações dos períodos de produção
+Route::resource('periodos', 'PeriodoController');
 Route::prefix('periodos')->name('periodos.')->group(function() {
     Route::get('/', 'PeriodoController@index')->name('index');
     Route::get('/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('ativaperiodo');

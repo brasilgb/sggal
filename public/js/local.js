@@ -238,10 +238,11 @@ $(function () {
  * Libera sistema se periodo estiver ativo
  */
 $(document).ready(function () {
+    inactive = $('.nav-item > a').attr("activate");
+    alert(inactive);
     $.ajax({
-        url: 'periodos/periodoativo'
+        url: 'periodos/periodoativo/1'
     }).done(function (data) {
-//        alert(data);
         if (data > 0) {
             $('.nav-item').children("a").click(function () {
                 return true;
@@ -252,9 +253,6 @@ $(document).ready(function () {
             $('.nav-item').children("a").click(function () {
                 return false;
             });
-            urlcompare = 'http://sggal/periodos';
-            if (window.location != urlcompare)
-                window.location.href = 'http://sggal/periodos';
         }
     });
 });

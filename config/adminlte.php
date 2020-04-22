@@ -189,6 +189,7 @@ return [
             'text' => ' Períodos',
             'url' => 'periodos',
             'icon' => 'fas fa-fw fa-clock',
+            'activate' => 1
         ],
         [
             'text' => 'Relatórios',

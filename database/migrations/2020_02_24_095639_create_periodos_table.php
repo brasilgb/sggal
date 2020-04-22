@@ -13,7 +13,10 @@ class CreatePeriodosTable extends Migration {
      */
     public function up() {
         Schema::create('periodos', function (Blueprint $table) {
-            $table->bigIncrements('id_periodo');
+            $table->integer('id_periodo')->primary();
+            $table->date('data_inicial');
+            $table->integer('semana_inicial');
+            $table->integer('semana_final');
             $table->integer('ativo');
             $table->timestamps();
             $table->dateTime('desativacao')->nullable();
