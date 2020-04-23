@@ -175,25 +175,82 @@ return [
 //            'label_color' => 'success',
         ],
         [
+            'text' => ' Períodos',
+            'url' => 'periodos',
+            'icon' => 'fas fa-fw fa-clock'
+        ],
+        [
+            'text' => ' Lotes e aviários',
+            'icon' => 'fas fa-fw fa-cubes',
+            'area-private' => '',
+            'submenu' => [
+                [
+                    'text' => ' Lotes',
+                    'url' => 'lotes',
+                    'active' => ['lotes', 'lotes/*', 'regex:@^lotes/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => ' Aviários',
+                    'url' => 'aviarios',
+                    'active' => ['aviarios', 'aviarios/*', 'regex:@^aviarios/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+            ],
+        ],
+        [
             'text' => ' Coletas',
             'url' => 'coletas',
             'icon' => 'fas fa-fw fa-cart-plus',
+            'area-private' => ''
         ],
         [
             'text' => ' Envio de ovos',
             'url' => 'envios',
             'active' => ['envios', 'envios/*', 'regex:@^envios/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-truck',
+            'area-private' => ''
         ],
         [
-            'text' => ' Períodos',
-            'url' => 'periodos',
-            'icon' => 'fas fa-fw fa-clock',
-            'activate' => 1
+            'text' => 'Aves',
+            'icon' => 'fas fa-fw fa-kiwi-bird',
+            'area-private' => '',
+            'submenu' => [
+                [
+                    'text' => 'Baixa de aves',
+                    'url' => 'aves',
+                    'active' => ['aves', 'aves/*', 'regex:@^aves/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Peso das aves',
+                    'url' => 'pesos',
+                    'active' => ['pesos', 'pesos/*', 'regex:@^pesos/[0-9]+$@'],
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+            ],
+        ],
+        [
+            'text' => 'Ração',
+            'icon' => 'fas fa-fw fa-pallet',
+            'area-private' => '',
+            'submenu' => [
+                [
+                    'text' => 'Recebimento',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+                [
+                    'text' => 'Consumo',
+                    'url' => '#',
+                    'icon' => 'fas fa-fw fa-caret-right'
+                ],
+            ],
         ],
         [
             'text' => 'Relatórios',
             'icon' => 'fas fa-fw fa-list-alt',
+            'area-private' => '',
             'submenu' => [
                 [
                     'text' => 'Coletas',
@@ -233,60 +290,9 @@ return [
             ],
         ],
         [
-            'text' => ' Lotes e aviários',
-            'icon' => 'fas fa-fw fa-cubes',
-            'submenu' => [
-                [
-                    'text' => ' Lotes',
-                    'url' => 'lotes',
-                    'active' => ['lotes', 'lotes/*', 'regex:@^lotes/[0-9]+$@'],
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-                [
-                    'text' => ' Aviários',
-                    'url' => 'aviarios',
-                    'active' => ['aviarios', 'aviarios/*', 'regex:@^aviarios/[0-9]+$@'],
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-            ],
-        ],
-        [
-            'text' => 'Aves',
-            'icon' => 'fas fa-fw fa-kiwi-bird',
-            'submenu' => [
-                [
-                    'text' => 'Baixa de aves',
-                    'url' => 'aves',
-                    'active' => ['aves', 'aves/*', 'regex:@^aves/[0-9]+$@'],
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-                [
-                    'text' => 'Peso das aves',
-                    'url' => 'pesos',
-                    'active' => ['pesos', 'pesos/*', 'regex:@^pesos/[0-9]+$@'],
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-            ],
-        ],
-        [
-            'text' => 'Ração',
-            'icon' => 'fas fa-fw fa-pallet',
-            'submenu' => [
-                [
-                    'text' => 'Recebimento',
-                    'url' => '#',
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-                [
-                    'text' => 'Consumo',
-                    'url' => '#',
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-            ],
-        ],
-        [
             'text' => 'Estatísticas',
             'icon' => 'fas fa-fw fa-chart-line',
+            'area-private' => '',
             'submenu' => [
                 [
                     'text' => 'Checklist',
@@ -313,6 +319,7 @@ return [
         [
             'text' => 'Financeiro',
             'icon' => 'fas fa-fw fa-coins',
+            'area-private' => '',
             'submenu' => [
                 [
                     'text' => 'Despesas',
@@ -341,7 +348,7 @@ return [
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
-                    'text' => 'Mortalidade',
+                    'text' => 'Backup',
                     'url' => '#',
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],

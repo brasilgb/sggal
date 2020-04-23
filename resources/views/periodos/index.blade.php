@@ -23,7 +23,7 @@
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
                 <h3 class="card-title">
-                    <button class="novoperiodo btn btn-sm btn-primary" href="#" onclick="window.location.href = '{{route('periodos.ativaperiodo',['ativo'=> 1])}}'" ><i class="far fa-clock"></i> Novo período</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#periodoModal"><i class="far fa-clock"></i> Novo período</button>
                 </h3>
                 
                 <!-- SEARCH FORM -->
@@ -31,7 +31,7 @@
                 <div class="input-group input-group-sm">
                     {!! Form::text('pordata', null, ['id' => 'dataform', 'class' => 'date-search form-control form-control-navbar', 'placeholder' => 'Buscar por data']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'date-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'date-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -64,7 +64,59 @@
         </div>
     </div>
     <!-- /.card -->
-
 </div>
+<!-- Modal -->
+<div class="modal fade" id="periodoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            {!! Form::open(['route' => 'periodos.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"><i class="far fa-clock"></i> Iniciar período</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group row">
+                    {!! Form::label('semana_inicial', 'Semana inicial', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('semana_inicial', old('semana_inicial'), ['id' => 'inicial', 'class' => 'form-control']) !!}
+                    @error('semana_inicial')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    {!! Form::label('semana_final', 'Semana final', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('semana_final', old('final'), ['id' => 'final', 'class' => 'form-control']) !!}
+                        @error('semana_final')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
 
+                <div class="form-group row">
+                    {!! Form::label('data_inicial', 'Data do início', ['class' => 'col-lg-4 col-form-label', 'autofocus' => true]) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('data_inicial', date("d/m/Y", strtotime(\Carbon\Carbon::now())), ['id' => 'dataform', 'class' => 'form-control']) !!}
+                        @error('data_inicial')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+                {!! Form::button('<i class="fa fa-sign-out-alt"></i> Sair', ['type' => 'submit', 'class' => 'btn btn-secondary', 'data-dismiss' => 'modal']) !!}
+                {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+            </div>
+            {!!Form::close()!!}
+        </div>
+    </div>
+</div>
 @endsection
