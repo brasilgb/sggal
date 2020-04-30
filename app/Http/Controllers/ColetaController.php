@@ -237,5 +237,14 @@ class ColetaController extends Controller {
             return response()->json(['coleta' => 1]);
         endif;
     }
+    
+    // Envio do relatório diário de coletas
+    public function relatoriodiario(){
+        $coletas = $this->coleta->all();
+//        return response()->json($coletas);
+        return \PDF::loadView('coletas.relatoriodiario', compact('coletas'))
+                // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+                ->download('nome-arquivo-pdf-gerado.pdf');
+    }
 
 }

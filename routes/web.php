@@ -60,7 +60,6 @@ Route::prefix('aves')->name('aves.')->group(function() {
 });
 
 // Operações nas baixas de aves
-Route::resource('coletas', 'ColetaController');
 Route::prefix('coletas')->name('coletas.')->group(function() {
 //    Route::get('/', 'ColetaController@index')->name('index');
 //    Route::get('/create', 'ColetaController@create')->name('create');
@@ -70,10 +69,11 @@ Route::prefix('coletas')->name('coletas.')->group(function() {
     Route::post('/search', 'ColetaController@search')->name('search');
 //    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
     Route::get('/numcoleta/{data}/{idlote}/{idaviario}', 'ColetaController@numcoleta')->name('numcoleta');
+    Route::get('/relatoriodiario', 'ColetaController@relatoriodiario')->name('relatoriodiario');
 });
+Route::resource('coletas', 'ColetaController');
 
 // Operações nas baixas de aves
-Route::resource('envios', 'EnvioController');
 Route::prefix('envios')->name('envios.')->group(function() {
 //    Route::get('/', 'ColetaController@index')->name('index');
 //    Route::get('/create', 'ColetaController@create')->name('create');
@@ -84,9 +84,9 @@ Route::prefix('envios')->name('envios.')->group(function() {
     Route::get('/estoqueovos/{loteid}', 'EnvioController@estoqueovos')->name('estoqueovos');
 //    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });
+Route::resource('envios', 'EnvioController');
 
 // Operações nas peso de aves
-Route::resource('pesos', 'PesoController');
 Route::prefix('pesos')->name('pesos.')->group(function() {
 //    Route::get('/', 'ColetaController@index')->name('index');
 //    Route::get('/create', 'ColetaController@create')->name('create');
@@ -97,3 +97,4 @@ Route::prefix('pesos')->name('pesos.')->group(function() {
     Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
 //    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });
+Route::resource('pesos', 'PesoController');
