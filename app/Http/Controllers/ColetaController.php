@@ -242,7 +242,7 @@ class ColetaController extends Controller {
     public function relatoriodiario(){
         $coletas = $this->coleta->all();
 //        return response()->json($coletas);
-        return \PDF::loadView('coletas.relatoriodiario', compact('coletas'))
+        return \PDF::loadView('coletas.relatoriodiario', compact('coletas'))->setPaper('a4', 'landscape')
                 // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }

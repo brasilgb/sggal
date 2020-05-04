@@ -1,0 +1,12 @@
+.relatorio{
+    width: 100%; 
+    text-align: left;
+}
+table{
+width: 100%;
+}
+td,th{
+    border: 1px solid #000;
+    text-align: left;
+}
+.text-center{text-align: center;}
