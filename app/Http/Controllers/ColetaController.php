@@ -240,9 +240,16 @@ class ColetaController extends Controller {
     
     // Envio do relatório diário de coletas
     public function relatoriodiario(){
-        $coletas = $this->coleta->all();
-//        return response()->json($coletas);
-        return \PDF::loadView('coletas.relatoriodiario', compact('coletas'))->setPaper('a4', 'landscape')
+        $dtatual = date('Y-m-d', strtotime(Carbon::now()));
+        $lotecoleta = $this->coleta->where('data_coleta', $dtatual)->distinct()->get(['lote_id']);
+
+//        $lotes = $this->lote->all();
+        $coletaslote = function($loteid){
+            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->get();
+        };
+        $datacoleta = Carbon::createFromFormat('Y-m-d', $dtatual)->format('d/m/Y');
+        return \PDF::loadView('coletas.relatoriodiario', compact('coletaslote', 'lotecoleta', 'datacoleta'))->setPaper('a4', 'landscape')
                 // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }

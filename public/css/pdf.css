@@ -1,9 +1,14 @@
 .relatorio{
     width: 100%; 
     text-align: left;
+    page-break-after: always;
+    margin: 0;
+    padding: 0;
 }
 table{
 width: 100%;
+border-collapse: collapse;
+margin-bottom: 10px;
 }
 td,th{
     border: 1px solid #000;
