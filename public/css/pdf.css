@@ -1,17 +1,72 @@
+@page {
+    margin: 1cm 2cm 0.5cm 2cm !important;
+    padding: 0px 0px 0px 0px !important;
+}
 .relatorio{
     width: 100%; 
     text-align: left;
-    page-break-after: always;
-    margin: 0;
     padding: 0;
 }
 table{
-width: 100%;
-border-collapse: collapse;
-margin-bottom: 10px;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin: 2px 2px 20px 2px;
+    font: 11px sans-serif;
+    text-transform: uppercase;
+    overflow: hidden;
 }
-td,th{
-    border: 1px solid #000;
-    text-align: left;
+tr{
+    border-collapse: collapse;
+}
+td, th{
+    padding: 2px!important;
+    border: 1px solid #666
 }
 .text-center{text-align: center;}
+
+.col-left{
+    float: left;
+    width: 49%;
+    padding: 0;
+    clear: both;
+}
+.col-right{
+    float: right;
+    width: 49%;
+    padding: 0;
+    clear: both
+}
+.col-full{
+    width: 100%;
+    margin: 0 0 10px 0;
+    padding: 0;
+}
+h3{
+    text-transform: uppercase;
+    font: bold 12px sans-serif;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+small{
+    font: 7px sans-serif;
+}
+.logo, .data, .lote, .granja{
+    margin: 0;
+    padding: 5px 0 1px 0;
+    font: 10px sans-serif;
+    text-transform: uppercase;
+}
+.bg-gray{
+    background-color: #D2D6DE;
+}
+.bg-gray-light{
+    background-color: #E2E4EA;
+}
+.text-center{
+    text-align: center;
+}

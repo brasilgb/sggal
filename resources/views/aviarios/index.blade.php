@@ -48,21 +48,19 @@
                         <td>
                             <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
-                            </td>
+                        </td>
                     </tr>
-                    @if($poraviario == '')
-                    {{$aviarios->links()}}
-                    @endif
                     @empty
                     <tr><td colspan="10"><div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Não há aviarios cadastrados em sua base de dados!</div></td></tr>
                     @endforelse
                 </table>
             </div>
-
+            @if($poraviario == '')
+            {{$aviarios->links()}}
+            @endif
         </div>
     </div>
     <!-- /.card -->
-
 </div>
 
 <div id="DeleteModal" class="modal fade" role="dialog">
@@ -93,16 +91,16 @@
 </div>
 <script type="text/javascript">
     function deleteData(id)
-     {
-         var id = id;
-         var url = '{{ route("aviarios.destroy", ":id") }}';
-         url = url.replace(':id', id);
-         $("#deleteForm").attr('action', url);
-     }
+    {
+    var id = id;
+    var url = '{{ route("aviarios.destroy", ":id") }}';
+    url = url.replace(':id', id);
+    $("#deleteForm").attr('action', url);
+    }
 
-     function formSubmit()
-     {
-         $("#deleteForm").submit();
-     }
+    function formSubmit()
+    {
+    $("#deleteForm").submit();
+    }
 </script>
 @endsection

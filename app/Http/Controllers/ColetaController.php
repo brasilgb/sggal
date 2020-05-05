@@ -242,14 +242,20 @@ class ColetaController extends Controller {
     public function relatoriodiario(){
         $dtatual = date('Y-m-d', strtotime(Carbon::now()));
         $lotecoleta = $this->coleta->where('data_coleta', $dtatual)->distinct()->get(['lote_id']);
-
-//        $lotes = $this->lote->all();
+        
         $coletaslote = function($loteid){
             $dtatual = date('Y-m-d', strtotime(Carbon::now()));
             return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->get();
         };
+        $aviarioslote = function($loteid){
+            return $this->aviario->where('lote_id', $loteid)->orderBy('id_aviario', 'asc')->get();
+        };
+        $dadoscoleta = function($aviarioid){
+            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
+            return $this->coleta->where('id_aviario', $aviarioid)->where('data_coleta', $dtatual)->get();
+        };
         $datacoleta = Carbon::createFromFormat('Y-m-d', $dtatual)->format('d/m/Y');
-        return \PDF::loadView('coletas.relatoriodiario', compact('coletaslote', 'lotecoleta', 'datacoleta'))->setPaper('a4', 'landscape')
+        return \PDF::loadView('coletas.relatoriodiario', compact('coletaslote', 'lotecoleta', 'datacoleta', 'aviarioslote', 'dadoscoleta'))->setPaper('a4', 'landscape')
                 // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }
