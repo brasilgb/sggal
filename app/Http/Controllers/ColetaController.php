@@ -243,9 +243,14 @@ class ColetaController extends Controller {
         $dtatual = date('Y-m-d', strtotime(Carbon::now()));
         $lotecoleta = $this->coleta->where('data_coleta', $dtatual)->distinct()->get(['lote_id']);
         
-        $coletaslote = function($loteid){
+        $numcoleta = function($loteid){
             $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->get();
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->distinct()->get(['coleta']);
+        };
+        
+        $coletaslote = function($loteid, $numcoleta){
+            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
+            return $this->coleta->where('data_coleta', $dtatual)->where('lote_id', $loteid)->where('coleta', $numcoleta)->get();
         };
         $aviarioslote = function($loteid){
             return $this->aviario->where('lote_id', $loteid)->orderBy('id_aviario', 'asc')->get();
@@ -254,8 +259,12 @@ class ColetaController extends Controller {
             $dtatual = date('Y-m-d', strtotime(Carbon::now()));
             return $this->coleta->where('id_aviario', $aviarioid)->where('data_coleta', $dtatual)->get();
         };
+        $listcoletas = function($loteid){
+            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->get();
+        };
         $datacoleta = Carbon::createFromFormat('Y-m-d', $dtatual)->format('d/m/Y');
-        return \PDF::loadView('coletas.relatoriodiario', compact('coletaslote', 'lotecoleta', 'datacoleta', 'aviarioslote', 'dadoscoleta'))->setPaper('a4', 'landscape')
+        return \PDF::loadView('coletas.relatoriodiario', compact('listcoletas', 'numcoleta', 'coletaslote', 'lotecoleta', 'datacoleta', 'aviarioslote', 'dadoscoleta'))->setPaper('a4', 'landscape')
                 // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }
