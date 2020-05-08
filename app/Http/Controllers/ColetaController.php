@@ -19,12 +19,14 @@ class ColetaController extends Controller {
     protected $aviario;
     protected $coleta;
     protected $periodo;
+    protected $dtatual;
 
     public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta) {
         $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
         $this->coleta = $coleta;
+        $this->dtatual = date('Y-m-d', strtotime(Carbon::now()));
     }
 
     /**
@@ -240,32 +242,54 @@ class ColetaController extends Controller {
     
     // Envio do relatório diário de coletas
     public function relatoriodiario(){
-        $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-        $lotecoleta = $this->coleta->where('data_coleta', $dtatual)->distinct()->get(['lote_id']);
+        // Busca lote_id e retorna resultado distinto(um se houver muitos) da coleta
+        $lotecoleta = $this->coleta->where('data_coleta', $this->dtatual)->distinct()->get(['lote_id']);
         
+        // Busca em coletas o número da coleta e retorna resultado distinto(um se houver muitos)
         $numcoleta = function($loteid){
-            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->distinct()->get(['coleta']);
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->distinct()->get(['coleta']);
         };
         
+        // Busca e retorna valores das coletas por lote e número da coleta
         $coletaslote = function($loteid, $numcoleta){
-            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-            return $this->coleta->where('data_coleta', $dtatual)->where('lote_id', $loteid)->where('coleta', $numcoleta)->get();
+            return $this->coleta->where('data_coleta', $this->dtatual)->where('lote_id', $loteid)->where('coleta', $numcoleta)->get();
         };
+        
+        // Lista os aviários do lote
         $aviarioslote = function($loteid){
             return $this->aviario->where('lote_id', $loteid)->orderBy('id_aviario', 'asc')->get();
         };
+        
+        //Busca os valores das coletas por data e id do aviário
         $dadoscoleta = function($aviarioid){
-            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-            return $this->coleta->where('id_aviario', $aviarioid)->where('data_coleta', $dtatual)->get();
+            return $this->coleta->where('id_aviario', $aviarioid)->where('data_coleta', $this->dtatual)->get();
         };
+        
+        // Lista coletas do lote por data
         $listcoletas = function($loteid){
-            $dtatual = date('Y-m-d', strtotime(Carbon::now()));
-            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $dtatual)->get();
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->get();
         };
-        $datacoleta = Carbon::createFromFormat('Y-m-d', $dtatual)->format('d/m/Y');
-        return \PDF::loadView('coletas.relatoriodiario', compact('listcoletas', 'numcoleta', 'coletaslote', 'lotecoleta', 'datacoleta', 'aviarioslote', 'dadoscoleta'))->setPaper('a4', 'landscape')
-                // Se quiser que fique no formato a4 retrato: ->setPaper('a4', 'landscape')
+        
+        // Totais da coleta
+        $totcoletalote = function($loteid){
+            return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->get();
+        };
+
+
+        // Define a data padrão brasileiro no view
+        $datacoleta = Carbon::createFromFormat('Y-m-d', $this->dtatual)->format('d/m/Y');
+        
+        // Monta arquivo em PDF do relatório diário de coletas
+        return \PDF::loadView('coletas.relatoriodiario', compact(
+                'listcoletas', 
+                'numcoleta', 
+                'coletaslote', 
+                'lotecoleta', 
+                'datacoleta', 
+                'aviarioslote', 
+                'dadoscoleta',
+                'totcoletalote'))
+                ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }
 
