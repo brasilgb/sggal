@@ -237,12 +237,12 @@ return [
             'submenu' => [
                 [
                     'text' => 'Recebimento',
-                    'url' => '#',
+                    'url' => 'racao/recebimentos',
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Consumo',
-                    'url' => '#',
+                    'url' => 'racao/consumos',
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
