@@ -238,11 +238,13 @@ return [
                 [
                     'text' => 'Recebimento',
                     'url' => 'racao/recebimentos',
+                    'active' => ['racao/recebimentos', 'racao/recebimentos/*', 'regex:@^racao/recebimentos/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Consumo',
                     'url' => 'racao/consumos',
+                    'active' => ['racao/consumos', 'racao/consumos/*', 'regex:@^racao/consumos/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],

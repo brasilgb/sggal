@@ -12,12 +12,27 @@ class Recebimento extends Model {
         'id_recebimento',
         'periodo',
         'lote_id',
-        'data_racao',
-        'hora_racao',
+        'data_recebimento',
+        'hora_recebimento',
         'femea',
         'macho',
-        'quantidade',
         'nota_fiscal'
     ];
+
+    public function lote() {
+        return $this->belongsTo(\App\Lote::class, 'lote_id');
+    }
+
+    public function lastrecebimento() {
+        $lastrecebimento = Recebimento::orderBy('id_recebimento', 'desc')->get();
+
+        if ($lastrecebimento->count() > 0):
+            foreach ($lastrecebimento as $last):
+                return $last->id_recebimento + 1;
+            endforeach;
+        else:
+            return 1;
+        endif;
+    }
 
 }

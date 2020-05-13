@@ -29,7 +29,7 @@
                 <div class="input-group input-group-sm">
                     {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar recebimento por data']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -39,7 +39,7 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'recebimentos.store', 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'recebimentos.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group row">
                     <label class="col-lg-4 col-form-label">Data do recebimento: </label>

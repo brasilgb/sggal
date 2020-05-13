@@ -16,11 +16,10 @@ class CreateRecebimentosTable extends Migration
         Schema::create('recebimentos', function (Blueprint $table) {
             $table->integer('id_recebimento')->primary();
             $table->integer('periodo');
-            $table->date('data_racao');
-            $table->time('hora_racao');
-            $table->integer('femea');
-            $table->integer('macho');
-            $table->decimal('quantidade', 10, 2);
+            $table->date('data_recebimento');
+            $table->time('hora_recebimento');
+            $table->decimal('femea', 10, 2);
+            $table->decimal('macho', 10, 2);
             $table->integer('nota_fiscal');
             $table->timestamps();
         });

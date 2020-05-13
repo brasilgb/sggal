@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Periodo;
 use App\Lote;
 use App\Racao\Recebimento;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class RecebimentoController extends Controller {
 
@@ -33,20 +35,13 @@ class RecebimentoController extends Controller {
     }
 
     public function search(Request $request) {
-        $search = $request->porlote;
-        $loteid = $this->lote->where('lote', $search)->get();
-        if ($loteid->count() > 0):
-            foreach ($loteid as $lid) {
-                $lt = $lid->id_lote;
-            }
-            $aviarios = $this->aviario->where('lote_id', $lt)->get();
-            return view('aviarios.index', [
-                'aviarios' => $aviarios,
-                'poraviario' => $search
-            ]);
+        $pordata = $request->pordata;
+        $recebimentos = $this->recebimento->where('data_recebimento', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
+        if ($recebimentos->count() > 0):
+            return view('racao/recebimentos.index', compact('recebimentos', 'pordata'));
         else:
-            flash('<i class="fa fa-check"></i> Lote não encontrado, verifique se digitou corretamente o nome do lote!')->error();
-            return redirect()->route('aviarios.index');
+            flash('<i class="fa fa-check"></i> Recebimentos de ração não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
+            return redirect()->route('recebimentos.index');
         endif;
     }
 
@@ -67,7 +62,40 @@ class RecebimentoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $data = $request->all();
+        $rules = [
+            'lote_id' => 'required',
+            'data_recebimento' => 'date_format:"d/m/Y"|required',
+            'hora_recebimento' => 'required',
+            'sexo' => 'required|integer',
+            'quantidade' => 'required|integer',
+            'nota_fiscal' => 'required'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+
+        try {
+            $data['id_recebimento'] = $this->recebimento->lastrecebimento();
+            $data['data_recebimento'] = Carbon::createFromFormat('d/m/Y', $request->data_recebimento)->format('Y-m-d');
+            $data['periodo'] = $this->periodo->periodoativo();
+            $data['femea'] = $data['sexo'] == 1 ? $data['quantidade'] : '0';
+            $data['macho'] = $data['sexo'] == 2 ? $data['quantidade'] : '0';
+            $this->recebimento->create($data);
+            flash('<i class="fa fa-check"></i> Recebimento salvo com sucesso!')->success();
+            return redirect()->route('recebimentos.index');
+        } catch (Exception $e) {
+            $message = 'Erro ao inserir recebimento!';
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**

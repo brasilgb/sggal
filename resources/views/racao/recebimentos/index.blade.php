@@ -40,18 +40,18 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <tr>
-                        <th>ID</th><th>Lote</th><th>Quantidade (Kg)</th><th>Nota fiscal</th><th>Sexo</th><th>Data</th><th>Hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Lote</th><th>Sexo</th><th>Quantidade (Kg)</th><th>Nota fiscal</th><th>Data</th><th>Hora</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($recebimentos as $recebimento)
                     <tr>
-                        <td>{{$recebimento->id_recebimento}}</td><td>{{$recebimento->lote->lote}}</td><td>{{$recebimento->quantidade}}</td><td>{{$recebimento->nota_fiscal}}</td><td>{{$recebimento->femea > 0 ? $ave->femea : $ave->macho}}</td><td>{{date('d/m/Y', strtotime($recebimento->data_recebimento))}}</td><td>{{date('H:i',strtotime($recebimento->hora_recebimento))}}</td>
+                        <td>{{$recebimento->id_recebimento}}</td><td>{{$recebimento->lote->lote}}</td><td>{{$recebimento->femea > 0 ? 'Fêmea' : 'Macho'}}</td><td>{{$recebimento->femea > 0 ? $recebimento->femea : $recebimento->macho}}</td><td>{{$recebimento->nota_fiscal}}</td><td>{{date('d/m/Y', strtotime($recebimento->data_recebimento))}}</td><td>{{date('H:i',strtotime($recebimento->hora_recebimento))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('recebimentos.show',['recebimento'=>$recebimento->id_recebimento])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$recebimento->id_recebimento}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>
                     @if($pordata == '')
-                    {{$aves->links()}}
+                    {{$recebimentos->links()}}
                     @endif
                     @empty
                     <tr><td colspan="10"><div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Não há recebimentos de ração cadastrados em sua base de dados!</div></td></tr>

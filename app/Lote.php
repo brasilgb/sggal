@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Aviario;
 use App\Ave;
 use App\Coleta;
+use App\Racao\Recebimento;
 class Lote extends Model {
 
     protected $primaryKey = 'id_lote';
@@ -29,6 +30,10 @@ class Lote extends Model {
 
     public function coletas() {
         return $this->hasMany(Coleta::class);
+    }
+
+    public function recebimentos() {
+        return $this->hasMany(Recebimento::class);
     }
 
     public function lastlote() {
