@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-cube"></i> Aviários</h3>
+                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-pallet"></i> Ração</h3>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Aviários</li>
+                    <li class="breadcrumb-item"><a href="/"> Home</a></li>
+                    <li class="breadcrumb-item active"> Consumos</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -22,13 +22,13 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><button onclick="window.location.href = '{{route('aviarios.create')}}'" class="btn btn-primary btn-sm"><i class="fas fa-plus-square"></i> Adicionar aviario</button></h3>
+                <h3 class="card-title"><button onclick="window.location.href = '{{route('consumos.create')}}'" class="btn btn-primary btn-sm"><i class="fas fa-plus-square"></i> Adicionar consumo</button></h3>
                 <!-- SEARCH FORM -->
-                {!! Form::open(['url' => 'aviarios/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
+                {!! Form::open(['url' => 'racao/consumos/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porlote', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por lote', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por data', 'autocomplete' => 'off']) !!}
                     <div class="input-group-append">
-                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
+                        {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}
@@ -40,27 +40,29 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <tr>
-                        <th>ID</th><th>Lote</th><th>Aviario</th><th>Fêmeas</th><th>Machos</th><th>Total</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Lote</th><th>Aviário</th><th>Box</th><th>Sexo</th><th>Quantidade (Kg)</th><th>Data</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
-                    @forelse($aviarios as $aviario)
+                    @forelse($consumos as $consumo)
                     <tr>
-                        <td>{{$aviario->id_aviario}}</td><td>{{$aviario->lote->lote}}</td><td>{{$aviario->aviario}}</td><td>{{$aviario->femea}}</td><td>{{$aviario->macho}}</td><td>{{$aviario->tot_ave}}</td><td>{{date('d/m/Y', strtotime($aviario->data_aviario))}}</td>
+                        <td>{{$consumo->id_consumo}}</td><td>{{$consumo->lote->lote}}</td><td>{{$consumo->aviario_id}}</td><td>{{$consumo->box}}</td><td>{{$consumo->femea > 0 ? 'Fêmea' : 'Macho'}}</td><td>{{$consumo->femea > 0 ? $consumo->femea : $consumo->macho}}</td><td>{{date('d/m/Y', strtotime($consumo->data_consumo))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('aviarios.show',['aviario'=>$aviario->id_aviario])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
-                            <button data-toggle="modal" onclick="deleteData({{$aviario->id_aviario}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
-                        </td>
+                            <button onclick="window.location.href = '{{route('consumos.show',['consumo'=>$consumo->id_consumo])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
+                            <button data-toggle="modal" onclick="deleteData({{$consumo->id_consumo}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            </td>
                     </tr>
+                    @if($pordata == '')
+                    {{$consumos->links()}}
+                    @endif
                     @empty
-                    <tr><td colspan="10"><div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Não há aviarios cadastrados em sua base de dados!</div></td></tr>
+                    <tr><td colspan="10"><div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Não há consumos de ração cadastrados em sua base de dados!</div></td></tr>
                     @endforelse
                 </table>
             </div>
-            @if($poraviario == '')
-            {{$aviarios->links()}}
-            @endif
+
         </div>
     </div>
     <!-- /.card -->
+
 </div>
 
 <div id="DeleteModal" class="modal fade" role="dialog">
@@ -77,7 +79,7 @@
                 <div class="modal-body">
                     @csrf
                     @method('DELETE')
-                    <p class="text-center">Tem certeza de que deseja excluir este aviário?</p>
+                    <p class="text-center">Tem certeza de que deseja excluir este consumo?</p>
                 </div>
                 <div class="modal-footer">
                     <center>
@@ -91,16 +93,16 @@
 </div>
 <script type="text/javascript">
     function deleteData(id)
-    {
-    var id = id;
-    var url = '{{ route("aviarios.destroy", ":id") }}';
-    url = url.replace(':id', id);
-    $("#deleteForm").attr('action', url);
-    }
+     {
+         var id = id;
+         var url = '{{ route("consumos.destroy", ":id") }}';
+         url = url.replace(':id', id);
+         $("#deleteForm").attr('action', url);
+     }
 
-    function formSubmit()
-    {
-    $("#deleteForm").submit();
-    }
+     function formSubmit()
+     {
+         $("#deleteForm").submit();
+     }
 </script>
 @endsection

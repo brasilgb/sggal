@@ -6,20 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Periodo;
 use App\Lote;
-use App\Racao\Recebimento;
+use App\Aviario;
+use App\Racao\Consumo;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
-class RecebimentoController extends Controller {
-
+class ConsumoController extends Controller
+{
+    
     protected $periodo;
     protected $lote;
-    protected $recebimento;
+    protected $aviario;
+    protected $consumo;
 
-    public function __construct(Periodo $periodo, Lote $lote, Recebimento $recebimento) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Consumo $consumo) {
         $this->periodo = $periodo;
         $this->lote = $lote;
-        $this->recebimento = $recebimento;
+        $this->aviario = $aviario;
+        $this->consumo = $consumo;
     }
 
     /**
@@ -28,20 +32,20 @@ class RecebimentoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $recebimentos = $this->recebimento->paginate(15);
+        $consumos = $this->consumo->paginate(15);
         $pordata = '';
 
-        return view('racao/recebimentos.index', compact('recebimentos', 'pordata'));
+        return view('racao/consumos.index', compact('consumos', 'pordata'));
     }
 
     public function search(Request $request) {
         $pordata = $request->pordata;
-        $recebimentos = $this->recebimento->where('data_recebimento', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
-        if ($recebimentos->count() > 0):
-            return view('racao/recebimentos.index', compact('recebimentos', 'pordata'));
+        $consumos = $this->consumo->where('data_consumo', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
+        if ($consumos->count() > 0):
+            return view('racao/consumos.index', compact('consumos', 'pordata'));
         else:
-            flash('<i class="fa fa-check"></i> Recebimentos de ração não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
-            return redirect()->route('recebimentos.index');
+            flash('<i class="fa fa-check"></i> Consumos de ração não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
+            return redirect()->route('consumos.index');
         endif;
     }
 
@@ -52,7 +56,7 @@ class RecebimentoController extends Controller {
      */
     public function create() {
         $lotes = $this->lote->all();
-        return view('racao/recebimentos.create', compact('lotes'));
+        return view('racao/consumos.create', compact('lotes'));
     }
 
     /**
@@ -64,12 +68,12 @@ class RecebimentoController extends Controller {
     public function store(Request $request) {
         $data = $request->all();
         $rules = [
-            'lote_id' => 'required',
-            'data_recebimento' => 'date_format:"d/m/Y"|required',
-            'hora_recebimento' => 'required',
+            'lote_id' => 'required|integer',
+            'aviario_id' => 'required|integer',
+            'box' => 'required|integer',
+            'data_consumo' => 'date_format:"d/m/Y"|required',
             'sexo' => 'required|integer',
-            'quantidade' => 'required',
-            'nota_fiscal' => 'required'
+            'quantidade' => 'required'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -80,16 +84,16 @@ class RecebimentoController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
-            $data['id_recebimento'] = $this->recebimento->lastrecebimento();
-            $data['data_recebimento'] = Carbon::createFromFormat('d/m/Y', $request->data_recebimento)->format('Y-m-d');
+            $data['id_consumo'] = $this->consumo->lastconsumo();
+            $data['data_consumo'] = Carbon::createFromFormat('d/m/Y', $request->data_consumo)->format('Y-m-d');
             $data['periodo'] = $this->periodo->periodoativo();
             $data['femea'] = $data['sexo'] == 1 ? $data['quantidade'] : '0';
             $data['macho'] = $data['sexo'] == 2 ? $data['quantidade'] : '0';
-            $this->recebimento->create($data);
-            flash('<i class="fa fa-check"></i> Recebimento salvo com sucesso!')->success();
-            return redirect()->route('recebimentos.index');
+            $this->consumo->create($data);
+            flash('<i class="fa fa-check"></i> Consumo salvo com sucesso!')->success();
+            return redirect()->route('consumos.index');
         } catch (Exception $e) {
-            $message = 'Erro ao inserir recebimento!';
+            $message = 'Erro ao inserir consumo!';
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
             }
@@ -101,12 +105,15 @@ class RecebimentoController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  int  $id_recebimento
+     * @param  int  $id_consumo
      * @return \Illuminate\Http\Response
      */
-    public function show(Recebimento $recebimento) {
+    public function show(Consumo $consumo) {
         $lotes = $this->lote->all();
-        return view('racao/recebimentos.edit', compact('lotes', 'recebimento'));
+        $aviarios = function($loteid){
+            return $this->aviario->where('lote_id', $loteid);
+        };
+        return view('racao/consumos.edit', compact('lotes', 'aviarios', 'consumo'));
     }
 
     /**
@@ -115,8 +122,8 @@ class RecebimentoController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Recebimento $recebimento) {
-        return redirect()->route('recebimentos.show', ['requerimento' => $recebimento->id_recebimento]);
+    public function edit(Consumo $consumo) {
+        return redirect()->route('consumos.show', ['consumo' => $consumo->id_consumo]);
     }
 
     /**
@@ -126,15 +133,15 @@ class RecebimentoController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recebimento $recebimento) {
+    public function update(Request $request, Consumo $consumo) {
         $data = $request->all();
         $rules = [
-            'lote_id' => 'required',
-            'data_recebimento' => 'date_format:"d/m/Y"|required',
-            'hora_recebimento' => 'required',
+            'lote_id' => 'required|integer',
+            'aviario_id' => 'required|integer',
+            'box' => 'required|integer',
+            'data_consumo' => 'date_format:"d/m/Y"|required',
             'sexo' => 'required|integer',
-            'quantidade' => 'required',
-            'nota_fiscal' => 'required'
+            'quantidade' => 'required'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -145,14 +152,14 @@ class RecebimentoController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
-            $data['data_recebimento'] = Carbon::createFromFormat('d/m/Y', $request->data_recebimento)->format('Y-m-d');
+            $data['data_consumo'] = Carbon::createFromFormat('d/m/Y', $request->data_consumo)->format('Y-m-d');
             $data['femea'] = $data['sexo'] == 1 ? $data['quantidade'] : '0';
             $data['macho'] = $data['sexo'] == 2 ? $data['quantidade'] : '0';
-            $recebimento->update($data);
-            flash('<i class="fa fa-check"></i> Recebimento editado com sucesso!')->success();
-            return redirect()->route('recebimentos.index');
+            $consumo->update($data);
+            flash('<i class="fa fa-check"></i> Consumo editado com sucesso!')->success();
+            return redirect()->route('consumos.index');
         } catch (Exception $e) {
-            $message = 'Erro ao editar recebimento!';
+            $message = 'Erro ao editar consumo!';
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
             }
@@ -167,13 +174,13 @@ class RecebimentoController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Recebimento $recebimento) {
+    public function destroy(Consumo $consumo) {
         try {
-            $recebimento->delete();
-            flash('<i class="fa fa-check"></i> Recebimento removido com sucesso!')->success();
-            return redirect()->route('recebimentos.index');
+            $consumo->delete();
+            flash('<i class="fa fa-check"></i> Consumo removido com sucesso!')->success();
+            return redirect()->route('consumos.index');
         } catch (Exception $e) {
-            $message = 'Erro ao remover o recebimento';
+            $message = 'Erro ao remover o consumo';
 
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();

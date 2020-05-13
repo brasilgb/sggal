@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-pallet"></i> Recebimentos</h3>
+                <h3 class="m-0 text-dark"><i class="fas fa-fw fa-pallet"></i> Ração</h3>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -26,7 +26,7 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'racao/recebimentos/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar recebimento por data', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por data', 'autocomplete' => 'off']) !!}
                     <div class="input-group-append">
                         {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary']) !!}
                     </div>

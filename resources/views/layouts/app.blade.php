@@ -40,6 +40,6 @@ Todos os direitos reservados.
             nextText: 'Próximo',
             prevText: 'Anterior'
     });
-    $('#horacoleta').inputmask("99:99");
+    $('#horacoleta, #horarecebimento').inputmask("99:99");
 </script>
 @stop

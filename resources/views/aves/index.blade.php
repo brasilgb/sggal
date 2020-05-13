@@ -26,7 +26,7 @@
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'aves/search', 'method' => 'POST', 'class' => 'form-inline ml-3']) !!}
                 <div class="input-group input-group-sm">
-                    {!! Form::text('porlote', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar aves do lote', 'autocomplete' => 'off']) !!}
+                    {!! Form::text('porlote', null, ['class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por lote', 'autocomplete' => 'off']) !!}
                     <div class="input-group-append">
                         {!! Form::button('<i class="fas fa-search"></i>', ['id' => 'search-btn', 'type' => 'submit', 'class' => 'btn btn-primary', 'disabled' => 'true']) !!}
                     </div>

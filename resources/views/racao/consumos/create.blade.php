@@ -11,8 +11,8 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/"> Home</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('recebimentos.index')}}"> Recebimentos</a></li>
-                    <li class="breadcrumb-item active"> Adicionar recebimento</li>
+                    <li class="breadcrumb-item"><a href="{{route('consumos.index')}}"> Consumos</a></li>
+                    <li class="breadcrumb-item active"> Adicionar consumo</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,9 +23,9 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><a href="{{route('recebimentos.index')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
+                <h3 class="card-title"><a href="{{route('consumos.index')}}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-left"></i> Voltar</a></h3>
                 <!-- SEARCH FORM -->
-                {!! Form::open(['url' => 'racao/recebimentos/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['url' => 'racao/consumos/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
                     {!! Form::text('pordata', null, ['id' => 'datasearch', 'class' => 'input-search form-control form-control-navbar', 'placeholder' => 'Buscar por data']) !!}
                     <div class="input-group-append">
@@ -39,23 +39,13 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'recebimentos.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'consumos.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group row">
-                    <label class="col-lg-4 col-form-label">Data do recebimento: </label>
+                    <label class="col-lg-4 col-form-label">Data do consumo: </label>
                     <div class="col-lg-8">
-                        <input id="dataform" class="form-control" type="text" name="data_recebimento" value="<?= date("d/m/Y"); ?>">
-                        @error('data_recebimento')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('horarecebimento', 'Hora do recebimento', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('hora_recebimento', date("H:i", strtotime(\Carbon\Carbon::now())), ['id' => 'horarecebimento', 'class' => 'form-control']) !!}
-                        @error('hora_recebimento')
+                        <input id="dataform" class="form-control" type="text" name="data_consumo" value="<?= date("d/m/Y"); ?>">
+                        @error('data_consumo')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
@@ -67,6 +57,26 @@
                         {!! Form::select('lote_id', $lotes->pluck('lote', 'id_lote')->prepend('Selecione o lote', ''), old('lote_id'),['id' => 'loteid', 'class' => 'form-control']) !!}
                         @error('lote_id')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> O campo lote deve ser selecionado!</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {!! Form::label('aviariosdolote', 'Aviario', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::select('aviario_id', ['' => 'Selecione o lote'], old('aviario_id'), ['id' => 'aviariosdolote', 'class' => 'form-control']) !!}
+                        @error('aviario_id')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {!! Form::label('box', 'Box', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('box', old('box'), ['id' => 'box', 'class' => 'form-control input-total']) !!}
+                        @error('box')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -91,17 +101,7 @@
                         @enderror
                     </div>
                 </div>
-                
-                <div class="form-group row">
-                    {!! Form::label('notafiscal', 'Nota fiscal', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('nota_fiscal', old('nota_fiscal'), ['id' => 'notafiscal', 'class' => 'form-control input-total']) !!}
-                        @error('nota_fiscal')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                
+
                 <div class="form-group row">
                     <div class="col-lg-4 col-form-label"></div>
                     <div class="col-lg-8 text-right">

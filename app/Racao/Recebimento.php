@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recebimento extends Model {
 
-    protected $prymarykey = 'id_recebimento';
+    protected $primaryKey = 'id_recebimento';
     public $incrementing = false;
     protected $fillable = [
         'id_recebimento',

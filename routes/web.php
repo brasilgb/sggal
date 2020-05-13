@@ -88,26 +88,19 @@ Route::resource('envios', 'EnvioController');
 
 // Operações nas peso de aves
 Route::prefix('pesos')->name('pesos.')->group(function() {
-//    Route::get('/', 'ColetaController@index')->name('index');
-//    Route::get('/create', 'ColetaController@create')->name('create');
-//    Route::get('/show/{coleta}', 'ColetaController@show')->name('show');
-//    Route::put('/store', 'ColetaController@store')->name('store');
-//    Route::put('/update/{coleta}', 'ColetaController@update')->name('update');
     Route::post('/search', 'PesoController@search')->name('search');
     Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
-//    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });
 Route::resource('pesos', 'PesoController');
 
 // Operações recebimento de racao
 Route::namespace('Racao')->prefix('racao/recebimentos')->name('racao/recebimentos.')->group(function() {
-//    Route::get('/', 'ColetaController@index')->name('index');
-//    Route::get('/create', 'ColetaController@create')->name('create');
-//    Route::get('/show/{coleta}', 'ColetaController@show')->name('show');
-//    Route::put('/store', 'ColetaController@store')->name('store');
-//    Route::put('/update/{coleta}', 'ColetaController@update')->name('update');
     Route::post('/search', 'RecebimentoController@search')->name('search');
-//    Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
-//    Route::delete('/destroy/{coleta}', 'ColetaController@destroy')->name('destroy');
 });
 Route::resource('racao/recebimentos', 'Racao\RecebimentoController');
+
+// Operações recebimento de racao
+Route::namespace('Racao')->prefix('racao/consumos')->name('racao/consumos.')->group(function() {
+    Route::post('/search', 'ConsumoController@search')->name('search');
+});
+Route::resource('racao/consumos', 'Racao\ConsumoController');

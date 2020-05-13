@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRecebimentosTable extends Migration
+class CreateConsumosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateRecebimentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('recebimentos', function (Blueprint $table) {
-            $table->integer('id_recebimento')->primary();
+        Schema::create('consumos', function (Blueprint $table) {
+            $table->integer('id_consumo')->primary();
             $table->integer('periodo');
-            $table->date('data_recebimento');
-            $table->time('hora_recebimento');
+            $table->integer('aviario_id');
+            $table->integer('box');
+            $table->date('data_consumo');
             $table->integer('femea');
             $table->integer('macho');
-            $table->integer('nota_fiscal');
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ class CreateRecebimentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recebimentos');
+        Schema::dropIfExists('consumos');
     }
 }
