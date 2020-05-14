@@ -337,7 +337,7 @@ return [
         ],
         [
             'text' => 'Configurações',
-            'icon' => 'fas fa-fw fa-cog',
+            'icon' => 'fas fa-fw fa-cogs',
             'submenu' => [
                 [
                     'text' => 'Empresa',

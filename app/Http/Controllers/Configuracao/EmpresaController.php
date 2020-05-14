@@ -4,17 +4,33 @@ namespace App\Http\Controllers\Configuracao;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Configuracao\Empresa;
+use Illuminate\Support\Facades\Validator;
 
-class EmpresaController extends Controller
-{
+class EmpresaController extends Controller {
+    /*
+     * @var Empresa
+     */
+
+    protected $empresa;
+
+    public function __construct(Empresa $empresa) {
+        $this->empresa = $empresa;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('configuracoes/empresa.index');
+    public function index(Empresa $empresa) {
+        $empresas = $empresa->get()->first();
+        $count = $this->empresa->all()->count();
+        
+        if ($count > 0):
+            return redirect()->route('empresa.show', ['empresa' => $empresas->id_empresa]);
+        endif;
+        return redirect()->route('empresa.create');
     }
 
     /**
@@ -22,9 +38,8 @@ class EmpresaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('configuracoes/empresa.create');
     }
 
     /**
@@ -33,9 +48,44 @@ class EmpresaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request, Empresa $empresa) {
+        $data = $request->all();
+        $rules = [
+            'logotipo' => 'required|mimes:pdf,xlx,csv,txt|max:2048',
+            'cnpj' => 'required',
+            'razao_social' => 'required',
+            'endereco' => 'required',
+            'cidade' => 'required',
+            'uf' => 'required',
+            'telefone' => 'required',
+            'email' => 'required'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+        $fileName = time().'.'.$request->logotipo->extension();  
+
+   
+
+        $request->logotipo->move(public_path('uploads'), $fileName);
+        try {
+            $data['id_empresa'] = $this->empresa->lastempresa();
+            $this->empresa->create($data);
+            $empid = $empresa->get()->first();
+            flash('<i class="fa fa-check"></i> Dados da empresa salvo com sucesso!')->success();
+            return redirect()->route('empresa.show', ['empresa' => $empid->id_empresa]);
+        } catch (Exception $e) {
+            $message = 'Erro ao inserir dados da empresa!';
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -44,9 +94,8 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show(Empresa $empresa) {
+        return view('configuracoes/empresa.edit', compact('empresa'));
     }
 
     /**
@@ -55,9 +104,8 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit(Empresa $empresa) {
+        return redirect()->route('empresa.show', ['empresa' => $empresa->id_empresa]);
     }
 
     /**
@@ -67,9 +115,38 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, Empresa $empresa) {
+        $data = $request->all();
+        $rules = [
+            'logotipo' => 'required',
+            'cnpj' => 'required',
+            'razao_social' => 'required',
+            'endereco' => 'required',
+            'cidade' => 'required',
+            'uf' => 'required',
+            'telefone' => 'required',
+            'email' => 'required'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+
+        try {
+            $empresa->update($data);
+            flash('<i class="fa fa-check"></i> Dados da empresa salvo com sucesso!')->success();
+            return redirect()->route('empresa.show', ['empresa' => $empresa->id_empresa]);
+        } catch (Exception $e) {
+            $message = 'Erro ao inserir dados da empresa!';
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -78,8 +155,8 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
+
 }

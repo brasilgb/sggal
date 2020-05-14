@@ -106,6 +106,4 @@ Route::namespace('Racao')->prefix('racao/consumos')->name('racao/consumos.')->gr
 Route::resource('racao/consumos', 'Racao\ConsumoController');
 
 // Operações configuracoes de racao
-Route::namespace('Configuracao')->prefix('configuracoes/empresa')->name('configuracoes/empresa.')->group(function() {
-    Route::get('/', 'EmpresaController@index')->name('index');
-});
+Route::resource('configuracoes/empresa', 'Configuracao\EmpresaController');
