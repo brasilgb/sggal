@@ -28,3 +28,7 @@ select.form-control {
     border: 1px solid #ccc;
     padding: 2px 5px;
 }
+/*// Input file*/
+.logotipo {
+  display: none;
+}

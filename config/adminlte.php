@@ -341,7 +341,7 @@ return [
             'submenu' => [
                 [
                     'text' => 'Empresa',
-                    'url' => '#',
+                    'url' => 'configuracoes/empresa',
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
