@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Configuracao\Empresa;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class EmpresaController extends Controller {
     /*
@@ -51,7 +52,7 @@ class EmpresaController extends Controller {
     public function store(Request $request, Empresa $empresa) {
         $data = $request->all();
         $rules = [
-            'logotipo' => 'required|mimes:jpeg,jpg,png|max:2048',
+            'logotipo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'cnpj' => 'required',
             'razao_social' => 'required',
             'endereco' => 'required',
@@ -68,10 +69,31 @@ class EmpresaController extends Controller {
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
         try {
-            $fileName = time() . '.' . $request->logotipo->extension();
-            $request->logotipo->move(public_path('image'), $fileName);
-            
-            $data['logotipo'] = $fileName;
+//            $fileName = time() . '.' . $request->logotipo->extension();
+//            $request->logotipo->move(public_path('image'), $fileName);
+
+            $image = $request->file('logotipo');
+
+            $input['imagename'] = time() . '.' . $image->extension();
+
+
+
+            $destinationPath = public_path('/thumbnail');
+
+            $img = Image::make($image->path());
+
+            $img->resize(100, 100, function ($constraint) {
+
+                $constraint->aspectRatio();
+            })->save($destinationPath . '/' . $input['imagename']);
+
+
+
+            $destinationPath = public_path('/images');
+
+            $image->move($destinationPath, $input['imagename']);
+
+            $data['logotipo'] = $input['imagename'];
             $data['id_empresa'] = $this->empresa->lastempresa();
             $this->empresa->create($data);
             $empid = $empresa->get()->first();
