@@ -26,7 +26,7 @@ class EmpresaController extends Controller {
     public function index(Empresa $empresa) {
         $empresas = $empresa->get()->first();
         $count = $this->empresa->all()->count();
-        
+
         if ($count > 0):
             return redirect()->route('empresa.show', ['empresa' => $empresas->id_empresa]);
         endif;
@@ -51,7 +51,7 @@ class EmpresaController extends Controller {
     public function store(Request $request, Empresa $empresa) {
         $data = $request->all();
         $rules = [
-            'logotipo' => 'required|mimes:pdf,xlx,csv,txt|max:2048',
+            'logotipo' => 'required|mimes:jpeg,jpg,png|max:2048',
             'cnpj' => 'required',
             'razao_social' => 'required',
             'endereco' => 'required',
@@ -67,12 +67,11 @@ class EmpresaController extends Controller {
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
-        $fileName = time().'.'.$request->logotipo->extension();  
-
-   
-
-        $request->logotipo->move(public_path('uploads'), $fileName);
         try {
+            $fileName = time() . '.' . $request->logotipo->extension();
+            $request->logotipo->move(public_path('image'), $fileName);
+            
+            $data['logotipo'] = $fileName;
             $data['id_empresa'] = $this->empresa->lastempresa();
             $this->empresa->create($data);
             $empid = $empresa->get()->first();
