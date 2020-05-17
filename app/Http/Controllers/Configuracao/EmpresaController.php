@@ -69,26 +69,18 @@ class EmpresaController extends Controller {
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
         try {
-//            $fileName = time() . '.' . $request->logotipo->extension();
-//            $request->logotipo->move(public_path('image'), $fileName);
 
+            if (!is_dir(public_path('/thumbnail')) && !is_dir(public_path('/images'))):
+                mkdir(public_path('/thumbnail'), 0777);
+                mkdir(public_path('/images'), 0777);
+            endif;
             $image = $request->file('logotipo');
-
             $input['imagename'] = time() . '.' . $image->extension();
-
-
-
             $destinationPath = public_path('/thumbnail');
-
             $img = Image::make($image->path());
-
             $img->resize(100, 100, function ($constraint) {
-
                 $constraint->aspectRatio();
             })->save($destinationPath . '/' . $input['imagename']);
-
-
-
             $destinationPath = public_path('/images');
 
             $image->move($destinationPath, $input['imagename']);
@@ -139,7 +131,6 @@ class EmpresaController extends Controller {
     public function update(Request $request, Empresa $empresa) {
         $data = $request->all();
         $rules = [
-            'logotipo' => 'required',
             'cnpj' => 'required',
             'razao_social' => 'required',
             'endereco' => 'required',
@@ -157,6 +148,24 @@ class EmpresaController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
+            if ($request->hasFile('logotipo')):
+                unlink(public_path('/images/' . $empresa->logotipo));
+                unlink(public_path('/thumbnail/' . $empresa->logotipo));
+                $image = $request->file('logotipo');
+                $input['imagename'] = time() . '.' . $image->extension();
+                $destinationPath = public_path('/thumbnail');
+                $img = Image::make($image->path());
+                $img->resize(100, 100, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath . '/' . $input['imagename']);
+                $destinationPath = public_path('/images');
+
+                $image->move($destinationPath, $input['imagename']);
+                $data['logotipo'] = $input['imagename'];
+            else:
+                $data['logotipo'] = $empresa->logotipo;
+            endif;
+
             $empresa->update($data);
             flash('<i class="fa fa-check"></i> Dados da empresa salvo com sucesso!')->success();
             return redirect()->route('empresa.show', ['empresa' => $empresa->id_empresa]);

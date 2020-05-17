@@ -26,8 +26,16 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <div class="col-lg-8 text-center">
+                        <div class="image" style="margin-bottom: 20px;">
+                            <img class="img-rounded elevation-1" src="{{asset('/thumbnail/'.$empresa->logotipo)}}">
+                        </div>
+                    </div>
+                </div>
                 
-                {!! Form::open(['route' => ['empresa.update', 'empresa' => $empresa->id_empresa], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => ['empresa.update', 'empresa' => $empresa->id_empresa], 'method' => 'PUT', 'files' => 'true', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
                 
                 <div class="form-group row">
                     {!! Form::label('logotipo', 'Logotipo', ['class' => 'col-lg-4 col-form-label']) !!}
@@ -40,9 +48,6 @@
                                 {!! Form::button('Selecione', ['class' => 'btn btn-file btn-primary pull-right btn-flat']) !!}
                             </span>
                         </div>
-                        @error('logotipo')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
                     </div>
                 </div>
 
