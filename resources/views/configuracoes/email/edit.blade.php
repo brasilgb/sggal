@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/"> Home</a></li>
-                    <li class="breadcrumb-item active"> Empresa</li>
+                    <li class="breadcrumb-item active"> Email</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -21,43 +21,28 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header border-1">
-            <h3 class="card-title"><i class="fa fa-plus-square"></i> Dados da empresa</h3>
+            <h3 class="card-title"><i class="fa fa-plus-square"></i> Dados do e-mail</h3>
         </div>
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'empresa.store', 'method' => 'POST', 'files' => true, 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => ['email.update', 'email' => $email->id_email], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+
                 <div class="form-group row">
-                    {!! Form::label('logotipo', 'Logotipo', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('smtp', 'SMTP', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::file('logotipo', ['id' => 'logotipo', 'class' => 'form-control logotipo']) !!}
-                        <div class="input-group">
-                            {!! Form::text('file', false, ['id' => 'file', 'class' => 'form-control', 'placeholder' => 'Imagem para o logotipo', 'readonly' => 'readonly']) !!}
-                            <span class="input-group-btn">
-                                {!! Form::button('Selecione', ['class' => 'btn btn-file btn-primary pull-right btn-flat']) !!}
-                            </span>
-                        </div>
-                        @error('logotipo')
+                        {!! Form::text('smtp', $email->smtp, ['id' => 'smtp', 'class' => 'form-control']) !!}
+                        @error('smtp')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('cnpj', 'CNPJ', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('porta', 'Porta', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('cnpj', old('cnpj'), ['id' => 'cnpj', 'class' => 'form-control']) !!}
-                        @error('cnpj')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    {!! Form::label('razao_social', 'Razão social', ['class' => 'col-lg-4 col-form-label']) !!}
-                    <div class="col-lg-8">
-                        {!! Form::text('razao_social', old('razao_social'), ['id' => 'razao_social', 'class' => 'form-control']) !!}
-                        @error('razao_social')
+                        {!! Form::text('porta', $email->porta, ['id' => 'porta', 'class' => 'form-control']) !!}
+                        @error('porta')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
@@ -65,55 +50,81 @@
 
 
                 <div class="form-group row">
-                    {!! Form::label('endereco', 'Endereço', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('seguranca', 'Segurança', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('endereco', old('endereco'), ['id' => 'endereco', 'class' => 'form-control']) !!}
-                        @error('endereco')
+                        {!! Form::text('seguranca', $email->seguranca, ['id' => 'seguranca', 'class' => 'form-control']) !!}
+                        @error('seguranca')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('cidade', 'Cidade', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('usuario', 'Usuário', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('cidade', old('cidade'), ['id' => 'cidade', 'class' => 'form-control']) !!}
-                        @error('cidade')
+                        {!! Form::text('usuario', $email->usuario, ['id' => 'usuario', 'class' => 'form-control']) !!}
+                        @error('usuario')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    {!! Form::label('senha', 'Senha', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('senha', $email->senha, ['id' => 'senha', 'class' => 'form-control']) !!}
+                        @error('senha')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('uf', 'UF', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('remetente', 'Remetente', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('uf', old('uf'), ['id' => 'uf', 'class' => 'form-control']) !!}
-                        @error('uf')
+                        {!! Form::text('remetente', $email->remetente, ['id' => 'remetente', 'class' => 'form-control']) !!}
+                        @error('remetente')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('telefone', 'Telefone', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('destino_coleta', 'Destino coleta', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                {!! Form::button('Selecione', ['class' => 'btn btn-file btn-primary pull-left btn-flat']) !!}
-                            </span>
-                            {!! Form::text('telefone', old('telefone'), ['id' => 'telefone', 'class' => 'form-control']) !!}
-                        </div>
-                        @error('telefone')
+                        {!! Form::textarea('destino_coleta', $email->destino_coleta, ['rows' => 3, 'id' => 'destino_coleta', 'class' => 'form-control']) !!}
+                        @error('destino_coleta')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    {!! Form::label('email', 'E-mail', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('destino_semanal', 'Destino semanal', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('email', old('email'), ['id' => 'email', 'class' => 'form-control']) !!}
-                        @error('email')
+                        {!! Form::textarea('destino_semanal', $email->destino_semanal, ['rows' => 3, 'id' => 'destino_semanal', 'class' => 'form-control']) !!}
+                        @error('destino_semanal')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {!! Form::label('assunto', 'Assunto', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::text('assunto', $email->assunto, ['id' => 'assunto', 'class' => 'form-control']) !!}
+                        @error('assunto')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    {!! Form::label('mensagem', 'Mensagem', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::textarea('mensagem', $email->mensagem, ['rows' => 3, 'id' => 'mensagem', 'class' => 'form-control']) !!}
+                        @error('mensagem')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>

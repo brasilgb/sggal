@@ -1,6 +1,27 @@
 var address = window.location.protocol + '//' + window.location.host + "/";
 var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
+// ===========================input mask=======================================
+$('#horacoleta, #horarecebimento, #agendamento').inputmask("99:99");
+$('#cnpj').inputmask("99.999.999/9999-99");
+
+
+
+$(function () {
+    $('.btn-tel').click(function () {
+        $('#telefone').val('');
+        $('#telefone').inputmask('(99)9999.9999');
+        $('#telefone').attr('readonly', false);
+        $('#telefone').attr('placeholder', 'Digite seu telefone');
+    });
+    $('.btn-cel').click(function () {
+        $('#telefone').val('');
+        $('#telefone').inputmask('(99)99999.9999');
+        $('#telefone').attr('readonly', false);
+        $('#telefone').attr('placeholder', 'Digite seu celular');
+    });
+});
+
 // ===========================Cálculos coleta diária===========================
 // Postura total de incubaveis bons
 $(function () {

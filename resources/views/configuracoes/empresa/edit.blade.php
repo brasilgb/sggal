@@ -34,12 +34,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 {!! Form::open(['route' => ['empresa.update', 'empresa' => $empresa->id_empresa], 'method' => 'PUT', 'files' => 'true', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
-                
+
                 <div class="form-group row">
                     {!! Form::label('logotipo', 'Logotipo', ['class' => 'col-lg-4 col-form-label']) !!}
-                    
+
                     <div class="col-lg-8">
                         {!! Form::file('logotipo', ['id' => 'logotipo', 'class' => 'form-control logotipo']) !!}
                         <div class="input-group">
@@ -105,7 +105,13 @@
                 <div class="form-group row">
                     {!! Form::label('telefone', 'Telefone', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('telefone', $empresa->telefone, ['id' => 'telefone', 'class' => 'form-control']) !!}
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                {!! Form::button('Tel', ['class' => 'btn btn-tel btn-info pull-left btn-flat']) !!}
+                                {!! Form::button('Cel', ['class' => 'btn btn-cel btn-info pull-left btn-flat']) !!}
+                            </span>
+                            {!! Form::text('telefone', $empresa->telefone, ['id' => 'telefone', 'class' => 'form-control', 'placeholder' => 'Selecione o tipo do aparelho', 'readonly' => true]) !!}
+                        </div>
                         @error('telefone')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -116,7 +122,7 @@
                     {!! Form::label('email', 'E-mail', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('email', $empresa->email, ['id' => 'email', 'class' => 'form-control']) !!}
-                        @error('quantidade')
+                        @error('email')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>

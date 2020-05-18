@@ -40,6 +40,5 @@ Todos os direitos reservados.
             nextText: 'Próximo',
             prevText: 'Anterior'
     });
-    $('#horacoleta, #horarecebimento').inputmask("99:99");
 </script>
 @stop

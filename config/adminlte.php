@@ -342,16 +342,19 @@ return [
                 [
                     'text' => 'Empresa',
                     'url' => 'configuracoes/empresa',
+                    'active' => ['configuracoes/empresa', 'configuracoes/empresa/*', 'regex:@^configuracoes/empresa/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'E-mail',
-                    'url' => '#',
+                    'url' => 'configuracoes/email',
+                    'active' => ['configuracoes/email', 'configuracoes/email/*', 'regex:@^configuracoes/email/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Backup',
-                    'url' => '#',
+                    'url' => 'configuracoes/backup',
+                    'active' => ['configuracoes/backup', 'configuracoes/backup/*', 'regex:@^configuracoes/backup/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
