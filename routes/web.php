@@ -119,3 +119,9 @@ Route::namespace('Financeiro')->prefix('financeiro/despesas')->name('financeiro/
     Route::post('/search', 'DespesaController@search')->name('search');
 });
 Route::resource('financeiro/despesas', 'Financeiro\DespesaController');
+
+// Operações configuracoes de tarefas
+Route::prefix('tarefas')->name('tarefas.')->group(function() {
+    Route::post('/search', 'TarefaController@search')->name('search');
+});
+Route::resource('tarefas', 'TarefaController');

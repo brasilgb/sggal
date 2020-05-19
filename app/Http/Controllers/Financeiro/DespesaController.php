@@ -117,8 +117,35 @@ class DespesaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Request $request, Despesa $despesa) {
+        $data = $request->all();
+        $rules = [
+            'vencimento' => 'required',
+            'descritivo' => 'required',
+            'valor' => 'required'
+        ];
+        $messages = [
+            'required' => 'O campo :attribute deve ser preenchido!',
+            'integer' => 'O campo :attribute só aceita inteiros!',
+            'date_format' => 'O campo data do aviário só aceita datas!',
+            'unique' => 'O nome do :attribute já existe na base de dados!'
+        ];
+        $validator = Validator::make($data, $rules, $messages)->validate();
+        try {
+            $data['vencimento'] = Carbon::createFromFormat('d/m/Y', $request->vencimento)->format('Y-m-d');
+            $despesa->update($data);
+            flash('<i class="fa fa-check"></i> Despesa atualizada com sucesso!')->success();
+            return redirect()->route('despesas.show', ['despesa' => $despesa->id_despesa]);
+        } catch (\Exception $e) {
+            $message = 'Erro ao atualizar despesa!';
+
+            if (env('APP_DEBUG')) {
+                $message = $e->getMessage();
+            }
+
+            flash($message)->warning();
+            return redirect()->back();
+        }
     }
 
     /**

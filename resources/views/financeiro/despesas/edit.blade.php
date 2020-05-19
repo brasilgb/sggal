@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="card-body">
-
+            @include("flash::message")
             <div class="col-lg-6">
                 {!! Form::open(['route' => ['despesas.update', 'despesa' => $despesa->id_despesa], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
                 <div class="form-group row">

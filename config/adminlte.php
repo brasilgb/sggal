@@ -362,24 +362,15 @@ return [
         ],
         [
             'text' => 'Tarefas',
+            'url' => 'tarefas',
+            'active' => ['tarefas', 'tarefas/*', 'regex:@^tarefas/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-check-square',
-            'submenu' => [
-                [
-                    'text' => 'Diárias',
-                    'url' => '#',
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-                [
-                    'text' => 'Específicas',
-                    'url' => '#',
-                    'icon' => 'fas fa-fw fa-caret-right'
-                ],
-            ],
         ],
         [
             'text' => 'Usuários',
+            'url' => 'usuarios',
+            'active' => ['usuarios', 'usuarios/*', 'regex:@^usuarios/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-user',
-            'icon_color' => 'aqua',
         ],
     ],
     /*
