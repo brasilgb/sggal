@@ -148,7 +148,9 @@ class EmpresaController extends Controller {
 
         try {
             if ($request->hasFile('logotipo')):
+                if(file_exists(public_path('/thumbnail/' . $empresa->logotipo))):
                 unlink(public_path('/thumbnail/' . $empresa->logotipo));
+            endif;
                 $image = $request->file('logotipo');
                 $input['imagename'] = time() . '.' . $image->extension();
                 $destinationPath = public_path('/thumbnail');

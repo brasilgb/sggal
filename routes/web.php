@@ -113,3 +113,9 @@ Route::resource('configuracoes/backup', 'Configuracao\BackupController');
 
 // Operações configuracoes de email
 Route::resource('configuracoes/email', 'Configuracao\EmailController');
+
+// Operações configuracoes de despesas
+Route::namespace('Financeiro')->prefix('financeiro/despesas')->name('financeiro/despesas.')->group(function() {
+    Route::post('/search', 'DespesaController@search')->name('search');
+});
+Route::resource('financeiro/despesas', 'Financeiro\DespesaController');

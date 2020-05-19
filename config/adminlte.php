@@ -325,7 +325,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Despesas',
-                    'url' => '#',
+                    'url' => 'financeiro/despesas',
+                    'active' => ['financeiro/despesas', 'financeiro/despesas/*', 'regex:@^financeiro/despesas/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
