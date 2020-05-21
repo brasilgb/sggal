@@ -15,7 +15,11 @@
 //    return view('painel');
 //});
 
-Route::get('/', 'PainelController@painel');
+Auth::routes();
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/', 'PainelController@painel');
+});
+
 
 // Operações dos períodos de produção
 Route::resource('periodos', 'PeriodoController');
@@ -104,4 +108,5 @@ Route::prefix('tarefas')->name('tarefas.')->group(function() {
     Route::post('/search', 'TarefaController@search')->name('search');
 });
 Route::resource('tarefas', 'TarefaController');
+
 
