@@ -17,7 +17,7 @@
 
 Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/', 'PainelController@painel');
+    Route::get('/home', 'PainelController@painel')->name('home');
 });
 
 

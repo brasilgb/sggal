@@ -103,7 +103,7 @@ return [
      */
     'right_sidebar' => false,
     'right_sidebar_icon' => 'fas fa-cogs',
-    'right_sidebar_theme' => 'dark',
+    'right_sidebar_theme' => 'blue',
     'right_sidebar_slide' => true,
     'right_sidebar_push' => true,
     'right_sidebar_scrollbar_theme' => 'os-theme-light',
@@ -120,7 +120,7 @@ return [
       |
      */
     'use_route_url' => false,
-    'dashboard_url' => '/',
+    'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -169,7 +169,7 @@ return [
 //        ],
         [
             'text' => ' Início',
-            'url' => '/',
+            'url' => 'home',
             'icon' => 'fa fa-fw fa-home',
 //            'label'       => 4,
 //            'label_color' => 'success',
