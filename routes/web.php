@@ -110,3 +110,11 @@ Route::prefix('tarefas')->name('tarefas.')->group(function() {
 Route::resource('tarefas', 'TarefaController');
 
 
+// Operações com usuarios
+Route::prefix('usuarios')->name('usuarios.')->group(function() {
+    Route::post('/search', 'UsuarioController@search')->name('search');
+});
+Route::resource('usuarios', 'UsuarioController');
+
+
+

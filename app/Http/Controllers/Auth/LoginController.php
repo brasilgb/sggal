@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
-
 class LoginController extends Controller {
     /*
       |--------------------------------------------------------------------------
@@ -20,8 +19,8 @@ class LoginController extends Controller {
      */
 
 use AuthenticatesUsers {
-    logout as doLogout;
-}
+        logout as doLogout;
+    }
 
     /**
      * Where to redirect users after login.
@@ -29,6 +28,7 @@ use AuthenticatesUsers {
      * @var string
      */
     protected $redirectTo = '/home';
+    protected $username = 'username';
 
     /**
      * Create a new controller instance.
@@ -49,8 +49,6 @@ use AuthenticatesUsers {
             'username' => 'required',
             'password' => 'required',
         ]);
-
-
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 

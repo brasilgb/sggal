@@ -71,7 +71,7 @@ class LoteController extends Controller {
     public function store(Request $request) {
 
         $data = $request->all();
-        $periodo = $rules = [
+        $rules = [
             'data_lote' => 'date_format:"d/m/Y"|required',
             'lote' => 'required|unique:lotes',
             'femea' => 'required|integer',
