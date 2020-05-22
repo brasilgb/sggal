@@ -63,7 +63,8 @@ class UsuarioController extends Controller {
         $periodo = $rules = [
             'name' => 'required',
             'username' => 'required|unique:users',
-            'password' => 'required|confirmed|min:8'
+            'password' => 'required|confirmed|min:8',
+            'funcao' => 'required'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -128,7 +129,8 @@ class UsuarioController extends Controller {
         $rules = [
             'name' => 'required',
             'username' => 'required',
-            'password' => 'nullable|min:8|confirmed'
+            'password' => 'nullable|min:8|confirmed',
+            'funcao' => 'required'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
@@ -141,6 +143,8 @@ class UsuarioController extends Controller {
         try {
             if (!empty($request->password)):
                 $data['password'] = Hash::make($request->password);
+            else:
+                $data['password'] = $usuario->password;
             endif;
             $usuario->update($data);
 

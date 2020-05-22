@@ -120,7 +120,7 @@ return [
       |
      */
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -169,7 +169,7 @@ return [
 //        ],
         [
             'text' => ' Início',
-            'url' => 'home',
+            'url' => '/',
             'icon' => 'fa fa-fw fa-home',
 //            'label'       => 4,
 //            'label_color' => 'success',

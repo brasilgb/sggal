@@ -2,7 +2,7 @@ var address = window.location.protocol + '//' + window.location.host + "/";
 var pathname = window.location.pathname.split('/');
 var base_url = address + pathname[1];
 // ===========================input mask=======================================
-$('#horacoleta, #horarecebimento, #agendamento').inputmask("99:99");
+$('#horacoleta, #horarecebimento, #agendamento, #horaform').inputmask("99:99");
 $('#cnpj').inputmask("99.999.999/9999-99");
 
 

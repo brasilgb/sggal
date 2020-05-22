@@ -61,6 +61,16 @@
                 </div>
 
                 <div class="form-group row">
+                    {!! Form::label('funcao', 'Função', ['class' => 'col-lg-4 col-form-label']) !!}
+                    <div class="col-lg-8">
+                        {!! Form::select('funcao', ['' => 'Slecione a função', '0' => 'Administrador', '1' => 'Operador'], old('funcao'), ['class' => 'form-control']) !!}
+                        @error('funcao')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     {!! Form::label('password', 'Senha', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::password('password', ['class' => 'form-control']) !!}

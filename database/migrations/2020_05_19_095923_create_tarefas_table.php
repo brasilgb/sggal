@@ -13,16 +13,18 @@ class CreateTarefasTable extends Migration {
      */
     public function up() {
         Schema::create('tarefas', function (Blueprint $table) {
-            $table->integer('id_despesa')->primary();
+            $table->integer('id_tarefa')->primary();
             $table->integer('periodo');
             $table->date('data_inicio');
             $table->time('hora_inicio');
-            $table->date('data_previsão');
-            $table->time('hora_prrevisao');
-            $table->char('titulo');
+            $table->date('data_previsao');
+            $table->time('hora_previsao');
+            $table->char('descritivo');
             $table->text('descricao');
-            $table->date('data_termino');
-            $table->time('hora_termino');
+            $table->date('data_termino')->nullable();
+            $table->time('hora_termino')->nullable();
+            $table->integer('situacao');
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }

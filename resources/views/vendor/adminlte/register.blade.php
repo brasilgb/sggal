@@ -9,7 +9,7 @@
 
 @php( $login_url = View::getSection('login_url') ?? config('adminlte.login_url', 'login') )
 @php( $register_url = View::getSection('register_url') ?? config('adminlte.register_url', 'register') )
-@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', 'home') )
+@php( $dashboard_url = View::getSection('dashboard_url') ?? config('adminlte.dashboard_url', '/') )
 
 @if (config('adminlte.use_route_url', false))
     @php( $login_url = $login_url ? route($login_url) : '' )
@@ -28,7 +28,7 @@
         </div>
         <div class="card">
             <div class="card-body register-card-body">
-                <p class="login-box-msg">{{ __('adminlte::adminlte.register_message') }}</p>
+                <p class="login-box-msg">{{ trans('adminlte::adminlte.register_message') }}</p>
                 <form action="{{ $register_url }}" method="post">
                     {{ csrf_field() }}
 
