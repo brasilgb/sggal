@@ -7,8 +7,11 @@ use App\Lote;
 use App\Aviario;
 use App\Coleta;
 use App\Periodo;
+use App\Envio;
+use App\Aves\Mortalidade;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ColetaController extends Controller {
     /*
@@ -20,12 +23,16 @@ class ColetaController extends Controller {
     protected $coleta;
     protected $periodo;
     protected $dtatual;
+    protected $mortalidade;
+    protected $envio;
 
-    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta, Mortalidade $mortalidade, Envio $envio) {
         $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
         $this->coleta = $coleta;
+        $this->mortalidade = $mortalidade;
+        $this->envio = $envio;
         $this->dtatual = date('Y-m-d', strtotime(Carbon::now()));
     }
 
@@ -274,8 +281,25 @@ class ColetaController extends Controller {
         $totcoletalote = function($loteid){
             return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->get();
         };
-
-
+        
+        // Retorna o estoque de aves
+        $avesemestoque = DB::table('estoque_aves')->get();
+        
+        // Retorna mortalidade de aves
+        $mortalidades = function($motivo){
+            return $this->mortalidade->where('data_mortalidade', $this->dtatual)->where('motivo', $motivo)->get();
+        };
+        $totalmortas = $this->mortalidade->where('data_mortalidade', $this->dtatual)->get();
+        
+        // Retorna o estoque de ovos
+        $ovosemestoque = DB::table('estoque_ovos')->get();
+        
+        // Retorna ovos do dia
+        $ovosdiarios = $this->coleta->where('data_coleta', $this->dtatual)->get();
+        
+        // Retorna os ovos enviados
+        $ovosenviados = $this->envio->where('data_envio', $this->dtatual)->get();
+        
         // Define a data padrão brasileiro no view
         $datacoleta = Carbon::createFromFormat('Y-m-d', $this->dtatual)->format('d/m/Y');
         
@@ -288,7 +312,13 @@ class ColetaController extends Controller {
                 'datacoleta', 
                 'aviarioslote', 
                 'dadoscoleta',
-                'totcoletalote'))
+                'totcoletalote',
+                'avesemestoque',
+                'mortalidades',
+                'totalmortas',
+                'ovosemestoque',
+                'ovosdiarios',
+                'ovosenviados'))
                 ->setPaper('a4', 'landscape')
                 ->download('nome-arquivo-pdf-gerado.pdf');
     }

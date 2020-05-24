@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Aviario;
-use App\Ave;
+use App\Aves\Mortalidade;
+use App\Aves\Peso;
 use App\Coleta;
 use App\Racao\Recebimento;
 class Lote extends Model {
@@ -24,8 +25,12 @@ class Lote extends Model {
         return $this->hasMany(Aviario::class);
     }
 
-    public function aves() {
-        return $this->hasMany(Ave::class);
+    public function mortalidade() {
+        return $this->hasMany(Mortalidade::class);
+    }
+
+    public function peso() {
+        return $this->hasMany(Peso::class);
     }
 
     public function coletas() {

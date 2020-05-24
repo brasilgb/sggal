@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Aves;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Aviario;
-use App\Ave;
+use App\Aves\Mortalidade;
 use App\Lote;
 use App\Periodo;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
-class AveController extends Controller {
-
+class MortalidadeController extends Controller
+{
+    
     /**
      * Display a listing of the resource.
      *
@@ -40,29 +42,25 @@ class AveController extends Controller {
 
     /*
      * @var Lote
-     * @var Ave
+     * @var Mortalidade
      * @var Aviario
      * @var Periodo
-     * @var Estoque_ave
+     * @var Estoque_mortalidade
      */
 
     private $periodo;
     private $lote;
     private $aviario;
-    protected $ave;
-    protected $estoque_ave;
+    protected $mortalidade;
+    protected $estoque_aves;
+    protected $motivos;
 
-    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Ave $ave) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Mortalidade $mortalidade) {
         $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
-        $this->ave = $ave;
-    }
-
-    public function index() {
-        $aves = $this->ave->paginate(15);
-        $porave = '';
-        $motivos = function($motivo = 0) {
+        $this->mortalidade = $mortalidade;
+        $this->motivos = $motivos = function($motivo = 0) {
             switch ($motivo) {
                 case 1: echo 'Arranhado';
                     break;
@@ -88,10 +86,16 @@ class AveController extends Controller {
                     break;
             }
         };
+    }
+
+    public function index() {
+        $mortalidades = $this->mortalidade->paginate(15);
+        $pormortalidade = '';
+        $motivos = $this->motivos;
         $numaviarios = function($idaviario) {
-            return $this->ave->numaviario($idaviario);
+            return $this->mortalidade->numaviario($idaviario);
         };
-        return view('aves.index', compact('aves', 'porave', 'motivos', 'numaviarios'));
+        return view('aves/mortalidades.index', compact('mortalidades', 'pormortalidade', 'motivos', 'numaviarios', 'pormortalidade'));
     }
 
     public function search(Request $request) {
@@ -101,40 +105,15 @@ class AveController extends Controller {
             foreach ($loteid as $lid) {
                 $lt = $lid->id_lote;
             }
-            $aves = $this->ave->where('lote_id', $lt)->get();
-            return view('aves.index', [
-                'aves' => $aves,
-                'porave' => $search,
-                'motivos' => function($motivo = 0) {
-                    switch ($motivo) {
-                        case 1: echo 'Arranhado';
-                            break;
-                        case 2: echo 'Artrite';
-                            break;
-                        case 3: echo 'Descarte eliminada';
-                            break;
-                        case 4: echo 'Machucado';
-                            break;
-                        case 5: echo 'Prolapso';
-                            break;
-                        case 6: echo 'Refugo';
-                            break;
-                        case 7: echo 'Outros';
-                            break;
-                        case 8: echo 'Descarte abate';
-                            break;
-                        case 9: echo 'Descarte laboratório';
-                            break;
-                        case 10: echo 'Erros sexo';
-                            break;
-                        case 11: echo 'Papudas';
-                            break;
-                    }
-                }
+            $mortalidades = $this->mortalidade->where('lote_id', $lt)->get();
+            return view('mortalidades.index', [
+                'mortalidades' => $mortalidades,
+                'pormortalidade' => $search,
+                'motivos' => $this->motivos
             ]);
         else:
             flash('<i class="fa fa-check"></i> Lote não encontrado, verifique se digitou corretamente o nome do lote!')->error();
-            return redirect()->route('aves.index');
+            return redirect()->route('mortalidades.index');
         endif;
     }
 
@@ -145,7 +124,7 @@ class AveController extends Controller {
      */
     public function create() {
         $lotes = $this->lote->all();
-        return view('aves.create', [
+        return view('aves/mortalidades.create', [
             'lotes' => $lotes,
             'motivos' => self::OPT_MOTIVOS
         ]);
@@ -160,7 +139,7 @@ class AveController extends Controller {
     public function store(Request $request) {
         $data = $request->all();
         $rules = [
-            'data_ave' => 'date_format:"d/m/Y"|required',
+            'data_mortalidade' => 'date_format:"d/m/Y"|required',
             'id_aviario' => 'required',
             'lote_id' => 'required',
             'sexo' => 'required|integer',
@@ -176,19 +155,19 @@ class AveController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
-            $data['id_ave'] = $this->ave->lastave();
-            $data['data_ave'] = Carbon::createFromFormat('d/m/Y', $request->data_ave)->format('Y-m-d');
+            $data['id_mortalidade'] = $this->mortalidade->lastmortalidade();
+            $data['data_mortalidade'] = Carbon::createFromFormat('d/m/Y', $request->data_mortalidade)->format('Y-m-d');
             $data['periodo'] = $this->periodo->periodoativo();
             $data['femea'] = $data['sexo'] == 1 ? $data['quantidade'] : '0';
             $data['macho'] = $data['sexo'] == 2 ? $data['quantidade'] : '0';
             $data['tot_ave'] = $data['quantidade'];
-            $this->ave->create($data);
+            $this->mortalidade->create($data);
 
-            flash('<i class="fa fa-check"></i> Ave criado com sucesso!')->success();
-            return redirect()->route('aves.index');
+            flash('<i class="fa fa-check"></i> Mortalidade criado com sucesso!')->success();
+            return redirect()->route('mortalidades.index');
         } catch (Exception $e) {
 
-            $message = 'Erro ao criar ave';
+            $message = 'Erro ao criar mortalidade';
 
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
@@ -205,16 +184,13 @@ class AveController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Ave $ave) {
+    public function show(Mortalidade $mortalidade) {
         $lotes = $this->lote->all();
-        $idave = $request->segment(3);
-        $aves = $this->ave->where('id_ave', $idave)->get();
-        foreach ($aves as $lote) {
-            $idlote = $lote->lote_id;
-        }
-        $aviarios = $this->aviario->where('lote_id', $idlote)->get();
         $motivos = self::OPT_MOTIVOS;
-        return view('aves.edit', compact('ave', 'lotes', 'aviarios', 'motivos'));
+        $aviarios = function($loteid){
+            return $this->aviario->where('lote_id',$loteid)->get();
+        };
+        return view('aves/mortalidades.edit', compact('mortalidade', 'lotes', 'aviarios', 'motivos'));
     }
 
     /**
@@ -223,8 +199,8 @@ class AveController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ave $ave) {
-        return redirect()->route('aves.show', ['ave' => $ave->id_lote]);
+    public function edit(Mortalidade $mortalidade) {
+        return redirect()->route('mortalidades.show', ['mortalidade' => $mortalidade->id_mortalidade]);
     }
 
     /**
@@ -234,10 +210,10 @@ class AveController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ave $ave) {
+    public function update(Request $request, Mortalidade $mortalidade) {
         $data = $request->all();
         $rules = [
-            'data_ave' => 'date_format:"d/m/Y"|required',
+            'data_mortalidade' => 'date_format:"d/m/Y"|required',
             'id_aviario' => 'required',
             'lote_id' => 'required',
             'sexo' => 'required|integer',
@@ -253,15 +229,15 @@ class AveController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
-            $data['data_ave'] = Carbon::createFromFormat('d/m/Y', $request->data_ave)->format('Y-m-d');
+            $data['data_mortalidade'] = Carbon::createFromFormat('d/m/Y', $request->data_mortalidade)->format('Y-m-d');
             $data['femea'] = $data['sexo'] == 1 ? $data['quantidade'] : '0';
             $data['macho'] = $data['sexo'] == 2 ? $data['quantidade'] : '0';
-            $data['tot_ave'] = $data['quantidade'];
-            $ave->update($data);
+            $data['tot_mortalidade'] = $data['quantidade'];
+            $mortalidade->update($data);
             flash('<i class="fa fa-check"></i> Aviário atualizado com sucesso!')->success();
-            return redirect()->route('aves.show', ['ave' => $ave->id_ave]);
+            return redirect()->route('mortalidades.show', ['mortalidade' => $mortalidade->id_mortalidade]);
         } catch (\Exception $e) {
-            $message = 'Erro ao atualizar ave!';
+            $message = 'Erro ao atualizar mortalidade!';
 
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
@@ -278,14 +254,14 @@ class AveController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ave $ave) {
+    public function destroy(Mortalidade $mortalidade) {
         try {
-            $ave->delete();
+            $mortalidade->delete();
 
-            flash('<i class="fa fa-check"></i> Ave removido com sucesso!')->success();
-            return redirect()->route('aves.index');
+            flash('<i class="fa fa-check"></i> Mortalidade removida com sucesso!')->success();
+            return redirect()->route('mortalidades.index');
         } catch (Exception $e) {
-            $message = 'Erro ao remover o ave';
+            $message = 'Erro ao remover o mortalidades';
 
             if (env('APP_DEBUG')) {
                 $message = $e->getMessage();
@@ -299,15 +275,15 @@ class AveController extends Controller {
     // Funcoes personalizadas **************************************************
     // Retorna o valor do aviário à partir do lote
     public function aviariosdolote($idlote = 0) {
-        $aves['data'] = $this->ave->getAviarios($idlote);
-        echo json_encode($aves);
+        $mortalidades['data'] = $this->mortalidade->getAviarios($idlote);
+        echo json_encode($mortalidades);
     }
 
 //    // Compara com os dados em estoque
     public function avesestoque(Request $request) {
-        $idlote = $request->segment(3);
-        $idaviario = $request->segment(4);
-        $valsexo = $request->segment(5);
+        $idlote = $request->segment(4);
+        $idaviario = $request->segment(5);
+        $valsexo = $request->segment(6);
                 switch ($valsexo){
             case 1: $sexo = 'femea';
                 break;

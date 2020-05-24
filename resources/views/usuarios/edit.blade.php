@@ -40,10 +40,11 @@
 
             <div class="col-lg-6">
                 {!! Form::open(['route' => ['usuarios.update', $usuario->id], 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                
                 <div class="form-group row">
                     {!! Form::label('name', 'Nome', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('name', $usuario->name, ['id' => 'name', 'class' => 'form-control']) !!}
+                        {!! Form::text('name', $usuario->name, ['id' => 'name', 'class' => 'form-control', $usuario->username == 'administrador' ? 'readonly' : '']) !!}
                         @error('name')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -53,7 +54,7 @@
                 <div class="form-group row">
                     {!! Form::label('username', 'Usuário', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('username', $usuario->username, ['class' => 'form-control']) !!}
+                        {!! Form::text('username', $usuario->username, ['class' => 'form-control', $usuario->username == 'administrador' ? 'readonly' : '']) !!}
                         @error('username')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -63,7 +64,7 @@
                 <div class="form-group row">
                     {!! Form::label('funcao', 'Função', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::select('funcao', ['0' => 'Administrador', '1' => 'Operador'], $usuario->funcao, ['class' => 'form-control']) !!}
+                        {!! Form::select('funcao', $usuario->username == 'administrador' ? ['0' => 'Administrador'] : ['0' => 'Administrador', '1' => 'Operador'], $usuario->funcao, ['class' => 'form-control', $usuario->username == 'administrador' ? 'readonly' : '']) !!}
                         @error('funcao')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -73,7 +74,7 @@
                 <div class="form-group row">
                     {!! Form::label('password', 'Senha', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                        {!! Form::password('password', ['class' => 'form-control', Auth::user()->username == 'administrador' ? '' : 'readonly="readonly"']) !!}
                         @error('password')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -83,7 +84,7 @@
                 <div class="form-group row">
                     {!! Form::label('password_confirmation', 'Confirme a senha', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
+                        {!! Form::password('password_confirmation', ['class' => 'form-control', Auth::user()->username == 'administrador' ? '' : 'readonly="readonly"']) !!}
                         @error('password_confirmation')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
@@ -93,7 +94,7 @@
                 <div class="form-group row">
                     <div class="col-lg-4 col-form-label"></div>
                     <div class="col-lg-8 text-right">
-                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                        {!! Form::button('<i class="fa fa-save"></i> Salvar', ['type' => 'submit', 'class' => 'btn btn-primary', Auth::user()->username == 'administrador' ? '' : 'disabled="disabled"']) !!}
                     </div>
                 </div>
                 {!! Form::close() !!}

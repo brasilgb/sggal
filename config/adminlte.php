@@ -151,15 +151,31 @@ return [
      */
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
+            'text' => 'Adicionar coleta',
+            'url' => 'coletas/create',
+            'icon' => 'fas fa-fw fa-plus-square',
+            'active' => ['coletas', 'coletas/*', 'regex:@^coletas/[0-9]+$@'],
+            'area-private' => 'area-private',
+            'topnav' => true
         ],
+        [
+            'text' => 'Enviar relatório diário',
+            'url' => 'coletas/relatoriodiario',
+            'icon' => 'fas fa-fw fa-file-import',
+            'area-private' => 'area-private',
+            'color' => 'red',
+            'topnav' => true
+        ],
+//         [
+//            'text' => 'search',
+//            'search' => true,
+//            'topnav' => true,
+//        ],
 //        [
 //            'text' => ' Início',
 //            'url' => '/',
 //            'icon' => 'fa fa-fw fa-home',
-//             'topnav' => true,
+//            'topnav' => true,
 //            'class' => 'ml-auto'
 //        ],
 //        [
@@ -182,7 +198,7 @@ return [
         [
             'text' => ' Lotes e aviários',
             'icon' => 'fas fa-fw fa-cubes',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
                     'text' => ' Lotes',
@@ -202,30 +218,31 @@ return [
             'text' => ' Coletas',
             'url' => 'coletas',
             'icon' => 'fas fa-fw fa-cart-plus',
-            'area-private' => ''
+            'active' => ['coletas', 'coletas/*', 'regex:@^coletas/[0-9]+$@'],
+            'area-private' => 'area-private'
         ],
         [
             'text' => ' Envio de ovos',
             'url' => 'envios',
             'active' => ['envios', 'envios/*', 'regex:@^envios/[0-9]+$@'],
             'icon' => 'fas fa-fw fa-truck',
-            'area-private' => ''
+            'area-private' => 'area-private'
         ],
         [
             'text' => 'Aves',
             'icon' => 'fas fa-fw fa-kiwi-bird',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
-                    'text' => 'Baixa de aves',
-                    'url' => 'aves',
-                    'active' => ['aves', 'aves/*', 'regex:@^aves/[0-9]+$@'],
+                    'text' => 'Mortalidade',
+                    'url' => 'aves/mortalidades',
+                    'active' => ['aves/mortalidades', 'aves/mortalidades/*', 'regex:@^aves/mortalidades/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
-                    'text' => 'Peso das aves',
-                    'url' => 'pesos',
-                    'active' => ['pesos', 'pesos/*', 'regex:@^pesos/[0-9]+$@'],
+                    'text' => 'Peso',
+                    'url' => 'aves/pesos',
+                    'active' => ['aves/pesos', 'aves/pesos/*', 'regex:@^aves/pesos/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],
@@ -233,7 +250,7 @@ return [
         [
             'text' => 'Ração',
             'icon' => 'fas fa-fw fa-pallet',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
                     'text' => 'Recebimento',
@@ -252,7 +269,7 @@ return [
         [
             'text' => 'Relatórios',
             'icon' => 'fas fa-fw fa-list-alt',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
                     'text' => 'Coletas',
@@ -294,7 +311,7 @@ return [
         [
             'text' => 'Estatísticas',
             'icon' => 'fas fa-fw fa-chart-line',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
                     'text' => 'Checklist',
@@ -321,7 +338,7 @@ return [
         [
             'text' => 'Financeiro',
             'icon' => 'fas fa-fw fa-coins',
-            'area-private' => '',
+            'area-private' => 'area-private',
             'submenu' => [
                 [
                     'text' => 'Despesas',

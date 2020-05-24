@@ -18,11 +18,10 @@
 Auth::routes();
 Route::group(['middleware' => ['auth']], function(){
     Route::get('/', 'PainelController@painel')->name('home');
-});
+
 
 
 // Operações dos períodos de produção
-Route::resource('periodos', 'PeriodoController');
 Route::prefix('periodos')->name('periodos.')->group(function() {
     Route::get('/', 'PeriodoController@index')->name('index');
     Route::get('/ativaperiodo/{ativo}', 'PeriodoController@ativaperiodo')->name('ativaperiodo');
@@ -30,6 +29,7 @@ Route::prefix('periodos')->name('periodos.')->group(function() {
     Route::get('/periodoativo/{ativo}', 'PeriodoController@periodoativo')->name('periodoativo');
     Route::post('/search', 'PeriodoController@search')->name('search');
 });
+Route::resource('periodos', 'PeriodoController');
 
 // Operações nos lotes de aves
 Route::post('lotes/search', 'LoteController@search');
@@ -45,14 +45,14 @@ Route::prefix('aviarios')->name('aviarios.')->group(function() {
 });
 Route::resource('aviarios', 'AviarioController');
 
-// Operações nas baixas de aves
-Route::prefix('aves')->name('aves.')->group(function() {
-    Route::get('/returnave/{idlote}', 'AveController@returnave')->name('returnave');
-    Route::get('/avesestoque/{loteid}/{idaviario}/{sexo}', 'AveController@avesestoque')->name('avesestoque');
-    Route::get('/aviariosdolote/{loteid}', 'AveController@aviariosdolote')->name('aviariosdolote');
-    Route::post('/search', 'AveController@search')->name('search');
+// Operações de mortalidade
+Route::namespace('Aves')->prefix('aves/mortalidades')->name('aves/mortalidades.')->group(function() {
+    Route::get('/returnmortalidade/{idlote}', 'MortalidadeController@returnave')->name('returnave');
+    Route::get('/avesestoque/{loteid}/{idaviario}/{sexo}', 'MortalidadeController@avesestoque')->name('avesestoque');
+    Route::get('/aviariosdolote/{loteid}', 'MortalidadeController@aviariosdolote')->name('aviariosdolote');
+    Route::post('/search', 'MortalidadeController@search')->name('search');
 });
-Route::resource('aves', 'AveController');
+Route::resource('aves/mortalidades', 'Aves\MortalidadeController');
 
 // Operações nas baixas de aves
 Route::prefix('coletas')->name('coletas.')->group(function() {
@@ -62,19 +62,19 @@ Route::prefix('coletas')->name('coletas.')->group(function() {
 });
 Route::resource('coletas', 'ColetaController');
 
-// Operações nas baixas de aves
+// Operações nos peso de aves
+Route::namespace('Aves')->prefix('aves/pesos')->name('aves/pesos.')->group(function() {
+    Route::post('/search', 'PesoController@search')->name('search');
+    Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
+});
+Route::resource('aves/pesos', 'Aves\PesoController');
+
+// Operações envio de ovos
 Route::prefix('envios')->name('envios.')->group(function() {
     Route::post('/search', 'EnvioController@search')->name('search');
     Route::get('/estoqueovos/{loteid}', 'EnvioController@estoqueovos')->name('estoqueovos');
 });
 Route::resource('envios', 'EnvioController');
-
-// Operações nas peso de aves
-Route::prefix('pesos')->name('pesos.')->group(function() {
-    Route::post('/search', 'PesoController@search')->name('search');
-    Route::get('/estoqueovos/{loteid}', 'PesoController@estoqueovos')->name('estoqueovos');
-});
-Route::resource('pesos', 'PesoController');
 
 // Operações recebimento de racao
 Route::namespace('Racao')->prefix('racao/recebimentos')->name('racao/recebimentos.')->group(function() {
@@ -82,7 +82,7 @@ Route::namespace('Racao')->prefix('racao/recebimentos')->name('racao/recebimento
 });
 Route::resource('racao/recebimentos', 'Racao\RecebimentoController');
 
-// Operações recebimento de racao
+// Operações consumo de racao
 Route::namespace('Racao')->prefix('racao/consumos')->name('racao/consumos.')->group(function() {
     Route::post('/search', 'ConsumoController@search')->name('search');
 });
@@ -116,5 +116,4 @@ Route::prefix('usuarios')->name('usuarios.')->group(function() {
 });
 Route::resource('usuarios', 'UsuarioController');
 
-
-
+});

@@ -99,9 +99,10 @@
                     <div class="col-lg-8">
                         <div class="input-group">
                             <span class="input-group-btn">
-                                {!! Form::button('Selecione', ['class' => 'btn btn-file btn-primary pull-left btn-flat']) !!}
+                                {!! Form::button('Tel', ['class' => 'btn btn-tel btn-info pull-left btn-flat']) !!}
+                                {!! Form::button('Cel', ['class' => 'btn btn-cel btn-info pull-left btn-flat']) !!}
                             </span>
-                            {!! Form::text('telefone', old('telefone'), ['id' => 'telefone', 'class' => 'form-control']) !!}
+                            {!! Form::text('telefone', old('telefone'), ['id' => 'telefone', 'class' => 'form-control', 'placeholder' => 'Selecione o tipo do aparelho', 'readonly' => true]) !!}
                         </div>
                         @error('telefone')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>

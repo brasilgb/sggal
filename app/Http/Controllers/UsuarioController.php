@@ -49,7 +49,11 @@ class UsuarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
+        if(\Auth::user()->username == 'administrador'):
         return view('usuarios.create');
+        else:
+        return redirect()->route('usuarios.index');    
+        endif;
     }
 
     /**

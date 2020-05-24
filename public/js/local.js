@@ -292,7 +292,7 @@ $(function () {
             $.ajax({
                 type: 'GET',
                 dataType: 'json',
-                url: '/aves/aviariosdolote/' + loteid,
+                url: '/aves/mortalidades/aviariosdolote/' + loteid,
                 success: function (response) {
                     $('#aviariosdolote').children().remove();
                     $('#aviariosdolote').append("<option value='0'> Selecione o aviário</option>");
@@ -316,7 +316,7 @@ $(function () {
 
 
 /*
- * Número de aves fêmea permitidos em aves
+ * Número de aves fêmea permitidos em mortalidade
  */
 $(document).ready(function () {
     idlote = $('#loteid').val();
@@ -325,7 +325,7 @@ $(document).ready(function () {
     quantidade = $('#quantidade').val();
     $.ajax({
         type: 'GET',
-        url: base_url + '/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
+        url: '/aves/mortalidades/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
     }).done(function (data) {
         $('.est-aves').show('fade');
         $('.est-aves > strong').html(data.totaves);
@@ -347,7 +347,7 @@ $(function () {
         }
         $.ajax({
             type: 'GET',
-            url: base_url + '/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
+            url: '/aves/mortalidades/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
         }).done(function (data) {
             $('.est-aves').show('fade');
             $('.est-aves > strong').html(data.totaves);
@@ -371,7 +371,7 @@ $(function () {
 //        alert(idaviario);
         $.ajax({
             type: 'GET',
-            url: base_url + '/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
+            url: '/aves/mortalidades/avesestoque/' + idlote + '/' + idaviario + '/' + sexo
         }).done(function (data) {
             sumave = parseInt(data.totaves) + parseInt(numave);
             if (quant > sumave) {

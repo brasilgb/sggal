@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Aves;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Periodo;
 use App\Lote;
-use App\Peso;
+use App\Aviario;
+use App\Aves\Peso;
+use App\Semana;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\DB;
 
 class PesoController extends Controller {
     /*
@@ -19,12 +21,16 @@ class PesoController extends Controller {
 
     protected $periodo;
     protected $lote;
+    protected $aviario;
     protected $peso;
+    protected $semana;
 
-    public function __construct(Periodo $periodo, Lote $lote, Peso $peso) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Peso $peso, Semana $semana) {
         $this->periodo = $periodo;
         $this->lote = $lote;
+        $this->aviario = $aviario;
         $this->peso = $peso;
+        $this->semana = $semana;
     }
 
     /**
@@ -38,7 +44,7 @@ class PesoController extends Controller {
         $numaviarios = function($idaviario) {
             return $this->peso->numaviario($idaviario);
         };
-        return view('pesos.index', compact('pesos', 'porlote', 'numaviarios'));
+        return view('aves/pesos.index', compact('pesos', 'porlote', 'numaviarios'));
     }
 
     public function search(Request $request) {
@@ -50,9 +56,9 @@ class PesoController extends Controller {
             }
             $pesos = $this->peso->where('lote_id', $lt)->get();
             $numaviarios = function($idaviario) {
-            return $this->peso->numaviario($idaviario);
-        };
-            return view('pesos.index', compact('pesos', 'porlote', 'numaviarios'));
+                return $this->peso->numaviario($idaviario);
+            };
+            return view('aves/pesos.index', compact('pesos', 'porlote', 'numaviarios'));
         else:
             flash('<i class="fa fa-check"></i> Dados de pesagem não encontrado, verifique se digitou corretamente o nome do lote!')->error();
             return redirect()->route('pesos.index');
@@ -66,7 +72,8 @@ class PesoController extends Controller {
      */
     public function create() {
         $lotes = $this->lote->all();
-        return view('pesos.create', compact('lotes'));
+        $semanas = $this->semana->all();
+        return view('aves/pesos.create', compact('lotes', 'semanas'));
     }
 
     /**
@@ -116,7 +123,12 @@ class PesoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Peso $peso) {
-        //
+        $lotes = $this->lote->all();
+        $aviarios = function($loteid) {
+            return $this->aviario->where('lote_id', $loteid)->get();
+        };
+        $semanas = $this->semana->all();
+        return view('aves/pesos.edit', compact('peso', 'lotes', 'aviarios', 'semanas'));
     }
 
     /**
@@ -126,7 +138,7 @@ class PesoController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Peso $peso) {
-        //
+        return redirect()->route('pesos.show', ['peso' => $peso->id_peso]);
     }
 
     /**

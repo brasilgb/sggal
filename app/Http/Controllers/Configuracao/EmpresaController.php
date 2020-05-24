@@ -57,13 +57,14 @@ class EmpresaController extends Controller {
             'cidade' => 'required',
             'uf' => 'required',
             'telefone' => 'required',
-            'email' => 'required'
+            'email' => 'required|email'
         ];
         $messages = [
             'required' => 'O campo :attribute deve ser preenchido!',
             'integer' => 'O campo :attribute só aceita inteiros!',
             'date_format' => 'O campo data do aviário só aceita datas!',
-            'unique' => 'O nome do :attribute já existe na base de dados!'
+            'unique' => 'O nome do :attribute já existe na base de dados!',
+            'email' => 'Digite um e-mail válido'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
         try {

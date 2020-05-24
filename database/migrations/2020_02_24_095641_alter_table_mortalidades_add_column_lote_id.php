@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTableAvesAddColumnLoteId extends Migration
+class AlterTableMortalidadesAddColumnLoteId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterTableAvesAddColumnLoteId extends Migration
      */
     public function up()
     {
-        Schema::table('aves', function (Blueprint $table) {
-            $table->integer('lote_id')->after('id_ave');
+        Schema::table('mortalidades', function (Blueprint $table) {
+            $table->integer('lote_id')->after('id_mortalidade');
             $table->foreign('lote_id')->references('id_lote')->on('lotes')->onDelete('cascade');
         });
     }
@@ -26,8 +26,8 @@ class AlterTableAvesAddColumnLoteId extends Migration
      */
     public function down()
     {
-        Schema::table('aves', function (Blueprint $table) {
-            $table->dropForeign('aves_lote_id_foreign');
+        Schema::table('mortalidades', function (Blueprint $table) {
+            $table->dropForeign('mortalidades_lote_id_foreign');
             $table->dropColumn('lote_id');
         });
     }

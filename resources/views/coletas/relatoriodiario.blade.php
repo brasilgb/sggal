@@ -199,53 +199,90 @@
                     <td style="margin: 0 5px 0 0;vertical-align: top; border: 0;">
                         <table>
                             <tr class="bg-gray">
-                                <th>Mortalidade</th><th>Machos</th><th>Fêmeas</th><th>Totais</th>
+                                <th>Mortalidades</th><th>Machos</th><th>Fêmeas</th><th>Totais</th>
+                            </tr>
+                            <tr class="bg-gray-light">
+                                <td>Aves anteriores</td><td>{{$avesemestoque->sum->macho + $totalmortas->sum->macho}}</td><td>{{$avesemestoque->sum->femea + $totalmortas->sum->femea}}</td><td>{{$avesemestoque->sum->tot_ave + $totalmortas->sum->tot_ave}}</td>
+                            </tr>
+                            <tr class="bg-gray">
+                                <td colspan="4"><strong><i>Mortalidade galpão</i></strong></td>
                             </tr>
                             <tr>
-                                <td>Aves anterior</td><td></td><td></td><td></td>
+                                <td>Arranhado</td><td>{{$mortalidades('1')->sum->macho}}</td><td>{{$mortalidades('1')->sum->femea}}</td><td>{{$mortalidades('1')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Refugos</td><td></td><td></td><td></td>
+                                <td>Artrite</td><td>{{$mortalidades('2')->sum->macho}}</td><td>{{$mortalidades('2')->sum->femea}}</td><td>{{$mortalidades('2')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Prolapso</td><td></td><td></td><td></td>
+                                <td>Descarte eliminada</td><td>{{$mortalidades('3')->sum->macho}}</td><td>{{$mortalidades('3')->sum->femea}}</td><td>{{$mortalidades('3')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Calor</td><td></td><td></td><td></td>
+                                <td>Machucado</td><td>{{$mortalidades('4')->sum->macho}}</td><td>{{$mortalidades('4')->sum->femea}}</td><td>{{$mortalidades('4')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Arranhado</td><td></td><td></td><td></td>
+                                <td>Prolapso</td><td>{{$mortalidades('5')->sum->macho}}</td><td>{{$mortalidades('5')->sum->femea}}</td><td>{{$mortalidades('5')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Outras</td><td></td><td></td><td></td>
+                                <td>Refugo</td><td>{{$mortalidades('6')->sum->macho}}</td><td>{{$mortalidades('6')->sum->femea}}</td><td>{{$mortalidades('6')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Inprodutivas</td><td></td><td></td><td></td>
+                                <td>Outras</td><td>{{$mortalidades('7')->sum->macho}}</td><td>{{$mortalidades('7')->sum->femea}}</td><td>{{$mortalidades('7')->sum->tot_ave}}</td>
+                            </tr>
+                            <tr class="bg-gray">
+                                <td colspan="4"><strong><i>Descarte galpão</i></strong></td>
                             </tr>
                             <tr>
-                                <td>Total mortas</td><td></td><td></td><td></td>
+                                <td>Descarte abate</td><td>{{$mortalidades('8')->sum->macho}}</td><td>{{$mortalidades('8')->sum->femea}}</td><td>{{$mortalidades('8')->sum->tot_ave}}</td>
                             </tr>
                             <tr>
-                                <td>Aves atuais</td><td></td><td></td><td></td>
+                                <td>Descarte laboratório</td><td>{{$mortalidades('9')->sum->macho}}</td><td>{{$mortalidades('9')->sum->femea}}</td><td>{{$mortalidades('9')->sum->tot_ave}}</td>
+                            </tr>
+                            <tr>
+                                <td>Erros de sexo</td><td>{{$mortalidades('10')->sum->macho}}</td><td>{{$mortalidades('10')->sum->femea}}</td><td>{{$mortalidades('10')->sum->tot_ave}}</td>
+                            </tr>
+                            <tr>
+                                <td>Papudas</td><td>{{$mortalidades('11')->sum->macho}}</td><td>{{$mortalidades('11')->sum->femea}}</td><td>{{$mortalidades('11')->sum->tot_ave}}</td>
+                            </tr>
+                            
+                            <tr class="bg-gray">
+                                <td>Total mortas</td><td>{{$totalmortas->sum->macho}}</td><td>{{$totalmortas->sum->femea}}</td><td>{{$totalmortas->sum->tot_ave}}</td>
+                            </tr>
+                            <tr class="bg-gray-light">
+                                <td>Aves atuais</td><td>{{$avesemestoque->sum->macho}}</td><td>{{$avesemestoque->sum->femea}}</td><td>{{$avesemestoque->sum->tot_ave}}</td>
                             </tr>
                         </table>
                     </td>
+                    <!--        
+                    'Mortalidade galpão'
+                                '1' => 'Arranhado',
+                                '2' => 'Artrite',
+                                '3' => 'Descarte eliminada',
+                                '4' => 'Machucado',
+                                '5' => 'Prolapso',
+                                '6' => 'Refugo',
+                                '7' => 'Outros'
+                    'Descarte galpão' => [
+                                '8' => 'Descarte abate',
+                                '9' => 'Descarte laboratório',
+                                '10' => 'Erros sexo',
+                                '11' => 'Papudas'
+                    -->
                     <td style="margin: 0 0 0 5px;vertical-align: top; border: 0;">
                         <table>
                             <tr class="bg-gray">
                                 <th>Controle de estoque de ovos</th><th>Comerciais</th><th>Incubáveis</th>
                             </tr>
                             <tr>
-                                <td>Saldo anterior <br> <small>Saldo atual em estoque</small></td><td></td><td></td>
+                                <td>Saldo anterior <br> <small>Saldo atual em estoque</small></td><td>{{$ovosemestoque->sum->comerciais + $ovosenviados->sum->comerciais}}</td><td>{{$ovosemestoque->sum->incubaveis + $ovosenviados->sum->incubaveis}}</td>
                             </tr>
                             <tr>
-                                <td>Produzidos <br> <small>Total do movimento diário</small></td><td></td><td></td>
+                                <td>Produzidos <br> <small>Total do movimento diário</small></td><td>{{$ovosdiarios->sum->comerciais}}</td><td>{{$ovosdiarios->sum->incubaveis}}</td>
                             </tr>
                             <tr>
-                                <td>Eniado para o incubatório</td><td></td><td></td>
+                                <td>Eniado para o incubatório</td><td>{{$ovosenviados->sum->comerciais}}</td><td>{{$ovosenviados->sum->incubaveis}}</td>
                             </tr>
                             <tr>
-                                <td>Saldo atual</td><td></td><td></td>
+                                <td>Saldo atual</td><td>{{$ovosemestoque->sum->comerciais}}</td><td>{{$ovosemestoque->sum->incubaveis}}</td>
                             </tr>
                         </table>
                     </td>

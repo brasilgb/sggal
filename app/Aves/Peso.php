@@ -1,20 +1,23 @@
 <?php
 
-namespace App;
+namespace App\Aves;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Lote;
+use App\Aviario;
+
 class Peso extends Model
 {
-    protected $primarykey = 'id_peso';
-    public $incrementing = false;
+    protected $primaryKey = 'id_peso';
+    public  $incrementing = false;
     protected $fillable =[
         'id_peso',
-        'data_peso',
         'periodo',
-        'semana',
         'lote_id',
         'aviario_id',
+        'data_peso',
+        'semana',
         'sexo',
         'peso'
     ];

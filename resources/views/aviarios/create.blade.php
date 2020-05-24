@@ -39,7 +39,7 @@
         <div class="card-body">
             @include("flash::message")
             <div class="col-lg-6">
-                {!! Form::open(['route' => 'aviarios.store', 'method' => 'PUT', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'aviarios.store', 'method' => 'POST', 'class' => 'form-horizontal', 'autocomplete' => 'off']) !!}
 
                 <div class="form-group row">
                     {!! Form::label('dataform', 'Data do aviario', ['class' => 'col-lg-4 col-form-label']) !!}

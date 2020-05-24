@@ -44,7 +44,7 @@
                     </tr>
                     @forelse($pesos as $peso)
                     <tr>
-                        <td>{{$peso->id_peso}}</td><td>{{$peso->lote->lote}}</td><td>{{$numaviarios($peso->id_aviario)}}</td><td>{{$peso->sexo == 1 ? 'Fêmea' : 'Macho'}}</td><td>{{$peso->semana}}</td><td>{{$peso->peso}}</td><td>{{date('d/m/Y', strtotime($peso->data_peso))}}</td>
+                        <td>{{$peso->id_peso}}</td><td>{{$peso->lote->lote}}</td><td>{{$numaviarios($peso->aviario_id)}}</td><td>{{$peso->sexo == 1 ? 'Fêmea' : 'Macho'}}</td><td>{{$peso->semana}}</td><td>{{$peso->peso}}</td><td>{{date('d/m/Y', strtotime($peso->data_peso))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('pesos.show',['peso'=>$peso->id_peso])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$peso->id_peso}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>

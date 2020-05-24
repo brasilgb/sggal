@@ -33,7 +33,7 @@
                     {{ csrf_field() }}
 
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
+                        <input type="text" name="name" value="Administrador" readonly="readonly" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
                                placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -48,7 +48,7 @@
                         @endif
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" value="{{ old('username') }}"
+                        <input type="text" name="username" value="administrador" readonly="readonly" class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}" value="{{ old('username') }}"
                                placeholder="Usuário">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -93,11 +93,11 @@
                         {{ __('adminlte::adminlte.register') }}
                     </button>
                 </form>
-                <p class="mt-2 mb-1">
+<!--                <p class="mt-2 mb-1">
                     <a href="{{ $login_url }}">
                         {{ __('adminlte::adminlte.i_already_have_a_membership') }}
                     </a>
-                </p>
+                </p>-->
             </div><!-- /.card-body -->
         </div><!-- /.card -->
     </div><!-- /.register-box -->

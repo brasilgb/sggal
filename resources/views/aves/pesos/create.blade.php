@@ -71,15 +71,15 @@
                 </div>
                 
                 <div class="form-group row">
-                    {!! Form::label('semane', 'Semana', ['class' => 'col-lg-4 col-form-label']) !!}
+                    {!! Form::label('semana', 'Semana', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::text('semana', old('semana'), ['id' => 'semana', 'class' => 'form-control input-total']) !!}
-                        @error('peso')
-                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
+                        {!! Form::select('semana', $semanas->pluck('semana', 'id_semana')->prepend('Selecione a semana', ''), old('id_semana'),['id' => 'semana', 'class' => 'form-control']) !!}
+                        @error('semana')
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i>{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     {!! Form::label('sexo', 'Sexo da ave', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">

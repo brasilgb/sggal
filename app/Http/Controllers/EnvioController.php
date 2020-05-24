@@ -154,7 +154,7 @@ class EnvioController extends Controller {
             $data['data_envio'] = Carbon::createFromFormat('d/m/Y', $request->data_envio)->format('Y-m-d');
             $envio->update($data);
             flash('<i class="fa fa-check"></i> Envio alterardo com sucesso!')->success();
-            return redirect()->route('envios.index', ['envio' => $envio->id_envio]);
+            return redirect()->route('envios.show', ['envio' => $envio->id_envio]);
         } catch (Exception $e) {
             $message = 'Erro ao alterar envio!';
             if (env('APP_DEBUG')) {

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Periodo;
+use App\Semana;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
+use DateInterval;
 
 class PeriodoController extends Controller {
     /*
@@ -13,9 +16,11 @@ class PeriodoController extends Controller {
      */
 
     protected $periodo;
+    protected $semana;
 
-    public function __construct(Periodo $periodo) {
+    public function __construct(Periodo $periodo, Semana $semana) {
         $this->periodo = $periodo;
+        $this->semana = $semana;
     }
 
     /**
@@ -67,6 +72,24 @@ class PeriodoController extends Controller {
             $data['ativo'] = 1;
             $this->periodo->create($data);
 
+            $ini = $data['semana_inicial'];
+            $fin = $data['semana_final'];
+            $dtini = $data['data_inicial'];
+
+            $dataatrasada = date('Y-m-d', strtotime("-7 day", strtotime($dtini)));
+            $dataini = DateTime::createFromFormat('Y-m-d', $dataatrasada);
+
+            $dtfin = DateTime::createFromFormat('Y-m-d', $dtini);
+
+            for ($i = $ini; $i <= $fin; $i++) {
+
+                $data['periodo'] = $this->periodo->lastperiodo();
+                $data['semana'] = $i;
+                $data['data_inicial'] = $dataini->add(new DateInterval('P7D'));
+                $data['data_final'] = $dtfin->add(new DateInterval('P7D'));
+                $this->semana->create($data);
+            }
+
             flash('<i class="fa fa-check"></i> Período criado com sucesso!')->success();
             return redirect()->route('periodos.index');
         } catch (Exception $e) {
@@ -81,11 +104,11 @@ class PeriodoController extends Controller {
             return redirect()->back();
         }
     }
-    
-    public function show(Request $request){
+
+    public function show(Request $request) {
         //
     }
-    
+
     public function ativaperiodo(Request $request) {
         $ativo = $request->segment(3);
         $data['ativo'] = $ativo;

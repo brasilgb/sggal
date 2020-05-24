@@ -22,7 +22,7 @@
     <div class="card">
         <div class="card-header border-1">
             <div class="d-flex justify-content-between">
-                <h3 class="card-title"><button onclick="window.location.href = '{{route('usuarios.create')}}'" class="btn btn-primary btn-sm"><i class="fas fa-plus-square"></i> Adicionar usuario</button></h3>
+                <h3 class="card-title"><button onclick="window.location.href = '{{route('usuarios.create')}}'" class="btn btn-primary btn-sm" {{Auth::user()->username == 'administrador' ? '' : 'disabled="disabled"'}}><i class="fas fa-plus-square"></i> Adicionar usuario</button></h3>
                 <!-- SEARCH FORM -->
                 {!! Form::open(['url' => 'usuarios/search', 'method' => 'POST', 'class' => 'form-inline ml-3', 'autocomplete' => 'off']) !!}
                 <div class="input-group input-group-sm">
@@ -46,8 +46,8 @@
                     <tr>
                         <td>{{$usuario->id}}</td><td>{{$usuario->name}}</td><td>{{$usuario->username}}</td><td>{{$usuario->funcao > 0 ? 'Operador' : 'Administrador'}}</td><td>{{date("d/m/Y", strtotime($usuario->created_at))}}</td>
                         <td>
-                            <button onclick="window.location.href = '{{route('usuarios.show',['usuario'=>$usuario->id])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</button>
-                            <button data-toggle="modal" onclick="deleteData({{$usuario->id}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
+                            <button onclick="window.location.href = '{{route('usuarios.show',['usuario'=>$usuario->id])}}'" class="btn btn-primary btn-sm" {{$usuario->username != 'administrador' || Auth::user()->username == 'administrador' ? '' : 'disabled="disabled"'}}><i class="fa fa-edit"></i> Editar</button>
+                            <button data-toggle="modal" onclick="deleteData({{$usuario->id}})" data-target="#DeleteModal" class="btn btn-danger btn-sm" {{$usuario->username == 'administrador' ? 'disabled="disabled"' : ''}}><i class="fa fa-trash"></i> Excluir</button>
                             </td>
                     </tr>
                     @if($porusuario == '')

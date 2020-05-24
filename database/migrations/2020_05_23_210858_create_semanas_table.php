@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAvesTable extends Migration
+class CreateSemanasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateAvesTable extends Migration
      */
     public function up()
     {
-        Schema::create('aves', function (Blueprint $table) {
-            $table->integer('id_ave')->primary();
-            $table->string('id_aviario');
+        Schema::create('semanas', function (Blueprint $table) {
+            $table->bigIncrements('id_semana');
             $table->integer('periodo');
-            $table->date('data_ave');
-            $table->integer('femea');
-            $table->integer('macho');
-            $table->integer('tot_ave');
-            $table->integer('motivo');
+            $table->integer('semana');
+            $table->date('data_inicial');
+            $table->date('data_final');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateAvesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aves');
+        Schema::dropIfExists('semanas');
     }
 }
