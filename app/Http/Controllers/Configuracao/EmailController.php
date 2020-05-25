@@ -118,7 +118,7 @@ class EmailController extends Controller {
             'porta' => 'required',
             'seguranca' => 'required',
             'usuario' => 'required',
-            'senha' => 'required',
+            'senha' => 'nullable|confirmed',
             'remetente' => 'required',
             'destino_coleta' => 'required',
             'destino_semanal' => 'required',
@@ -134,6 +134,11 @@ class EmailController extends Controller {
         $validator = Validator::make($data, $rules, $messages)->validate();
 
         try {
+            if (!empty($request->password)):
+                $data['senha'] = $request->senha;
+            else:
+                $data['senha'] = $email->senha;
+            endif;
             $email->update($data);
             $bkid = $email->get()->first();
             flash('<i class="fa fa-check"></i> Dados do e-mail salvo com sucesso!')->success();

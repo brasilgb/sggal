@@ -9,9 +9,12 @@ use App\Coleta;
 use App\Periodo;
 use App\Envio;
 use App\Aves\Mortalidade;
+use App\Configuracao\Email;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use Barryvdh\DomPDF\PDF;
 
 class ColetaController extends Controller {
     /*
@@ -25,14 +28,16 @@ class ColetaController extends Controller {
     protected $dtatual;
     protected $mortalidade;
     protected $envio;
+    protected $email;
 
-    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta, Mortalidade $mortalidade, Envio $envio) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta, Mortalidade $mortalidade, Envio $envio, Email $email) {
         $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
         $this->coleta = $coleta;
         $this->mortalidade = $mortalidade;
         $this->envio = $envio;
+        $this->email = $email;
         $this->dtatual = date('Y-m-d', strtotime(Carbon::now()));
     }
 
@@ -42,7 +47,7 @@ class ColetaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $coletas = $this->coleta->where('data_coleta',date("Y-m-d", strtotime(\Carbon\Carbon::now())))->paginate(15);
+        $coletas = $this->coleta->where('data_coleta', date("Y-m-d", strtotime(\Carbon\Carbon::now())))->paginate(15);
         $pordata = '';
         $numaviario = function($idaviario) {
             return $this->coleta->numaviario($idaviario);
@@ -55,9 +60,9 @@ class ColetaController extends Controller {
         $coletas = $this->coleta->where('data_coleta', Carbon::createFromFormat('d/m/Y', $pordata)->format('Y-m-d'))->get();
         if ($coletas->count() > 0):
             $numaviario = function($idaviario) {
-            return $this->coleta->numaviario($idaviario);
-        };
-        return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
+                return $this->coleta->numaviario($idaviario);
+            };
+            return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
         else:
             flash('<i class="fa fa-check"></i> Coletas não encontradas para esta data, verifique se selecionou corretamente a data!')->error();
             return redirect()->route('coletas.index');
@@ -113,7 +118,7 @@ class ColetaController extends Controller {
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
-        
+
         try {
             $data['id_coleta'] = $this->coleta->lastcoleta();
             $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
@@ -196,7 +201,7 @@ class ColetaController extends Controller {
             'unique' => 'O nome do :attribute já existe na base de dados!'
         ];
         $validator = Validator::make($data, $rules, $messages)->validate();
-        
+
         try {
             $data['data_coleta'] = Carbon::createFromFormat('d/m/Y', $request->data_coleta)->format('Y-m-d');
             $coleta->update($data);
@@ -246,81 +251,134 @@ class ColetaController extends Controller {
             return response()->json(['coleta' => 1]);
         endif;
     }
-    
+
     // Envio do relatório diário de coletas
-    public function relatoriodiario(){
+    public function relatoriodiario(Email $email, PDF $pdf) {
         // Busca lote_id e retorna resultado distinto(um se houver muitos) da coleta
         $lotecoleta = $this->coleta->where('data_coleta', $this->dtatual)->distinct()->get(['lote_id']);
-        
+
         // Busca em coletas o número da coleta e retorna resultado distinto(um se houver muitos)
-        $numcoleta = function($loteid){
+        $numcoleta = function($loteid) {
             return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->distinct()->get(['coleta']);
         };
-        
+
         // Busca e retorna valores das coletas por lote e número da coleta
-        $coletaslote = function($loteid, $numcoleta){
+        $coletaslote = function($loteid, $numcoleta) {
             return $this->coleta->where('data_coleta', $this->dtatual)->where('lote_id', $loteid)->where('coleta', $numcoleta)->get();
         };
-        
+
         // Lista os aviários do lote
-        $aviarioslote = function($loteid){
+        $aviarioslote = function($loteid) {
             return $this->aviario->where('lote_id', $loteid)->orderBy('id_aviario', 'asc')->get();
         };
-        
+
         //Busca os valores das coletas por data e id do aviário
-        $dadoscoleta = function($aviarioid){
+        $dadoscoleta = function($aviarioid) {
             return $this->coleta->where('id_aviario', $aviarioid)->where('data_coleta', $this->dtatual)->get();
         };
-        
+
         // Lista coletas do lote por data
-        $listcoletas = function($loteid){
+        $listcoletas = function($loteid) {
             return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->get();
         };
-        
+
         // Totais da coleta
-        $totcoletalote = function($loteid){
+        $totcoletalote = function($loteid) {
             return $this->coleta->where('lote_id', $loteid)->where('data_coleta', $this->dtatual)->get();
         };
-        
+
         // Retorna o estoque de aves
         $avesemestoque = DB::table('estoque_aves')->get();
-        
+
         // Retorna mortalidade de aves
-        $mortalidades = function($motivo){
+        $mortalidades = function($motivo) {
             return $this->mortalidade->where('data_mortalidade', $this->dtatual)->where('motivo', $motivo)->get();
         };
         $totalmortas = $this->mortalidade->where('data_mortalidade', $this->dtatual)->get();
-        
+
         // Retorna o estoque de ovos
         $ovosemestoque = DB::table('estoque_ovos')->get();
-        
+
         // Retorna ovos do dia
         $ovosdiarios = $this->coleta->where('data_coleta', $this->dtatual)->get();
-        
+
         // Retorna os ovos enviados
         $ovosenviados = $this->envio->where('data_envio', $this->dtatual)->get();
-        
+
         // Define a data padrão brasileiro no view
         $datacoleta = Carbon::createFromFormat('Y-m-d', $this->dtatual)->format('d/m/Y');
-        
+
+        $emailresult = $this->email->all();
+        foreach ($emailresult as $result):
+            $smtp = $result->smtp;
+            $usuario = $result->usuario;
+            $senha = $result->senha;
+            $seguranca = $result->seguranca;
+            $porta = $result->porta;
+            $remetente = $result->remetente;
+            $assunto = $result->assunto;
+            $mensagem = $result->mensagem;
+            $destinocoleta = $result->destino_coleta;
+
+        endforeach;
         // Monta arquivo em PDF do relatório diário de coletas
-        return \PDF::loadView('coletas.relatoriodiario', compact(
-                'listcoletas', 
-                'numcoleta', 
-                'coletaslote', 
-                'lotecoleta', 
-                'datacoleta', 
-                'aviarioslote', 
-                'dadoscoleta',
-                'totcoletalote',
-                'avesemestoque',
-                'mortalidades',
-                'totalmortas',
-                'ovosemestoque',
-                'ovosdiarios',
-                'ovosenviados'))
-                ->setPaper('a4', 'landscape')
-                ->download('nome-arquivo-pdf-gerado.pdf');
+        $pdf_name = "relatorio-coletas-diario.pdf";
+        $path = public_path('/temp/'.$pdf_name);
+        $pdf->loadView('coletas.relatoriodiario', compact(
+                                'listcoletas',
+                                'numcoleta',
+                                'coletaslote',
+                                'lotecoleta',
+                                'datacoleta',
+                                'aviarioslote',
+                                'dadoscoleta',
+                                'totcoletalote',
+                                'avesemestoque',
+                                'mortalidades',
+                                'totalmortas',
+                                'ovosemestoque',
+                                'ovosdiarios',
+                                'ovosenviados'))
+                ->setPaper('a4', 'landscape')->save($path);
+
+
+        $mail = new PHPMailer(true);
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+            ),
+        );
+        $mail->SMTPDebug = 0; // Enable verbose debug output
+        $mail->CharSet = "UTF-8";
+        $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
+        $mail->Host = $smtp; //Podemos usar o servidor do gMail para enviar.
+        $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
+        $mail->Username = $usuario; //Usuário do gMail
+        $mail->Password = $senha; //Senha do gMail
+        $mail->SMTPSecure = $seguranca; //Estabelecemos qual protocolo de segurança será usado.
+        $mail->Port = $porta; //Estabelecemos a porta utilizada pelo servidor do gMail.
+
+        $mail->SetFrom('' . $usuario . '', '' . $remetente . ''); //Quem está enviando o e-mail.
+        $mail->AddReplyTo('' . $usuario . '', '' . $remetente . ''); //Para que a resposta será enviada.
+        $mail->Subject = $assunto; //Assunto do e-mail.
+        $mail->Body = $mensagem . "<br/>";
+        $mail->AltBody = "Para visualizar esse e-mail corretamente, use um visualizador de e-mail com suporte a HTML!";
+
+        $remetentes = explode(',', $destinocoleta);
+        foreach ($remetentes as $remetente):
+            $mail->AddAddress(ltrim($remetente), "");
+        endforeach;
+
+          $mail->addAttachment($path);
+        if (!$mail->Send()) {
+            flash('<i class="fa fa-check"></i> ocorreu um erro durante o envio!' . $mail->ErrorInfo)->success();
+            return redirect()->route('home');
+        } else {
+            flash('<i class="fa fa-check"></i> Relatório enviado com sucesso!')->success();
+            return redirect()->route('home');
+        }
     }
 
 }
