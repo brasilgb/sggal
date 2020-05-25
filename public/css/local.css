@@ -1,4 +1,12 @@
-body{background: #F4F6F9;}
+body{
+    background: #F4F6F9;
+    font-size: 0.95rem!important;
+}
+.table th, .table td{
+    padding-top: 0.15rem!important;
+    padding-bottom: 0.15rem!important;
+    vertical-align: middle!important;
+}
 .uppercase{
     text-transform: uppercase;
 }
@@ -31,4 +39,8 @@ select.form-control {
 /*// Input file*/
 .logotipo {
   display: none;
+}
+
+.form-semana{
+    line-height: 1!important
 }

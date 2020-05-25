@@ -508,3 +508,18 @@ $('.logotipo').on('change', function () {
     var fileName = $(this)[0].files[0].name;
     $('#file').val(fileName);
 });
+
+// Altera percentagem em fertilidade, eclosão, producao e checklist
+$(function () {
+    $(".form-semana").keyup(function () {
+        valor = $(this).val();
+        idsemana = $(this).attr('id-semana');
+        $.ajax({
+            type: 'GET',
+            url: base_url + '/update/' + idsemana + '/' + valor
+        }).done(function (request) {
+            $(".percent" + idfert).removeClass('bg-gray-active');
+            $(".percent" + idfert).addClass('bg-teal');
+        });
+    });
+});

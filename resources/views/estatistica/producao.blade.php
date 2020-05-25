@@ -21,20 +21,20 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header border-1">
-
+            <h3 class="card-title"><i class="fa fa-plus-square"></i> Produção %</h3>
         </div>
         <div class="card-body">
             @include("flash::message")
             <div class="table-responsive">
-                <table class="table table-condensed">
+                <table class="table table-condensed table-striped table-hover">
                     <tr>
                         <th>Semana</th><th>Data inicial</th><th>Data final</th><th>Produção</th>
                     </tr>
                     @forelse($semanas as $semana)
                     <tr>
-                        <td>{{$semana->semana}}</td><td>{{$semana->data_inicial}}</td><td>{{$semana->data_final}}</td>
+                        <td>{{$semana->semana}}</td><td>{{date("d-m-Y", strtotime($semana->data_inicial))}}</td><td>{{date("d-m-Y", strtotime($semana->data_final))}}</td>
                         <td>
-                            {!! Form::text('producao',$semana->producao,['id' => 'producao', 'class' => 'form-control']) !!}
+                            {!! Form::text('producao',$semana->producao,['id' => 'producao', 'class' => 'form-semana', 'id-semana' => $semana->id_semana, 'placeholder' => '%']) !!}
                         </td>
                     </tr>
                     @empty
