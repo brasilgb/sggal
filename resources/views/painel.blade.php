@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h5 class="m-0 text-dark">SGGA - SISTEMA DE GERENCIAMENTO DE GRANJAS AVÍCOLAS {{$teste}}</h5>
+                <h5 class="m-0 text-dark">SGGA - SISTEMA DE GERENCIAMENTO DE GRANJAS AVÍCOLAS</h5>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">

@@ -315,22 +315,26 @@ return [
             'submenu' => [
                 [
                     'text' => 'Checklist',
-                    'url' => '#',
+                    'url' => 'estatistica/checklist',
+                    'active' => ['estatistica/checklist', 'estatistica/checklist/*', 'regex:@^estatistica/checklist/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Eclosão',
-                    'url' => '#',
+                    'url' => 'estatistica/eclosao',
+                    'active' => ['estatistica/eclosao', 'estatistica/eclosao/*', 'regex:@^estatistica/eclosao/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Fertilidade',
-                    'url' => '#',
+                    'url' => 'estatistica/fertilidade',
+                    'active' => ['estatistica/fertilidade', 'estatistica/fertilidade/*', 'regex:@^estatistica/fertilidade/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
                 [
                     'text' => 'Produção',
-                    'url' => '#',
+                    'url' => 'estatistica/producao',
+                    'active' => ['estatistica/producao', 'estatistica/producao/*', 'regex:@^estatistica/producao/[0-9]+$@'],
                     'icon' => 'fas fa-fw fa-caret-right'
                 ],
             ],

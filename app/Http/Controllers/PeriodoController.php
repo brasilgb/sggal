@@ -82,8 +82,8 @@ class PeriodoController extends Controller {
             $dtfin = DateTime::createFromFormat('Y-m-d', $dtini);
 
             for ($i = $ini; $i <= $fin; $i++) {
-
-                $data['periodo'] = $this->periodo->lastperiodo();
+                
+                $data['periodo'] = $this->periodo->lastperiodo() - 1;
                 $data['semana'] = $i;
                 $data['data_inicial'] = $dataini->add(new DateInterval('P7D'));
                 $data['data_final'] = $dtfin->add(new DateInterval('P7D'));

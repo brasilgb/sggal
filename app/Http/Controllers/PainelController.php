@@ -33,10 +33,14 @@ class PainelController extends Controller {
             endforeach;
         else:
             $ativo = 0;
+            $lotes = 0;
+            $aviarios = 0;
+            $aves = 0;
+            $dtatual = 0;
+            $posturadia =0;
             $datacriacao = '';
         endif;
-        $teste = '';
-        return view('painel', compact('teste', 'ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia'));
+        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia'));
     }
 
 }

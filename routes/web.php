@@ -116,4 +116,8 @@ Route::prefix('usuarios')->name('usuarios.')->group(function() {
 });
 Route::resource('usuarios', 'UsuarioController');
 
+// Operações com estatisticas
+Route::namespace('Estatistica')->prefix('estatistica')->name('estatistica.')->group(function() {
+    Route::get('producao', 'ProducaoController@producao')->name('producao');
+});
 });
