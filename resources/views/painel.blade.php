@@ -28,7 +28,7 @@
             <div class="info-box-content">
                 <span class="info-box-text">Lotes</span>
                 <span class="info-box-number">
-                    0
+                    {{$lotes->count()}}
                 </span>
             </div>
             <!-- /.info-box-content -->
@@ -42,7 +42,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Aviários</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number">{{$aviarios->count()}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -59,7 +59,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Aves</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number">{{$aves->sum->tot_ave}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -72,7 +72,7 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">Postura do dia</span>
-                <span class="info-box-number">0</span>
+                <span class="info-box-number">{{$posturadia->sum->postura_dia}}</span>
             </div>
             <!-- /.info-box-content -->
         </div>

@@ -19,6 +19,9 @@ class CreateSemanasTable extends Migration
             $table->integer('semana');
             $table->date('data_inicial');
             $table->date('data_final');
+            $table->decimal('eclosao', 10,2)->nullable();
+            $table->decimal('fertilidade', 10,2)->nullable();
+            $table->decimal('producao', 10,2)->nullable();
             $table->timestamps();
         });
     }

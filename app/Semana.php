@@ -12,7 +12,10 @@ class Semana extends Model {
         'periodo',
         'semana',
         'data_inicial',
-        'data_final'
+        'data_final',
+        'eclosao',
+        'fertilidade',
+        'producao'
     ];
 
     
