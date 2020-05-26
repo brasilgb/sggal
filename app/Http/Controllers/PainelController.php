@@ -7,15 +7,19 @@ use App\Periodo;
 use App\Lote;
 use App\Aviario;
 use App\Coleta;
+use App\Semana;
+
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class PainelController extends Controller {
 
     private $periodo;
+    private $semana;
 
-    public function __construct(Periodo $periodo) {
+    public function __construct(Periodo $periodo, Semana $semana) {
         $this->periodo = $periodo;
+        $this->semana = $semana;
     }
 
     public function painel() {
@@ -30,6 +34,8 @@ class PainelController extends Controller {
                 $aves = DB::table('estoque_aves')->get();
                 $dtatual = date('Y-m-d', strtotime(Carbon::now()));
                 $posturadia = Coleta::where('data_coleta', $dtatual)->get();
+//                $semana = $this->semana->semanaatual();
+                $listdatas =  json_encode($this->semana->listdatas());
             endforeach;
         else:
             $ativo = 0;
@@ -40,7 +46,7 @@ class PainelController extends Controller {
             $posturadia =0;
             $datacriacao = '';
         endif;
-        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia'));
+        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia', 'listdatas'));
     }
 
 }

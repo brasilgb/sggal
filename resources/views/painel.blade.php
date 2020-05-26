@@ -79,6 +79,50 @@
         <!-- /.info-box -->
     </div>
     <!-- /.col -->
+    <div class="col-sm-12">
+        <canvas id="myChart" width="400" height="200"></canvas>
+        <script src="{{asset('/vendor/plugins/chart.js/Chart.bundle.min.js')}}" type="text/javascript"></script>
+        
+        <script>
+            var ctx = document.getElementById('myChart');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: <?php echo $listdatas;?>,
+                    datasets: [{
+                            label: 'Produção semanal',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
+        </script>
+    </div>
 </div>
 @else
 <div class="row">
@@ -101,18 +145,18 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            
+
             <div class="modal-body">
                 <div class="form-group row">
                     {!! Form::label('semana_inicial', 'Semana inicial', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
                         {!! Form::text('semana_inicial', old('semana_inicial'), ['id' => 'inicial', 'class' => 'form-control']) !!}
-                    @error('semana_inicial')
+                        @error('semana_inicial')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     {!! Form::label('semana_final', 'Semana final', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
