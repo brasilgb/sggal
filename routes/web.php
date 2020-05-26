@@ -116,8 +116,23 @@ Route::prefix('usuarios')->name('usuarios.')->group(function() {
 });
 Route::resource('usuarios', 'UsuarioController');
 
-// Operações com estatisticas
+// Operações com estatisticas (producao)
 Route::namespace('Estatistica')->prefix('estatistica')->name('estatistica.')->group(function() {
     Route::get('producao', 'ProducaoController@producao')->name('producao');
+    Route::get('producao/update/{idsemana}/{valor}', 'ProducaoController@update')->name('update');
 });
+// Operações com estatisticas 
+Route::namespace('Estatistica')->prefix('estatistica')->name('estatistica.')->group(function() {
+    //Produção
+    Route::get('producao', 'ProducaoController@producao')->name('producao');
+    Route::get('producao/update/{idsemana}/{valor}', 'ProducaoController@update')->name('update');
+    //Fertilidade
+    Route::get('fertilidade', 'FertilidadeController@fertilidade')->name('fertilidade');
+    Route::get('fertilidade/update/{idsemana}/{valor}', 'FertilidadeController@update')->name('update');
+    //Eclosão
+    Route::get('eclosao', 'EclosaoController@eclosao')->name('eclosao');
+    Route::get('eclosao/update/{idsemana}/{valor}', 'EclosaoController@update')->name('update');
+});
+
+
 });

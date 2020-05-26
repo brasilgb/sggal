@@ -7,17 +7,18 @@ use Illuminate\Http\Request;
 use App\Periodo;
 use App\Semana;
 
-class ProducaoController extends Controller {
-
-    public function producao(Periodo $periodo, Semana $semana) {
+class EclosaoController extends Controller
+{
+    
+    public function eclosao(Periodo $periodo, Semana $semana) {
         $ativo = $periodo->periodoativo();
         $semanas = $semana->where('periodo', $ativo)->get();
-        return view('estatistica.producao', compact('semanas'));
+        return view('estatistica.eclosao', compact('semanas'));
     }
 
     public function update(Semana $semana, $idsemana, $valor) {
 
-       $semana->where('id_semana', $idsemana)->update(['producao' => $valor]);
+       $semana->where('id_semana', $idsemana)->update(['eclosao' => $valor]);
     }
 
 }

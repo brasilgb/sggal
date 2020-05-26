@@ -514,12 +514,13 @@ $(function () {
     $(".form-semana").keyup(function () {
         valor = $(this).val();
         idsemana = $(this).attr('id-semana');
+        operacao = $(this).attr('operacao');
         $.ajax({
             type: 'GET',
-            url: base_url + '/update/' + idsemana + '/' + valor
+            url: '/estatistica/' + operacao + '/update/' + idsemana + '/' + valor
         }).done(function (request) {
-            $(".percent" + idfert).removeClass('bg-gray-active');
-            $(".percent" + idfert).addClass('bg-teal');
+            $(".form-semana" + idsemana).removeClass('bg-secondary disabled');
+            $(".form-semana" + idsemana).addClass('bg-info disabled');
         });
     });
 });
