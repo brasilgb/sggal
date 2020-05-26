@@ -17,7 +17,7 @@
             </table>
             <table>
                 <tr>
-                    <td style="border: 0;">Logo</td><td style="border: 0;">Data: {{$datacoleta}}</td><td style="border: 0;"></td><td style="border: 0;">Lote: {{$col->lote->lote}}</td><td style="border: 0;">Granja: </td>
+                    <td style="border: 0;"><img width="50" src="{{asset('/thumbnail/logo-jbs.png')}}"></td><td style="border: 0;">Data: {{$datacoleta}}</td><td style="border: 0;"></td><td style="border: 0;">Lote: {{$col->lote->lote}}</td><td style="border: 0;">Granja: {{$razaosocial}}</td>
                 </tr>
             </table>
             <table>

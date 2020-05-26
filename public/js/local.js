@@ -524,3 +524,20 @@ $(function () {
         });
     });
 });
+
+
+// Altera percentagem em fertilidade, eclosão, producao e checklist
+$(function () {
+    $(".form-capitalizado").keyup(function () {
+        valor = $(this).val();
+        idlote = $(this).attr('id-lote');
+        operacao = $(this).attr('operacao');
+        $.ajax({
+            type: 'GET',
+            url: '/lotes/capitalizar/' + operacao + '/' + idlote + '/' + valor
+        }).done(function (request) {
+            $(".form-capitalizado" + idlote).removeClass('bg-secondary disabled');
+            $(".form-capitalizado" + idlote).addClass('bg-info disabled');
+        });
+    });
+});

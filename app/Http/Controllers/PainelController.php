@@ -36,6 +36,8 @@ class PainelController extends Controller {
                 $posturadia = Coleta::where('data_coleta', $dtatual)->get();
 //                $semana = $this->semana->semanaatual();
                 $listdatas =  json_encode($this->semana->listdatas());
+                return $producaosemana = json_encode($this->semana->producaosemana());exit;
+
             endforeach;
         else:
             $ativo = 0;
@@ -46,7 +48,7 @@ class PainelController extends Controller {
             $posturadia =0;
             $datacriacao = '';
         endif;
-        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia', 'listdatas'));
+        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia', 'listdatas', 'producaosemana'));
     }
 
 }

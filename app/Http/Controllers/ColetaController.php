@@ -10,6 +10,7 @@ use App\Periodo;
 use App\Envio;
 use App\Aves\Mortalidade;
 use App\Configuracao\Email;
+use App\Configuracao\Empresa;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -29,8 +30,9 @@ class ColetaController extends Controller {
     protected $mortalidade;
     protected $envio;
     protected $email;
+    protected $empresa;
 
-    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta, Mortalidade $mortalidade, Envio $envio, Email $email) {
+    public function __construct(Periodo $periodo, Lote $lote, Aviario $aviario, Coleta $coleta, Mortalidade $mortalidade, Envio $envio, Email $email, Empresa $empresa) {
         $this->periodo = $periodo;
         $this->lote = $lote;
         $this->aviario = $aviario;
@@ -38,6 +40,7 @@ class ColetaController extends Controller {
         $this->mortalidade = $mortalidade;
         $this->envio = $envio;
         $this->email = $email;
+        $this->empresa = $empresa;
         $this->dtatual = date('Y-m-d', strtotime(Carbon::now()));
     }
 
@@ -52,6 +55,7 @@ class ColetaController extends Controller {
         $numaviario = function($idaviario) {
             return $this->coleta->numaviario($idaviario);
         };
+
         return view('coletas.index', compact('coletas', 'pordata', 'numaviario'));
     }
 
@@ -308,6 +312,13 @@ class ColetaController extends Controller {
         // Define a data padrão brasileiro no view
         $datacoleta = Carbon::createFromFormat('Y-m-d', $this->dtatual)->format('d/m/Y');
 
+        //Dados da empresa
+        $dadosempresa = $this->empresa->get();
+        foreach ($dadosempresa as $dados):
+            $razaosocial = $dados->razao_social;
+        endforeach;
+        
+        //Anexa relatório pdf e envia e-mail
         $emailresult = $this->email->all();
         foreach ($emailresult as $result):
             $smtp = $result->smtp;
@@ -323,7 +334,7 @@ class ColetaController extends Controller {
         endforeach;
         // Monta arquivo em PDF do relatório diário de coletas
         $pdf_name = "relatorio-coletas-diario.pdf";
-        $path = public_path('/temp/'.$pdf_name);
+        $path = public_path('/temp/' . $pdf_name);
         $pdf->loadView('coletas.relatoriodiario', compact(
                                 'listcoletas',
                                 'numcoleta',
@@ -338,7 +349,8 @@ class ColetaController extends Controller {
                                 'totalmortas',
                                 'ovosemestoque',
                                 'ovosdiarios',
-                                'ovosenviados'))
+                                'ovosenviados',
+                'razaosocial'))
                 ->setPaper('a4', 'landscape')->save($path);
 
 
@@ -371,7 +383,7 @@ class ColetaController extends Controller {
             $mail->AddAddress(ltrim($remetente), "");
         endforeach;
 
-          $mail->addAttachment($path);
+        $mail->addAttachment($path);
         if (!$mail->Send()) {
             flash('<i class="fa fa-check"></i> ocorreu um erro durante o envio!' . $mail->ErrorInfo)->success();
             return redirect()->route('home');

@@ -40,8 +40,10 @@ select.form-control {
 .logotipo {
     display: none;
 }
-
-.form-semana{
+.form-capitalizado{
+    width: 100%;
+}
+.form-semana, .form-capitalizado{
     line-height: 1!important;
     padding: 2px 5px;
     border: 0;

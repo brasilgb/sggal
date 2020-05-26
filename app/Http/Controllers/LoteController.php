@@ -192,5 +192,16 @@ class LoteController extends Controller {
             return redirect()->back();
         }
     }
+    
+    public function capitalizar(Lote $lote, $operacao, $idlote, $valor){
+        switch ($operacao){
+            case 1: $op ='femea_capitalizada';
+                break;
+            case 2: $op ='macho_capitalizado';
+                break;
+        }
+        $lote->where('id_lote', $idlote)->update([$op => $valor]);
+        
+    }
 
 }

@@ -40,15 +40,28 @@
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <tr>
-                        <th>ID</th><th>Lote</th><th>Fêmea</th><th>Capitalizada</th><th>Macho</th><th>Capitalizado</th><th>Total</th><th>Aviários</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
+                        <th>ID</th><th>Lote</th><th>Fêmea</th><th style="width: 120px!important;">Capitalizada</th><th>Macho</th><th style="width: 120px;">Capitalizado</th><th>Total</th><th>Aviários</th><th>Cadastro</th><th style="width: 180px;"><i class="fa fa-level-down-alt"></i></th>
                     </tr>
                     @forelse($lotes as $lote)
                     <tr>
-                        <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femea}}</td><td>{{$lote->femea_capitalizadas}}</td><td>{{$lote->macho}}</td><td>{{$lote->macho_capitalizados}}</td><td>{{$lote->femea + $lote->macho}}</td><td>{{$numaviarios($lote->id_lote)}}</td><td>{{date("d/m/Y", strtotime(\Carbon\Carbon::now()))}}</td>
+                        <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femea}}</td>
+                        <td>
+                            <?php $bginput = $lote->femea_capitalizada == true ? 'bg-info disabled' : 'bg-secondary disabled'; ?>
+                            {!! Form::text('femea_capitalizada',$lote->femea_capitalizada,['id' => 'femea_capitalizada', 'class' => 'form-capitalizado '.$bginput.' form-capitalizada'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '1', 'placeholder' => '0']) !!}
+                        </td>
+                        <td>{{$lote->macho}}</td>
+                        <td>
+                            <?php $bginput1 = $lote->macho_capitalizado == true ? 'bg-info disabled' : 'bg-secondary disabled'; ?>
+                            {!! Form::text('macho_capitalizado',$lote->macho_capitalizado,['id' => 'macho_capitalizado', 'class' => 'form-capitalizado '.$bginput1.' form-capitalizado'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '2',  'placeholder' => '0']) !!}
+                        </td>
+                        <td>{{$lote->femea + $lote->macho}}</td>
+                        <td>
+                            {{$numaviarios($lote->id_lote)}}
+                        </td><td>{{date("d/m/Y", strtotime($lote->data_lote))}}</td>
                         <td>
                             <button onclick="window.location.href = '{{route('lotes.show',['lote'=>$lote->id_lote])}}'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> Editar</button>
                             <button data-toggle="modal" onclick="deleteData({{$lote->id_lote}})" data-target="#DeleteModal" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Excluir</button>
-                            </td>
+                        </td>
                     </tr>
                     @if($porlote == '')
                     {{$lotes->links()}}
@@ -94,16 +107,16 @@
 </div>
 <script type="text/javascript">
     function deleteData(id)
-     {
-         var id = id;
-         var url = '{{ route("lotes.destroy", ":id") }}';
-         url = url.replace(':id', id);
-         $("#deleteForm").attr('action', url);
-     }
+    {
+    var id = id;
+    var url = '{{ route("lotes.destroy", ":id") }}';
+    url = url.replace(':id', id);
+    $("#deleteForm").attr('action', url);
+    }
 
-     function formSubmit()
-     {
-         $("#deleteForm").submit();
-     }
+    function formSubmit()
+    {
+    $("#deleteForm").submit();
+    }
 </script>
 @endsection

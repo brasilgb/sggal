@@ -80,6 +80,7 @@
     </div>
     <!-- /.col -->
     <div class="col-sm-12">
+        {{$lotes->sum->femea_capitalizada}}
         <canvas id="myChart" width="400" height="200"></canvas>
         <script src="{{asset('/vendor/plugins/chart.js/Chart.bundle.min.js')}}" type="text/javascript"></script>
         
