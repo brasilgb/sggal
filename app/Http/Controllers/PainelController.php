@@ -14,17 +14,9 @@ use Carbon\Carbon;
 
 class PainelController extends Controller {
 
-    private $periodo;
-    private $semana;
+    public function painel(Periodo $periodo, Semana $semana) {
 
-    public function __construct(Periodo $periodo, Semana $semana) {
-        $this->periodo = $periodo;
-        $this->semana = $semana;
-    }
-
-    public function painel() {
-
-        $ativos = $this->periodo->where('ativo', 1)->get();
+        $ativos = $periodo->where('ativo', 1)->get();
         if (count($ativos) > 0):
             foreach ($ativos as $at):
                 $datacriacao = $at->created_at;
@@ -34,9 +26,11 @@ class PainelController extends Controller {
                 $aves = DB::table('estoque_aves')->get();
                 $dtatual = date('Y-m-d', strtotime(Carbon::now()));
                 $posturadia = Coleta::where('data_coleta', $dtatual)->get();
-//                $semana = $this->semana->semanaatual();
-                $listdatas =  json_encode($this->semana->listdatas());
-                return $producaosemana = json_encode($this->semana->producaosemana());exit;
+                $semanaatual = $semana->semanaatual();
+                $metasemanal = $semana->metasemanal($periodo->periodoativo());
+                $mediasemanal = $semana->mediasemanal($periodo->periodoativo());
+                $listdatas =  json_encode($semana->listdatas());
+                $producaosemana = json_encode($semana->producaosemana($periodo->periodoativo()));
 
             endforeach;
         else:
@@ -48,7 +42,7 @@ class PainelController extends Controller {
             $posturadia =0;
             $datacriacao = '';
         endif;
-        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia', 'listdatas', 'producaosemana'));
+        return view('painel', compact('ativo', 'datacriacao', 'lotes', 'aviarios', 'aves', 'posturadia', 'listdatas', 'semanaatual', 'producaosemana', 'mediasemanal', 'metasemanal'));
     }
 
 }
