@@ -543,3 +543,23 @@ $(function () {
         });
     });
 });
+/*=================Backup automático db===============*/
+$(document).ready(function ()
+{
+    function check_backup() {
+        d = new Date();
+        horalocal = ("00" + d.getHours()).substr(-2) + ":" + ("00" + d.getMinutes()).substr(-2) + ":" + ("00" + d.getSeconds()).substr(-2);
+//    alert(local);
+        $.ajax({
+            type: 'GET',
+            url: '/backup/gerabackup',
+            success: function (data) {
+                
+            }
+        });
+    }
+
+    setInterval(function () {
+        check_backup();
+    }, 1000);
+});

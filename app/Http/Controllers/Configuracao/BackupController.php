@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Configuracao\Backup;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class BackupController extends Controller {
     /*
@@ -156,25 +157,29 @@ class BackupController extends Controller {
     //Gera backup manual ou automático
     public function gerabackup() {
         $infobackup = $this->backup->get();
+
         if ($infobackup->count() > 0) {
             foreach ($infobackup as $info):
+                if($info->agendamento == date("H:i:s", strtotime(Carbon::now()))){
                 $user = $info->usuario;
                 $pass = $info->senha;
                 $database = $info->base_dados;
                 $directory = $info->diretorio;
-            endforeach;
-            if(!is_dir($directory)){
-                mkdir($directory, 0777, true);
-            }
-            $dir = $directory . DIRECTORY_SEPARATOR . 'SGGA-BACKUP.sql';
-            // Backup do BD em Windows
-            $dump = "D:\sggaserver\mariadb\bin\mysqldump -u {$user} -p{$pass} -h localhost {$database} > {$dir}";
-            system($dump);
-            // Backup do BD em Linux
+
+                if (!is_dir($directory)) {
+                    mkdir($directory, 0777, true);
+                }
+                $dir = $directory . DIRECTORY_SEPARATOR . 'SGGA-BACKUP.sql';
+                // Backup do BD em Windows
+                $dump = "D:\sggaserver\mariadb\bin\mysqldump -u {$user} -p{$pass} -h localhost {$database} > {$dir}";
+                system($dump);
+                // Backup do BD em Linux
 //            $dump = "mysqldump --user={$user} --password={$pass} --host=localhost {$database} --result-file={$dir} 2>&1";
 //            exec($dump);
-            flash('<i class="fa fa-check"></i> Backup gerado com sucesso!')->success();
-            return redirect()->route('home');
+                flash('<i class="fa fa-check"></i> Backup gerado com sucesso!')->success();
+                return redirect()->route('home');
+                }
+            endforeach;
         } else {
             flash('<i class="fa fa-check"></i> Cadastrar informações para backup!')->error();
             return redirect()->route('backup.create');
