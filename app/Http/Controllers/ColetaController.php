@@ -313,19 +313,14 @@ class ColetaController extends Controller {
         // Define a data padrão brasileiro no view
         $datacoleta = Carbon::createFromFormat('Y-m-d', $this->dtatual)->format('d/m/Y');
 
+        //Anexa relatório pdf e envia e-mail
+        $emailresult = $this->email->all();
         //Dados da empresa
         $dadosempresa = $this->empresa->get();
-        if ($dadosempresa->count() > 0) {
+        if ($emailresult->count() > 0 && $dadosempresa->count() > 0) {
             foreach ($dadosempresa as $dados):
                 $razaosocial = $dados->razao_social;
             endforeach;
-        } else {
-            $razaosocial = 'Razao Social';
-        }
-
-        //Anexa relatório pdf e envia e-mail
-        $emailresult = $this->email->all();
-        if ($emailresult->count() > 0) {
             foreach ($emailresult as $result):
                 $smtp = $result->smtp;
                 $usuario = $result->usuario;
