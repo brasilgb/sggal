@@ -38,7 +38,6 @@ Route::group(['middleware' => ['auth']], function() {
     });
     Route::resource('lotes', 'LoteController');
 
-
 // Operações nos aviários
     Route::prefix('aviarios')->name('aviarios.')->group(function() {
         Route::get('/returnaviario/{idlote}', 'AviarioController@returnaviario')->name('returnaviario');
@@ -95,6 +94,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('configuracoes/empresa', 'Configuracao\EmpresaController');
 
 // Operações configuracoes de backup
+    Route::namespace('Configuracao')->prefix('backup')->name('backup.')->group(function() {
+        Route::get('gerabackup', 'BackupController@gerabackup')->name('gerabackup');
+    });
     Route::resource('configuracoes/backup', 'Configuracao\BackupController');
 
 // Operações configuracoes de email

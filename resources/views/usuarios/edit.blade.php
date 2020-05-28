@@ -74,7 +74,7 @@
                 <div class="form-group row">
                     {!! Form::label('password', 'Senha', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::password('password', ['class' => 'form-control', Auth::user()->username == 'administrador' ? '' : 'readonly="readonly"']) !!}
+                        {!! Form::password('password', ['class' => 'form-control', Auth::user()->username == 'administrador' ? '' : 'readonly="readonly"', 'placeholder' => 'Senha oculta, para alterar digite a nova senha!']) !!}
                         @error('password')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror

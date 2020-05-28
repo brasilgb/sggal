@@ -73,7 +73,7 @@
                 <div class="form-group row">
                     {!! Form::label('senha', 'Senha', ['class' => 'col-lg-4 col-form-label']) !!}
                     <div class="col-lg-8">
-                        {!! Form::password('senha', ['id' => 'senha', 'class' => 'form-control', 'placeholder' => 'Senha oculta, para trocar digite a nova senha!']) !!}
+                        {!! Form::password('senha', ['id' => 'senha', 'class' => 'form-control', 'placeholder' => 'Senha oculta, para alterar digite a nova senha!']) !!}
                         @error('senha')
                         <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> {{ $message }}</div>
                         @enderror
