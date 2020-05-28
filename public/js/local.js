@@ -512,7 +512,8 @@ $('.logotipo').on('change', function () {
 // Altera percentagem em fertilidade, eclosão, producao e checklist
 $(function () {
     $(".form-semana").keyup(function () {
-        valor = $(this).val();
+        val = $(this).val();
+        valor = val.length > 0 ? val : 0;
         idsemana = $(this).attr('id-semana');
         operacao = $(this).attr('operacao');
         $.ajax({
@@ -529,15 +530,16 @@ $(function () {
 // Altera percentagem em fertilidade, eclosão, producao e checklist
 $(function () {
     $(".form-capitalizado").keyup(function () {
-        valor = $(this).val();
+        val = $(this).val();
+        valor = val.length > 0 ? val : 0;
         idlote = $(this).attr('id-lote');
         operacao = $(this).attr('operacao');
         $.ajax({
             type: 'GET',
             url: '/lotes/capitalizar/' + operacao + '/' + idlote + '/' + valor
         }).done(function (request) {
-            $(".form-capitalizado" + idlote).removeClass('bg-secondary disabled');
-            $(".form-capitalizado" + idlote).addClass('bg-info disabled');
+            $(".form-capitalizado-" + operacao + "-" + idlote).removeClass('bg-secondary disabled');
+            $(".form-capitalizado-" + operacao + "-" + idlote).addClass('bg-info disabled');
         });
     });
 });

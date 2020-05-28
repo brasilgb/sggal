@@ -83,7 +83,7 @@
         <div class="card">
             <div class="card-header border-1">
                 <div class="d-flex justify-content-between">
-                    <h3 class="card-title"><span style="padding: 6px!important;" class="badge badge-pill badge-info">Semana atual: {{$semanaatual}}</span> <span style="padding: 6px!important;" class="badge badge-pill badge-danger">Meta semanal: {{$metasemanal}}%</span>  <span style="padding: 6px!important;" class="badge badge-pill badge-success">Média semanal: {{$mediasemanal}}%</span> </h3>
+                    <h3 class="card-title"><span style="padding: 6px!important;" class="badge badge-pill badge-info">Semana atual: {{$semanaatual}}</span> <span style="padding: 6px!important;" class="badge badge-pill badge-danger">Intervalo: {{date("d/m/Y", strtotime($datainicial))}} à {{date("d/m/Y", strtotime("-1 day",strtotime($datafinal)))}}</span>  <span style="padding: 6px!important;" class="badge badge-pill badge-success">Meta semanal: {{$metasemanal}}%</span>  <span style="padding: 6px!important;" class="badge badge-pill badge-warning">Média semanal: {{$mediasemanal}}%</span> </h3>
                 </div>
             </div>
             <div class="card-body">

@@ -32,7 +32,7 @@
                     </tr>
                     @forelse($semanas as $semana)
                     <tr>
-                        <td>{{$semana->semana}}</td><td>{{date("d-m-Y", strtotime($semana->data_inicial))}}</td><td>{{date("d-m-Y", strtotime($semana->data_final))}}</td>
+                        <td>{{$semana->semana}}</td><td>{{date("d-m-Y", strtotime($semana->data_inicial))}}</td><td>{{date("d-m-Y", strtotime("-1 day",strtotime($semana->data_final)))}}</td>
                         <td>
                             <?php $bginput = $semana->eclosao == true ? 'bg-info disabled' : 'bg-secondary disabled'; ?>
                             {!! Form::text('eclosao',$semana->eclosao,['id' => 'eclosao', 'class' => 'form-semana '.$bginput.' form-semana'.$semana->id_semana.'', 'id-semana' => $semana->id_semana, 'operacao' => 'eclosao','placeholder' => '%']) !!}

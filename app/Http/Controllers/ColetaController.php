@@ -258,6 +258,7 @@ class ColetaController extends Controller {
 
     // Envio do relatório diário de coletas
     public function relatoriodiario(Email $email, PDF $pdf) {
+
         // Busca lote_id e retorna resultado distinto(um se houver muitos) da coleta
         $lotecoleta = $this->coleta->where('data_coleta', $this->dtatual)->distinct()->get(['lote_id']);
 
@@ -314,81 +315,92 @@ class ColetaController extends Controller {
 
         //Dados da empresa
         $dadosempresa = $this->empresa->get();
-        foreach ($dadosempresa as $dados):
-            $razaosocial = $dados->razao_social;
-        endforeach;
-        
+        if ($dadosempresa->count() > 0) {
+            foreach ($dadosempresa as $dados):
+                $razaosocial = $dados->razao_social;
+            endforeach;
+        } else {
+            $razaosocial = 'Razao Social';
+        }
+
         //Anexa relatório pdf e envia e-mail
         $emailresult = $this->email->all();
-        foreach ($emailresult as $result):
-            $smtp = $result->smtp;
-            $usuario = $result->usuario;
-            $senha = $result->senha;
-            $seguranca = $result->seguranca;
-            $porta = $result->porta;
-            $remetente = $result->remetente;
-            $assunto = $result->assunto;
-            $mensagem = $result->mensagem;
-            $destinocoleta = $result->destino_coleta;
+        if ($emailresult->count() > 0) {
+            foreach ($emailresult as $result):
+                $smtp = $result->smtp;
+                $usuario = $result->usuario;
+                $senha = $result->senha;
+                $seguranca = $result->seguranca;
+                $porta = $result->porta;
+                $remetente = $result->remetente;
+                $assunto = $result->assunto;
+                $mensagem = $result->mensagem;
+                $destinocoleta = $result->destino_coleta;
 
-        endforeach;
-        // Monta arquivo em PDF do relatório diário de coletas
-        $pdf_name = "relatorio-coletas-diario.pdf";
-        $path = public_path('/temp/' . $pdf_name);
-        $pdf->loadView('coletas.relatoriodiario', compact(
-                                'listcoletas',
-                                'numcoleta',
-                                'coletaslote',
-                                'lotecoleta',
-                                'datacoleta',
-                                'aviarioslote',
-                                'dadoscoleta',
-                                'totcoletalote',
-                                'avesemestoque',
-                                'mortalidades',
-                                'totalmortas',
-                                'ovosemestoque',
-                                'ovosdiarios',
-                                'ovosenviados',
-                'razaosocial'))
-                ->setPaper('a4', 'landscape')->save($path);
+            endforeach;
+
+            // Monta arquivo em PDF do relatório diário de coletas
+            $pdf_name = "relatorio-coletas-diario.pdf";
+            $path = public_path('/temp/' . $pdf_name);
+            $pdf->loadView('coletas.relatoriodiario', compact(
+                                    'listcoletas',
+                                    'numcoleta',
+                                    'coletaslote',
+                                    'lotecoleta',
+                                    'datacoleta',
+                                    'aviarioslote',
+                                    'dadoscoleta',
+                                    'totcoletalote',
+                                    'avesemestoque',
+                                    'mortalidades',
+                                    'totalmortas',
+                                    'ovosemestoque',
+                                    'ovosdiarios',
+                                    'ovosenviados',
+                                    'razaosocial'
+                    ))
+                    ->setPaper('a4', 'landscape')->save($path);
 
 
-        $mail = new PHPMailer(true);
-        $mail->SMTPOptions = array(
-            'ssl' => array(
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true,
-            ),
-        );
-        $mail->SMTPDebug = 0; // Enable verbose debug output
-        $mail->CharSet = "UTF-8";
-        $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
-        $mail->Host = $smtp; //Podemos usar o servidor do gMail para enviar.
-        $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
-        $mail->Username = $usuario; //Usuário do gMail
-        $mail->Password = $senha; //Senha do gMail
-        $mail->SMTPSecure = $seguranca; //Estabelecemos qual protocolo de segurança será usado.
-        $mail->Port = $porta; //Estabelecemos a porta utilizada pelo servidor do gMail.
+            $mail = new PHPMailer(true);
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true,
+                ),
+            );
+            $mail->SMTPDebug = 0; // Enable verbose debug output
+            $mail->CharSet = "UTF-8";
+            $mail->IsSMTP(); //Definimos que usaremos o protocolo SMTP para envio.
+            $mail->Host = $smtp; //Podemos usar o servidor do gMail para enviar.
+            $mail->SMTPAuth = true; //Habilitamos a autenticação do SMTP. (true ou false)
+            $mail->Username = $usuario; //Usuário do gMail
+            $mail->Password = $senha; //Senha do gMail
+            $mail->SMTPSecure = $seguranca; //Estabelecemos qual protocolo de segurança será usado.
+            $mail->Port = $porta; //Estabelecemos a porta utilizada pelo servidor do gMail.
 
-        $mail->SetFrom('' . $usuario . '', '' . $remetente . ''); //Quem está enviando o e-mail.
-        $mail->AddReplyTo('' . $usuario . '', '' . $remetente . ''); //Para que a resposta será enviada.
-        $mail->Subject = $assunto; //Assunto do e-mail.
-        $mail->Body = $mensagem . "<br/>";
-        $mail->AltBody = "Para visualizar esse e-mail corretamente, use um visualizador de e-mail com suporte a HTML!";
+            $mail->SetFrom('' . $usuario . '', '' . $remetente . ''); //Quem está enviando o e-mail.
+            $mail->AddReplyTo('' . $usuario . '', '' . $remetente . ''); //Para que a resposta será enviada.
+            $mail->Subject = $assunto; //Assunto do e-mail.
+            $mail->Body = $mensagem . "<br/>";
+            $mail->AltBody = "Para visualizar esse e-mail corretamente, use um visualizador de e-mail com suporte a HTML!";
 
-        $remetentes = explode(',', $destinocoleta);
-        foreach ($remetentes as $remetente):
-            $mail->AddAddress(ltrim($remetente), "");
-        endforeach;
+            $remetentes = explode(',', $destinocoleta);
+            foreach ($remetentes as $remetente):
+                $mail->AddAddress(ltrim($remetente), "");
+            endforeach;
 
-        $mail->addAttachment($path);
-        if (!$mail->Send()) {
-            flash('<i class="fa fa-check"></i> ocorreu um erro durante o envio!' . $mail->ErrorInfo)->success();
-            return redirect()->route('home');
+            $mail->addAttachment($path);
+            if (!$mail->Send()) {
+                flash('<i class="fa fa-check"></i> ocorreu um erro durante o envio!' . $mail->ErrorInfo)->success();
+                return redirect()->route('home');
+            } else {
+                flash('<i class="fa fa-check"></i> Relatório enviado com sucesso!')->success();
+                return redirect()->route('home');
+            }
         } else {
-            flash('<i class="fa fa-check"></i> Relatório enviado com sucesso!')->success();
+            flash('<i class="fa fa-exclamation-triangle"></i> Houve algum erro ao enviar o relatório, verifique o seguinte, os dados do email, os dados da empresa e/ou outros dados de coletas e aves estão faltando!')->error();
             return redirect()->route('home');
         }
     }

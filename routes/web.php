@@ -135,5 +135,8 @@ Route::group(['middleware' => ['auth']], function() {
         //Eclosão
         Route::get('eclosao', 'EclosaoController@eclosao')->name('eclosao');
         Route::get('eclosao/update/{idsemana}/{valor}', 'EclosaoController@update')->name('update');
+        //Checklist
+        Route::get('checklist', 'ChecklistController@checklist')->name('checklist');
+        Route::get('checklist/update/{idsemana}/{valor}', 'ChecklistController@update')->name('update');
     });
 });

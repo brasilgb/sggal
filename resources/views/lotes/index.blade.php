@@ -47,12 +47,12 @@
                         <td>{{$lote->id_lote}}</td><td>{{$lote->lote}}</td><td>{{$lote->femea}}</td>
                         <td>
                             <?php $bginput = $lote->femea_capitalizada == true ? 'bg-info disabled' : 'bg-secondary disabled'; ?>
-                            {!! Form::text('femea_capitalizada',$lote->femea_capitalizada,['id' => 'femea_capitalizada', 'class' => 'form-capitalizado '.$bginput.' form-capitalizada'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '1', 'placeholder' => '0']) !!}
+                            {!! Form::text('femea_capitalizada',$lote->femea_capitalizada,['id' => 'femea_capitalizada', 'class' => 'form-capitalizado '.$bginput.' form-capitalizado-1-'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '1', 'placeholder' => '0']) !!}
                         </td>
                         <td>{{$lote->macho}}</td>
                         <td>
                             <?php $bginput1 = $lote->macho_capitalizado == true ? 'bg-info disabled' : 'bg-secondary disabled'; ?>
-                            {!! Form::text('macho_capitalizado',$lote->macho_capitalizado,['id' => 'macho_capitalizado', 'class' => 'form-capitalizado '.$bginput1.' form-capitalizado'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '2',  'placeholder' => '0']) !!}
+                            {!! Form::text('macho_capitalizado',$lote->macho_capitalizado,['id' => 'macho_capitalizado', 'class' => 'form-capitalizado '.$bginput1.' form-capitalizado-2-'.$lote->id_lote.'', 'id-lote' => $lote->id_lote, 'operacao' => '2',  'placeholder' => '0']) !!}
                         </td>
                         <td>{{$lote->femea + $lote->macho}}</td>
                         <td>
