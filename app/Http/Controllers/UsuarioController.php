@@ -67,7 +67,7 @@ class UsuarioController extends Controller {
         $periodo = $rules = [
             'name' => 'required',
             'username' => 'required|unique:users',
-            'password' => 'required|confirmed|min:8',
+            'password' => 'required|confirmed|min:6',
             'funcao' => 'required'
         ];
         $messages = [
@@ -133,7 +133,7 @@ class UsuarioController extends Controller {
         $rules = [
             'name' => 'required',
             'username' => 'required',
-            'password' => 'nullable|min:8|confirmed',
+            'password' => 'nullable|min:6|confirmed',
             'funcao' => 'required'
         ];
         $messages = [
