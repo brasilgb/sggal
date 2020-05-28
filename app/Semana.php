@@ -69,10 +69,8 @@ class Semana extends Model {
                 $periodos = new DatePeriod($datainicial, $intervalo, $datafinal);
                 foreach ($periodos as $period):
                     $dtpostura = $period->format('Y-m-d');
-                    $posturadia = Coleta::where('data_coleta', $dtpostura)->get();
-                    foreach ($posturadia as $postura):
-                        $resp[] = number_format(($posturadia->sum->incubaveis / $this->capitalizadas()) * 100, 2, '.', '');
-                    endforeach;
+                    $posturadia = Coleta::where('data_coleta', $dtpostura)->sum('incubaveis');
+                        $resp[] = number_format(($posturadia / $this->capitalizadas()) * 100, 2, '.', '');
                 endforeach;
             endforeach;
             return $resp;
