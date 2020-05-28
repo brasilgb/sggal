@@ -47,6 +47,8 @@ class PainelController extends Controller {
             $metasemanal = 0;
             $mediasemanal = 0;
             $producaosemana = 0;
+			$datainicial = "00/00/0000";
+			$datafinal = "00/00/0000";
         endif;
         return view('painel', compact(
                 'ativo', 

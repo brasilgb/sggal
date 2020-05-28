@@ -5,10 +5,10 @@
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
-            <div class="col-sm-6">
+            <div class="col-sm-8">
                 <h5 class="m-0 text-dark">SGGA - SISTEMA DE GERENCIAMENTO DE GRANJAS AVÍCOLAS</h5>
             </div><!-- /.col -->
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item active"><i class="fa fa-home"></i></li>
                 </ol>
