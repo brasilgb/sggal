@@ -169,7 +169,7 @@ class BackupController extends Controller {
                     if (!is_dir($directory)) {
                         mkdir($directory, 0777, true);
                     }
-                    $dir = $directory . DIRECTORY_SEPARATOR . 'SGGA-BACKUP.sql';
+                    $dir = $directory . DIRECTORY_SEPARATOR . 'sgga-backup.sql';
                     // Backup do BD em Windows
                     $dump = "c:\sggaserver\mariadb\bin\mysqldump -u {$user} -p{$pass} -h localhost {$database} > {$dir}";
                     system($dump);
