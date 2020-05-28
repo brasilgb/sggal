@@ -552,10 +552,7 @@ $(document).ready(function ()
 //    alert(local);
         $.ajax({
             type: 'GET',
-            url: '/backup/gerabackup',
-            success: function (data) {
-                
-            }
+            url: '/backup/gerabackup'
         });
     }
 
